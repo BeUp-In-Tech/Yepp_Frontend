@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-const Countdown = ({ countdown }) => {
+const Countdown = ({ countdown, compact = false }) => {
     const [timeLeft, setTimeLeft] = useState(moment.duration(0));
     useEffect(() => {
         const endDate = moment(countdown);
@@ -33,12 +33,16 @@ const Countdown = ({ countdown }) => {
             <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
                 {hours < 10 ? `0${hours}` : hours}h
             </div>
-            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
-                {mins < 10 ? `0${mins}` : mins}m
-            </div>
-            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
-                {secs < 10 ? `0${secs}` : secs}s
-            </div>
+            {!compact && (
+                <>
+                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+                        {mins < 10 ? `0${mins}` : mins}m
+                    </div>
+                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+                        {secs < 10 ? `0${secs}` : secs}s
+                    </div>
+                </>
+            )}
         </div>
     );
 };
