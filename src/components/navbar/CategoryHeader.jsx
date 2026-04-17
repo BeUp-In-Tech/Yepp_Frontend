@@ -17,7 +17,7 @@ const CategoryHeader = () => {
             <div className="max-w-305 mx-auto flex items-center gap-3 py-2.5 sm:gap-4 sm:py-3">
                 <nav
                     aria-label="Deal categories"
-                    className="grid max-h-15.5 min-w-0 flex-1 items-start gap-x-2 gap-y-3 overflow-hidden sm:max-h-[68px] sm:gap-x-3 lg:gap-x-4"
+                    className="grid max-h-15.5 min-w-0 flex-1 items-start gap-x-2 gap-y-3 overflow-hidden sm:max-h-17 sm:gap-x-3 lg:gap-x-4"
                     style={{ gridTemplateColumns: "repeat(auto-fit, minmax(clamp(56px, 16vw, 86px), 1fr))" }}>
                     {categoryList.map((cat) => (
                         <CategoryLink key={cat._id} category={cat} />

@@ -6,6 +6,11 @@ import useUserLocation from "../../../../hooks/useUserLocation";
 const SearchDeals = ({ searchText }) => {
     const { latitude, longitude } = useUserLocation();
     const { data: allDeals, isLoading } = useGetDealAllDealsQuery({ searchText, longitude, latitude });
+    const queryText = searchText?.query?.trim() || "";
+    const zipCodeText = searchText?.zipCode?.trim() || "";
+    const searchValue = [queryText, zipCodeText].filter(Boolean).join(" / ");
+    const headingText = searchValue ? `Search result of '${searchValue}'` : "Search result";
+
     if (isLoading) {
         return <DealCardSkeleton />
     }
@@ -18,10 +23,12 @@ const SearchDeals = ({ searchText }) => {
     return (
         <div className="bg-gray-50 min-h-[10vh] px-4 py-12.5">
             <div className="max-w-305 mx-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-[#262626]">Search Deals</h2>
-                    <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
-                        <MapPin size={18} /> <span>New york, United States</span>
+                <div className="flex items-start justify-between gap-4 mb-6">
+                    <h2 className="max-w-[60%] break-words text-base font-bold leading-tight text-[#262626] sm:max-w-none sm:text-2xl md:text-[28px]">
+                        {headingText}
+                    </h2>
+                    <div className="flex max-w-[40%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg">
+                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5" /> <span>New york, United States</span>
                     </div>
                 </div>
 
