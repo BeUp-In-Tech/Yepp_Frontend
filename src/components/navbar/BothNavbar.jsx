@@ -3,11 +3,24 @@ import { Link, NavLink } from 'react-router-dom';
 import { Bell, Menu, X } from 'lucide-react';
 import Notification from './Notification';
 import { images } from '../../assets/image';
+import { useSelector } from 'react-redux';
+import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
 
 const BothNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
     const menuRef = useRef(null);
+    const { user } = useSelector((state) => state?.auth);
+    const { data: notificationData } = useGetAllNotificaitonQuery(
+        { id: user?._id },
+        { skip: !user?._id }
+    );
+    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    const notificationLabel = openNotificationModal
+        ? "Close notifications"
+        : unreadCount > 0
+            ? `Open notifications, ${unreadCount} unread`
+            : "Open notifications";
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -49,11 +62,18 @@ const BothNavbar = () => {
                         <div className='flex justify-center items-center gap-5 cursor-pointer mr-16 sm:mr-0'>
                             <button
                                 type="button"
-                                aria-label={openNotificationModal ? "Close notifications" : "Open notifications"}
+                                aria-label={notificationLabel}
                                 aria-expanded={openNotificationModal}
                                 onClick={() => setOpenNotificationModal(!openNotificationModal)}
-                                className={`${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}
-                            ><Bell size={22} aria-hidden="true" /></button>
+                                className={`relative cursor-pointer ${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}
+                            >
+                                <Bell size={22} aria-hidden="true" />
+                                {unreadCount > 0 && (
+                                    <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
+                                        {unreadCount > 99 ? "99+" : unreadCount}
+                                    </span>
+                                )}
+                            </button>
                         </div>
                     </div>
                     {

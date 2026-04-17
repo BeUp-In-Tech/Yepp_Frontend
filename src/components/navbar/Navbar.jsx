@@ -10,6 +10,7 @@ import { userLoggedOut } from '../../features/auth/authSlice';
 import Cookies from "js-cookie";
 import { persistor } from '../../app/store';
 import toast from 'react-hot-toast';
+import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,16 @@ const Navbar = () => {
     const { user } = useSelector((state) => state?.auth);
     const location = useLocation();
     const shouldShowCategoryHeader = location.pathname !== "/categories";
+    const { data: notificationData } = useGetAllNotificaitonQuery(
+        { id: user?._id },
+        { skip: !user?._id || user?.role !== 'VENDOR' }
+    );
+    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    const notificationLabel = openNotificationModal
+        ? "Close notifications"
+        : unreadCount > 0
+            ? `Open notifications, ${unreadCount} unread`
+            : "Open notifications";
 
 
     useEffect(() => {
@@ -106,11 +117,16 @@ const Navbar = () => {
                             {
                                 user?.role === 'VENDOR' && <button
                                     type="button"
-                                    aria-label={openNotificationModal ? "Close notifications" : "Open notifications"}
+                                    aria-label={notificationLabel}
                                     aria-expanded={openNotificationModal}
                                     onClick={() => setOpenNotificationModal(!openNotificationModal)}
-                                    className={`${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}>
+                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}>
                                     <Bell size={22} aria-hidden="true" />
+                                    {unreadCount > 0 && (
+                                        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
+                                            {unreadCount > 99 ? "99+" : unreadCount}
+                                        </span>
+                                    )}
                                 </button>
                             }
                         </div>
