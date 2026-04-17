@@ -26,17 +26,19 @@ const CategorieDetails = () => {
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
 
     const categoryName = categoriess?.data?.find((cat) => cat._id === id);
+
+
     return (
-        <div className="bg-gray-50 min-h-[65vh] px-4 py-36">
-            <div className="max-w-305 mx-auto">
+        <div className="bg-gray-50 min-h-[65vh] py-36">
+            <div className="max-w-305 mx-2 md:mx-auto py-3 md:py-6">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
+                    <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
                     <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
-                        <MapPin size={18} /> <span>New york, United States</span>
+                        <MapPin size={12} /> <span className="text-sm md:text-base">New york, United States</span>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {
                         currentDeals.map((deal, index) => (
                             <DealCard key={index} deal={deal} />

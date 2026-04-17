@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import CategoryHeader from './CategoryHeader';
 import { Bell, Heart, Menu, X } from 'lucide-react';
 import Notification from './Notification';
@@ -18,6 +18,8 @@ const Navbar = () => {
     const isAuthenticated = useAuth();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state?.auth);
+    const location = useLocation();
+    const shouldShowCategoryHeader = location.pathname !== "/categories";
 
 
     useEffect(() => {
@@ -132,6 +134,7 @@ const Navbar = () => {
                         </button>
                     </div>
                 </div>
+                
                 {/* Mobile Menu Overlay */}
                 <div
                     id="main-mobile-menu"
@@ -151,7 +154,9 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <CategoryHeader />
+
+            {/* CATEGORY SUB-HEADER  */}
+            {shouldShowCategoryHeader && <CategoryHeader />}
         </div>
     );
 };

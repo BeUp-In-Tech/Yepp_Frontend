@@ -1,78 +1,38 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useGetAllCategoriesQuery } from '../../features/categories/CategoriesApi';
+import CategoryLink from '../categories/CategoryLink';
 import CategoriesSkeleton from '../skeleton/CategoriesSkeleton';
 
 const CategoryHeader = () => {
-    const sliderRef = useRef(null);
-    const [isDown, setIsDown] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [scrollLeft, setScrollLeft] = useState(0);
     const { data: categories, isLoading } = useGetAllCategoriesQuery();
 
     if (isLoading) {
         return <CategoriesSkeleton />
     }
-    const mouseDown = (e) => {
-        setIsDown(true);
-        setStartX(e.pageX - sliderRef.current.offsetLeft);
-        setScrollLeft(sliderRef.current.scrollLeft);
-    };
 
-    const mouseLeave = () => setIsDown(false);
-    const mouseUp = () => setIsDown(false);
+    const categoryList = categories?.data ?? [];
 
-    const mouseMove = (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - sliderRef.current.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        sliderRef.current.scrollLeft = scrollLeft - walk;
-    };
-
-    const scrollByAmount = (amount) => {
-        sliderRef.current.scrollBy({
-            left: amount,
-            behavior: "smooth",
-        });
-    };
     return (
         <div className='bg-[#F0F9FF] px-4 fixed w-full pt-20 z-40'>
-            <div className="max-w-305 mx-auto py-3 flex items-center gap-2">
-                <button
-                    type="button"
-                    onClick={() => scrollByAmount(-200)}
-                    aria-label="Scroll categories left"
-                    className="rounded-full bg-[#E0F2FE] text-[#A3A3A3] hover:bg-blue-100">
-                    <ChevronLeft size={20} aria-hidden="true" />
-                </button>
-                <div
+            <div className="max-w-305 mx-auto py-3 flex items-center gap-3">
+                <nav
                     aria-label="Deal categories"
-                    ref={sliderRef}
-                    onMouseDown={mouseDown}
-                    onMouseLeave={mouseLeave}
-                    onMouseUp={mouseUp}
-                    onMouseMove={mouseMove}
-                    className="flex items-center gap-12 overflow-x-auto no-scrollbar flex-1 cursor-grab select-none">
-                    {categories?.data.map((cat) => (
-                        <NavLink
-                            to={`/categori-details/${cat?._id}`}
-                            key={cat._id}
-                            className={({ isActive }) => isActive ? 'flex items-center gap-2 whitespace-nowrap text-[#4DB6C1] hover:text-[#4DB6C1] transition-colors' : 'flex items-center gap-2 whitespace-nowrap text-gray-600 hover:text-[#4DB6C1] transition-colors'}>
-                            <img className="text-gray-400 hover:text-[#4DB6C1] w-6 h-fit" src={cat.category_image} alt={`${cat.category_name} category`} />
-                            <span className='text-sm font-medium'>{cat.category_name}</span>
-                        </NavLink>
+                    className="flex max-h-8 min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-3 overflow-hidden sm:gap-x-6 lg:gap-x-10">
+                    {categoryList.map((cat) => (
+                        <CategoryLink key={cat._id} category={cat} />
                     ))}
-                </div>
+                </nav>
 
-                <button
-                    type="button"
-                    onClick={() => scrollByAmount(200)}
-                    aria-label="Scroll categories right"
-                    className="rounded-full bg-[#E0F2FE] text-[#A3A3A3] hover:bg-blue-100">
-                    <ChevronRight size={20} aria-hidden="true" />
-                </button>
+                <NavLink
+                    to="/categories"
+                    className={({ isActive }) =>
+                        `shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${isActive
+                            ? "bg-[#4BBDCF] text-white"
+                            : "bg-[#f0f9ff] text-[#00616F] hover:bg-[#E0F2FE]"
+                        }`
+                    }>
+                    See all
+                </NavLink>
             </div>
         </div>
     );

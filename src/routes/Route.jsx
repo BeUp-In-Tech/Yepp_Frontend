@@ -59,6 +59,7 @@ const VendorEditShop = lazy(() => import("../pages/vendor/create-shop/edit-shop/
 const EditOutlet = lazy(() => import("../pages/vendor/vendor-deatils/outlet-edit/EditOutlet"));
 
 const CategorieDetails = lazy(() => import("../pages/categories-page/category-details/CategorieDetails"));
+const Categories = lazy(() => import("../pages/categories-page/Categories"));
 const DealDetails = lazy(() => import("../pages/dealsDetails/DealDetails"));
 const ShowOutlets = lazy(() => import("../pages/show-outlets/ShowOutlets"));
 const AllTopViewsDeal = lazy(() => import("../pages/vendor/created-shop/components/AllTopViewsDeal"));
@@ -98,6 +99,7 @@ function AppRoutes() {
 
             <Route path="/vendor-details/:id" element={<VendorDeails />} />
             <Route path="/vendor/:id" element={<VendorDeails />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/categori-details/:id" element={<CategorieDetails />} />
             <Route path="/category/:id" element={<CategorieDetails />} />
             <Route path="/deal-details/:id" element={<DealDetails />} />
