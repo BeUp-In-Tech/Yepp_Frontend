@@ -32,10 +32,10 @@ export default function OutletLocation({ outlets = [] }) {
         ? { lat: latitude, lng: longitude }
         : { lat: 23.8103, lng: 90.4125 };
 
-  function getDistanceInKm(userLat, userLng, shopLat, shopLng) {
+  function getDistanceInMiles(userLat, userLng, shopLat, shopLng) {
     const toRad = (value) => (value * Math.PI) / 180;
 
-    const earthRadiusKm = 6371;
+    const earthRadiusMiles = 3958.8;
     const dLat = toRad(shopLat - userLat);
     const dLng = toRad(shopLng - userLng);
 
@@ -47,13 +47,13 @@ export default function OutletLocation({ outlets = [] }) {
       Math.sin(dLng / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return earthRadiusKm * c;
+    return earthRadiusMiles * c;
   }
 
   const formatDistance = (distance) => {
     if (distance == null) return null;
-    if (distance < 0.01) return "Less than 0.01 km away";
-    return `${distance.toFixed(2)} km away`;
+    if (distance < 0.01) return "Less than 0.01 miles away";
+    return `${distance.toFixed(2)} miles away`;
   };
 
   const selectedOutletDistance =
@@ -61,7 +61,7 @@ export default function OutletLocation({ outlets = [] }) {
       longitude != null &&
       outletLat != null &&
       outletLng != null
-      ? getDistanceInKm(latitude, longitude, outletLat, outletLng)
+      ? getDistanceInMiles(latitude, longitude, outletLat, outletLng)
       : null;
 
   return (
@@ -86,7 +86,7 @@ export default function OutletLocation({ outlets = [] }) {
                   longitude != null &&
                   locLat != null &&
                   locLng != null
-                  ? getDistanceInKm(latitude, longitude, locLat, locLng)
+                  ? getDistanceInMiles(latitude, longitude, locLat, locLng)
                   : null;
 
               return (

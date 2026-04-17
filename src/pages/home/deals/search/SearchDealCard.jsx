@@ -5,6 +5,7 @@ import Countdown from "../Countdown";
 const SearchDealCard = ({ deal }) => {
     const { _id, title, images, discount, reguler_price, promotedUntil } = deal?.deal || {};
     const image = images?.[0];
+    const distanceMiles = (Number(deal?.distance) || 0) / 1609.344;
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
@@ -17,7 +18,7 @@ const SearchDealCard = ({ deal }) => {
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    • {(deal?.distance / 1000).toFixed(2)} km away
+                    &bull; {distanceMiles.toFixed(2)} miles away
                 </div>
             </div>
 

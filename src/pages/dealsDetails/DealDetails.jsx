@@ -50,6 +50,7 @@ const DealDetails = () => {
     const disc = Number(discount);
 
     const finalPrice = price - (price * disc) / 100;
+    const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
 
     
 
@@ -99,7 +100,7 @@ const DealDetails = () => {
                                 <div className="text-[#007E8E] font-medium text-lg">
                                     <span className="text-[#007E8E] font-medium text-lg">{deal?.data.available_outlet[0]?.address}</span>
                                     <span className="text-3xl ml-2">•</span>
-                                    <span> {(deal?.data.available_outlet[0]?.distance / 1000).toFixed(2)} Km away</span>
+                                    <span> {outletDistanceMiles.toFixed(2)} miles away</span>
                                 </div>
                                 <CopiedLink _id={_id} />
                             </div>

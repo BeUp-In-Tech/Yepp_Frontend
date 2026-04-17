@@ -6,6 +6,7 @@ const DealCard = ({ deal }) => {
     const {
         _id, title, reguler_price, discount, distance, promotedUntil, shop } = deal || {};
     const image = deal?.images?.[0];
+    const distanceMiles = (Number(distance) || 0) / 1609.344;
     return (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
@@ -18,7 +19,7 @@ const DealCard = ({ deal }) => {
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    • {(distance / 1000).toFixed(2)} km away
+                    • {distanceMiles.toFixed(2)} miles away
                 </div>
             </div>
 

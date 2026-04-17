@@ -11,6 +11,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
     const discountAmount = (price * (Number(discount) || 0)) / 100;
     const finalPrice = price - discountAmount;
     const dealDistance = Number(distance) || 0;
+    const distanceMiles = dealDistance / 1609.344;
 
     if (compact) {
         const imageHeight = imageSize === "tall" ? "h-56 min-[501px]:h-44" : "h-36 min-[501px]:h-44";
@@ -28,7 +29,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     </div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1 text-xs font-medium text-white">
                         <span aria-hidden="true">&bull;</span>
-                        <span>{(dealDistance / 1000).toFixed(1)} km away</span>
+                        <span>{distanceMiles.toFixed(1)} miles away</span>
                     </div>
                 </div>
 
@@ -78,7 +79,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    &bull; {(dealDistance / 1000).toFixed(2)} km away
+                    &bull; {distanceMiles.toFixed(2)} miles away
                 </div>
             </div>
 
