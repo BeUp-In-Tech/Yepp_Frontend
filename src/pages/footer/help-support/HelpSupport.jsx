@@ -75,7 +75,7 @@ const HelpSupport = () => {
                         <h2 className="mb-3 text-xl font-bold leading-snug text-[#1F2937]">Feedback & Suggestions</h2>
                         <PeragraphContent>
                             We value your input. If you have any feedback or suggestions for improving Yepp Ads,
-                            feel free to send them to <a href="mailto:feedback@appname.com" className="font-semibold text-[#00616F] hover:underline">[feedback@appname.com]</a>.
+                            feel free to send them to <a href="mailto:support@appname.com" className="font-semibold text-[#00616F] hover:underline">support@appname.com</a>.
                             Your suggestions help us enhance your experience.
                         </PeragraphContent>
                     </section>
