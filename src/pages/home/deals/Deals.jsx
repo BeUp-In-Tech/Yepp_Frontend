@@ -27,9 +27,9 @@ const Deals = () => {
             <div className="max-w-305 mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-[#262626]">Explore nearby</h2>
-                    {/* <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
+                    <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
                         <MapPin size={18} /> <span>New york, United States</span>
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

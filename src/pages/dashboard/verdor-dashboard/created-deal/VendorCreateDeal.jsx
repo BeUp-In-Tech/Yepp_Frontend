@@ -12,14 +12,16 @@ import { useSelector } from "react-redux";
 import { useGetVendorDetailsQuery } from "../../../../features/shop/shopApi";
 import { MapPin } from "lucide-react";
 
+const dealFormDefaultValues = {
+    regularPrice: 0,
+    discountPercentage: 0,
+};
+
 const VendorCreateDeal = () => {
     const [imageFiles, setImagesFiles] = useState([]);
     const { user } = useSelector((state => state?.auth));
-    const { register, handleSubmit, watch, formState: { errors }, setValue, } = useForm({
-        defaultValues: {
-            regularPrice: 50,
-            discountPercentage: 20,
-        }
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({
+        defaultValues: dealFormDefaultValues,
     });
     const navigate = useNavigate();
     const { data: categoriess, isLoading: categoryLoading } = useGetAllCategoriesQuery();
@@ -28,7 +30,8 @@ const VendorCreateDeal = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, []);
+        reset(dealFormDefaultValues);
+    }, [reset]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -46,11 +49,14 @@ const VendorCreateDeal = () => {
         return <AddDealSkeleton />
     }
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const watchRegularPrice = watch("regularPrice");
     const watchDiscount = watch("discountPercentage");
 
     // Math logic for the final price
-    const finalPrice = watchRegularPrice - (watchRegularPrice * (watchDiscount / 100));
+    const regularPrice = Number(watchRegularPrice) || 0;
+    const discountPercentage = Number(watchDiscount) || 0;
+    const finalPrice = regularPrice - (regularPrice * (discountPercentage / 100));
 
     const onSubmit = (data) => {
         const createDeal = {
@@ -79,7 +85,7 @@ const VendorCreateDeal = () => {
         <div className="bg-white min-h-screen px-4 pt-28 pb-12">
             <div className="max-w-305 mx-auto">
                 <h1 className="text-[#262626] text-2xl sm:text-[32px] font-bold pb-6">Add New Deal</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                     {/* Media and Deal Pricing */}
                     <div className="flex flex-col md:flex-row gap-12.5">
                         <UplodedImage
@@ -104,6 +110,7 @@ const VendorCreateDeal = () => {
                                             required: "Regular price is required",
                                         })}
                                         type="number"
+                                        autoComplete="off"
                                         className="w-full pl-10 pr-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
                                     />
                                 </div>
@@ -128,6 +135,7 @@ const VendorCreateDeal = () => {
                                             required: "Discount percentage is required",
                                         })}
                                         type="number"
+                                        autoComplete="off"
                                         className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
                                     />
 
@@ -332,49 +340,6 @@ const VendorCreateDeal = () => {
                                     {errors.upc_code && (
                                         <p className="text-red-500 text-sm mt-1">
                                             {errors.upc_code.message}
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                            {/* Validity */}
-                            <div>
-                                <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Validity
-                                </label>
-
-                                <div className="flex justify-between w-full px-3 py-4 border rounded-full bg-white appearance-none outline-0 border-gray-400">
-                                    <div className="flex items-center justify-center">
-                                        <input
-                                            type="date"
-                                            {...register("startDate", {
-                                                required: "Start date is required",
-                                            })}
-                                            className="bg-transparent text-[#262626] outline-none w-full cursor-pointer appearance-none text-base"
-                                        />
-                                    </div>
-
-                                    <span className="text-slate-400">—</span>
-
-                                    <div className="flex items-center justify-center">
-                                        <input
-                                            type="date"
-                                            {...register("endDate", {
-                                                required: "End date is required",
-                                            })}
-                                            className="bg-transparent text-[#262626] outline-none w-full cursor-pointer appearance-none text-base"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex flex-row items-center justify-between">
-                                    {errors.startDate && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.startDate.message}
-                                        </p>
-                                    )}
-
-                                    {errors.endDate && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.endDate.message}
                                         </p>
                                     )}
                                 </div>

@@ -7,7 +7,7 @@ const SearchDealSkeleton = () => {
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-bold text-[#262626]">Search Result</h2>
                     <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
-                        <MapPin size={18} /> <span>New york, United States</span>
+                        <MapPin size={18} /> <span>New York, United States</span>
                     </div>
                 </div>
 

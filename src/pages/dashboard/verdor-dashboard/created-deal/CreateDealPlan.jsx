@@ -17,6 +17,7 @@ const CreateDealPlan = () => {
             voucherCode: "",
         },
     });
+    // eslint-disable-next-line react-hooks/incompatible-library
     const formData = watch();
     const selectedPlan = watch("plan");
     const { data: plans, isLoading } = useGetAllPlanQuery();
