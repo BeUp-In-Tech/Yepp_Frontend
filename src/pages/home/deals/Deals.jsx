@@ -21,6 +21,13 @@ const Deals = () => {
     const indexOfFirst = (currentPage - 1) * ROWS_PER_PAGE;
     const indexOfLast = Math.min(currentPage * ROWS_PER_PAGE, allDeals?.length);
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
+    const dealColumns = currentDeals.reduce(
+        (columns, deal, index) => {
+            columns[index % 2].push({ deal, index });
+            return columns;
+        },
+        [[], []]
+    );
 
     return (
         <div className="bg-gray-50 min-h-[10vh] px-4 py-12.5">
@@ -32,18 +39,37 @@ const Deals = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                    {currentDeals?.map((deal) => (
-                        <DealCard key={deal?._id} deal={deal} />
-                    ))}
-                    {
-                        totalDeals?.data?.deals?.length === 0 &&
-                        <div className="col-span-full text-center py-10 min-h-[10vh] flex items-center justify-center">
-                            <p className="text-gray-600 text-lg font-semibold">Deal not Found</p>
+                {totalDeals?.data?.deals?.length > 0 ? (
+                    <>
+                        <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3 sm:gap-5 lg:hidden">
+                            {dealColumns.map((column, columnIndex) => (
+                                <div
+                                    key={columnIndex}
+                                    className={`flex flex-col gap-3 sm:gap-5 ${columnIndex === 1 ? "max-[500px]:pt-5" : ""}`}
+                                >
+                                    {column.map(({ deal, index }) => (
+                                        <DealCard
+                                            key={deal?._id || index}
+                                            deal={deal}
+                                            compact
+                                            imageSize={index % 3 === 1 ? "tall" : "normal"}
+                                        />
+                                    ))}
+                                </div>
+                            ))}
                         </div>
-                    }
 
-                </div>
+                        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                            {currentDeals?.map((deal) => (
+                                <DealCard key={deal?._id} deal={deal} />
+                            ))}
+                        </div>
+                    </>
+                ) : (
+                    <div className="text-center py-10 min-h-[10vh] flex items-center justify-center">
+                        <p className="text-gray-600 text-lg font-semibold">Deal not Found</p>
+                    </div>
+                )}
                 {
                     totalDeals?.data?.deals?.length > 0 && <Pagination
                         totalPages={totalPages}
