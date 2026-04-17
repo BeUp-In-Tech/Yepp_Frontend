@@ -19,19 +19,21 @@ const Charts = () => {
             impressions: item.impressions,
         })) || [];
     return (
-        <div className="bg-white p-2 sm:p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
-            <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-[#00616F]">
-                    Personal Overview
-                    <span className="text-gray-400 font-normal ml-2 text-base">
-                        last 1 year
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
+            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="space-y-2">
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#00616F]">
+                        Personal Overview
+                    </h2>
+                    <span className="inline-flex rounded-full bg-[#E8F8FB] px-3 py-1 text-sm font-semibold text-[#00616F]">
+                        Last 1 year
                     </span>
-                </h2>
-                <div className="flex gap-2">
+                </div>
+                <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto">
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        className="w-36 bg-gray-50 border-gray-200 px-4 py-2 text-sm text-gray-700 font-medium outline-none cursor-pointer shadow-sm hover:border-gray-300 focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/30 transition-all duration-200 border rounded-t-md"
+                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/25 cursor-pointer sm:w-36"
                     >
                         <option value="views">Views</option>
                         <option value="impressions">Impressions</option>
@@ -39,7 +41,7 @@ const Charts = () => {
                     <select
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
-                        className="w-32 bg-gray-50 border-gray-200 px-4 py-2 text-sm text-gray-700 font-medium outline-none cursor-pointer shadow-sm hover:border-gray-300 focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/30 transition-all duration-200 border rounded-t-md"
+                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/25 cursor-pointer sm:w-32"
                     >
                         {Object.keys(chatData?.data || {}).map((y) => (
                             <option key={y} value={y}>

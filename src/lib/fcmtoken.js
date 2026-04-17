@@ -23,6 +23,5 @@ export const generateFcmTokenData = async () => {
         platform: "WEB",
         deviceName: browserName,
     };
-    console.table(fcmToken);
     return fcmToken;
 };

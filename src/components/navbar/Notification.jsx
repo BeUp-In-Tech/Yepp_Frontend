@@ -21,7 +21,7 @@ const Notification = ({ setIsOpen }) => {
                     type="button"
                     aria-label="Close notifications"
                     onClick={() => setIsOpen(false)}
-                    className="absolute right-4 top-5 text-slate-400 hover:text-slate-600"
+                    className="absolute right-4 top-5 text-slate-400 hover:text-slate-600 cursor-pointer"
                 >
                     <X size={20} className='w-6 h-6' aria-hidden="true" />
                 </button>

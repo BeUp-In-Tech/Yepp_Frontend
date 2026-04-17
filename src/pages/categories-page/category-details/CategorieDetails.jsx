@@ -36,7 +36,7 @@ const CategorieDetails = () => {
 
     return (
         <div className="bg-gray-50 min-h-[65vh] py-36">
-            <div className="fixed left-0 right-0 top-[136px] z-30 bg-gray-50">
+            <div className="fixed left-0 right-0 top-34 z-30 bg-gray-50">
                 <div className="max-w-305 mx-2 sm:mx-4 md:mx-8 flex items-center justify-between py-3">
                     <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
                     <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
