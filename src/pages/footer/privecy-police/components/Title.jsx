@@ -2,9 +2,9 @@ import React from 'react';
 
 const Title = ({ children }) => {
     return (
-        <div className='text-2xl font-bold text-[#4BBCCE] mb-3'>
+        <h1 className='mb-3 text-3xl font-bold leading-tight text-[#111827] sm:text-4xl'>
             {children}
-        </div>
+        </h1>
     );
 };
 

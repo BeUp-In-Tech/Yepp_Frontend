@@ -1,10 +1,10 @@
-import { MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { useGetAllDealQuery } from '../../../features/deal/dealApi';
 import { DealCardSkeleton } from '../../../components/skeleton/DealCardSkeleton';
 import DealCard from './DealCard';
 import Pagination from '../../vendor/created-shop/components/Pagination';
 import useUserLocation from '../../../hooks/useUserLocation';
+import DynamicLocation from '../../../components/location/DynamicLocation';
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const Deals = () => {
@@ -34,9 +34,12 @@ const Deals = () => {
             <div className="max-w-305 mx-auto">
                 <div className="flex items-start justify-between gap-4 mb-6">
                     <h2 className="text-base font-bold leading-tight text-[#262626] sm:text-2xl md:text-[28px]">Explore nearby</h2>
-                    <div className="flex max-w-[52%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg">
-                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5" /> <span className=" max-sm:text-md md:text-xl">New york, United States</span>
-                    </div>
+                    <DynamicLocation
+                        latitude={latitude}
+                        longitude={longitude}
+                        className="flex max-w-[52%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg"
+                        iconClassName="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5"
+                    />
                 </div>
 
                 {totalDeals?.data?.deals?.length > 0 ? (

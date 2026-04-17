@@ -10,10 +10,10 @@ const TermsAndConditions = () => {
     }, []);
 
     return (
-        <div className="px-4 pt-36 pb-5">
-            <div className="max-w-305 mx-auto">
+        <div className="bg-gray-50 px-4 pt-[220px] pb-12 sm:pt-56 sm:pb-16">
+            <div className="max-w-4xl mx-auto rounded-lg border border-gray-100 bg-white px-5 py-8 shadow-sm sm:px-8 lg:px-10">
                 <Title>Terms and Conditions for Yepp Ads</Title>
-                <p className="text-lg mb-4">Effective Date: 10 April 2026</p>
+                <p className="mb-8 text-sm font-semibold uppercase tracking-wide text-[#6B7280]">Effective Date: 10 April 2026</p>
 
                 <Description>
                     Welcome to Yepp Ads (yeppads.com), a platform that connects shop owners with users to share and discover exclusive deals, discounts, and coupons. By using our website and app, you agree to comply with and be bound by the following Terms and Conditions. Please read these terms carefully before accessing or using Yepp Ads. If you do not agree with these terms, you should not use our platform.
@@ -44,10 +44,10 @@ const TermsAndConditions = () => {
 
                 <SubTitle>5. Posting Coupons and Deals</SubTitle>
                 <Description>
-                    <ul className="list-inside list-disc mb-4 ml-5">
-                        <li className="text-lg">Only shop owners who have purchased a valid subscription may post coupons or deals on Yepp Ads.</li>
-                        <li className="text-lg">All deals and coupons posted must be truthful, accurate, and compliant with applicable laws. Yepp Ads reserves the right to review and remove any posted content that violates these Terms and Conditions.</li>
-                        <li className="text-lg">Yepp Ads does not guarantee the availability or validity of any coupons or deals. Shop owners are responsible for updating and removing expired or invalid deals.</li>
+                    <ul className="mb-5 ml-5 list-disc space-y-2 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
+                        <li>Only shop owners who have purchased a valid subscription may post coupons or deals on Yepp Ads.</li>
+                        <li>All deals and coupons posted must be truthful, accurate, and compliant with applicable laws. Yepp Ads reserves the right to review and remove any posted content that violates these Terms and Conditions.</li>
+                        <li>Yepp Ads does not guarantee the availability or validity of any coupons or deals. Shop owners are responsible for updating and removing expired or invalid deals.</li>
                     </ul>
                 </Description>
 
@@ -55,18 +55,18 @@ const TermsAndConditions = () => {
                 <Description>
                     You agree not to post, share, or distribute any content that:
                 </Description>
-                <ul className="list-inside list-disc mb-4 ml-5">
-                    <li className="text-lg">Is false, misleading, or deceptive</li>
-                    <li className="text-lg">Violates any intellectual property rights or privacy rights of others</li>
-                    <li className="text-lg">Is discriminatory, harmful, abusive, or offensive</li>
-                    <li className="text-lg">Promotes illegal activities or violates any local, national, or international laws</li>
+                <ul className="mb-5 ml-5 list-disc space-y-2 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
+                    <li>Is false, misleading, or deceptive</li>
+                    <li>Violates any intellectual property rights or privacy rights of others</li>
+                    <li>Is discriminatory, harmful, abusive, or offensive</li>
+                    <li>Promotes illegal activities or violates any local, national, or international laws</li>
                 </ul>
 
                 <SubTitle>7. Payment and Subscription</SubTitle>
                 <Description>
-                    <ul className="list-inside list-disc mb-4 ml-5">
-                        <li className="text-lg">Shop owners must pay the subscription fee to post deals on Yepp Ads. The subscription fee is non-refundable and will be charged according to the selected plan.</li>
-                        <li className="text-lg">Subscription plans are subject to change, and Yepp Ads will provide notice of any pricing or policy updates. Shop owners will be notified before any subscription changes are implemented.</li>
+                    <ul className="mb-5 ml-5 list-disc space-y-2 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
+                        <li>Shop owners must pay the subscription fee to post deals on Yepp Ads. The subscription fee is non-refundable and will be charged according to the selected plan.</li>
+                        <li>Subscription plans are subject to change, and Yepp Ads will provide notice of any pricing or policy updates. Shop owners will be notified before any subscription changes are implemented.</li>
                     </ul>
                 </Description>
 
@@ -81,7 +81,7 @@ const TermsAndConditions = () => {
                 </Description>
                 <Description>
                     For more information about how Google Analytics collects and processes data, you can review their privacy policy here:{" "}
-                    <Link to="https://www.google.com/analytics/learn/privacy.html" className="text-blue-500">
+                    <Link to="https://www.google.com/analytics/learn/privacy.html" className="font-semibold text-[#00616F] hover:underline">
                         Google Analytics Privacy Policy
                     </Link>.
                 </Description>
@@ -100,10 +100,10 @@ const TermsAndConditions = () => {
                 <Description>
                     Yepp Ads shall not be liable for any damages, losses, or expenses incurred by users or shop owners in connection with the use of the platform, including but not limited to:
                 </Description>
-                <ul className="list-inside list-disc mb-4 ml-5">
-                    <li className="text-lg">The inability to access or use the platform</li>
-                    <li className="text-lg">Errors or inaccuracies in the posted deals or coupons</li>
-                    <li className="text-lg">Disputes between users and shop owners</li>
+                <ul className="mb-5 ml-5 list-disc space-y-2 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
+                    <li>The inability to access or use the platform</li>
+                    <li>Errors or inaccuracies in the posted deals or coupons</li>
+                    <li>Disputes between users and shop owners</li>
                 </ul>
 
                 <SubTitle>13. Indemnification</SubTitle>
@@ -127,11 +127,11 @@ const TermsAndConditions = () => {
                 </Description>
                 <Description>
                     <strong>Email:</strong>{" "}
-                    <Link to="mailto:support@yeppads.com" className="text-blue-500">support@yeppads.com</Link>
+                    <Link to="mailto:support@yeppads.com" className="font-semibold text-[#00616F] hover:underline">support@yeppads.com</Link>
                 </Description>
                 <Description>
                     <strong>Website:</strong>{" "}
-                    <Link to="http://www.yeppads.com" className="text-blue-500">www.yeppads.com</Link>
+                    <Link to="http://www.yeppads.com" className="font-semibold text-[#00616F] hover:underline">www.yeppads.com</Link>
                 </Description>
             </div>
         </div>

@@ -1,8 +1,8 @@
-import { MapPin } from "lucide-react";
 import { DealCardSkeleton } from "../../../../components/skeleton/DealCardSkeleton";
 import { useGetDealAllDealsQuery } from "../../../../features/deal/dealApi";
 import SearchDealCard from "./SearchDealCard";
 import useUserLocation from "../../../../hooks/useUserLocation";
+import DynamicLocation from "../../../../components/location/DynamicLocation";
 const SearchDeals = ({ searchText }) => {
     const { latitude, longitude } = useUserLocation();
     const { data: allDeals, isLoading } = useGetDealAllDealsQuery({ searchText, longitude, latitude });
@@ -27,9 +27,13 @@ const SearchDeals = ({ searchText }) => {
                     <h2 className="max-w-[60%] break-words text-base font-bold leading-tight text-[#262626] sm:max-w-none sm:text-2xl md:text-[28px]">
                         {headingText}
                     </h2>
-                    <div className="flex max-w-[40%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg">
-                        <MapPin className="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5" /> <span>New york, United States</span>
-                    </div>
+                    <DynamicLocation
+                        latitude={latitude}
+                        longitude={longitude}
+                        zipCode={zipCodeText}
+                        className="flex max-w-[40%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg"
+                        iconClassName="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5"
+                    />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">

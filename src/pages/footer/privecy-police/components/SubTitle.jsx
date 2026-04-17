@@ -2,9 +2,9 @@ import React from 'react';
 
 const SubTitle = ({ children }) => {
     return (
-        <div className='text-xl font-semibold mt-6 mb-2'>
+        <h2 className='mt-8 mb-3 text-xl font-bold leading-snug text-[#1F2937]'>
             {children}
-        </div>
+        </h2>
     );
 };
 

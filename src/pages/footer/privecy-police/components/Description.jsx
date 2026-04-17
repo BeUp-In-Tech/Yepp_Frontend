@@ -1,6 +1,6 @@
 const Description = ({ children }) => {
     return (
-        <div className="text-lg mb-3">
+        <div className="mb-4 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
             {children}
         </div>
     );
