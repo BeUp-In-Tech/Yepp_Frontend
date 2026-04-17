@@ -14,18 +14,21 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   };
 
   const { title, reguler_price, discount, coupon_option, coupon } = deal?.data || {};
+  const discount_price = reguler_price - ((reguler_price / 100) * discount);
+  const price_saved = reguler_price - (reguler_price - ((reguler_price / 100) * discount));
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div
-        className="absolute inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity"
+        className="absolute inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity cursor-pointer"
         onClick={() => setIsOpen(false)}
       />
       <div className="relative bg-white w-full max-w-2xl rounded-xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-300">
         <div className="flex justify-end items-center px-5 pt-6 pb-2">
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-black/5 rounded-full transition-colors text-gray-700">
+            className="p-2 hover:bg-black/5 rounded-full transition-colors text-gray-700 cursor-pointer">
             <X size={24} />
           </button>
         </div>
@@ -36,11 +39,11 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           <div className="w-full space-y-3 mb-4 px-2">
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Price:</span>
-              <span className="text-[#4dbbc4] font-bold text-xl">${reguler_price - ((reguler_price / 100) * discount)}</span>
+              <span className="text-[#4dbbc4] font-bold text-xl">${discount_price.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Regular:</span>
-              <span className="text-gray-400 font-medium line-through">${reguler_price}</span>
+              <span className="text-gray-400 font-medium line-through">${reguler_price.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Discount:</span>
@@ -51,7 +54,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           </div>
           <div className="text-center mb-4">
             <p className="text-[#4dbbc4] font-bold tracking-wide">
-              You save ${reguler_price - (reguler_price - ((reguler_price / 100) * discount))}
+              You save ${price_saved.toFixed(2)}
             </p>
           </div>
           <div className="flex bg-gray-100/80 p-1.5 rounded-full w-full mb-8 border border-gray-200">
@@ -59,7 +62,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-2.5 rounded-full text-sm font-extrabold uppercase tracking-wider transition-all duration-200 ${activeTab === tab
+                className={`flex-1 py-2.5 cursor-pointer rounded-full text-sm font-extrabold uppercase tracking-wider transition-all duration-200 ${activeTab === tab
                   ? 'bg-[#4dbbc4] text-white shadow-lg'
                   : 'text-gray-400 hover:text-gray-600'
                   }`}
@@ -80,7 +83,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
                   </h3>
                   <button
                     onClick={handleCopy}
-                    className={`flex items-center gap-2 mx-auto px-8 py-3 rounded-xl font-bold transition-all ${copied ? 'bg-emerald-500 text-white' : 'bg-[#4dbbc4] text-white hover:bg-[#3daab3] hover:shadow-md'
+                    className={`flex items-center gap-2 mx-auto px-8 py-3 rounded-xl font-bold transition-all cursor-pointer ${copied ? 'bg-emerald-500 text-white' : 'bg-[#4dbbc4] text-white hover:bg-[#3daab3] hover:shadow-md'
                       }`}
                   >
                     {copied ? <Check size={20} /> : <Copy size={20} />}
@@ -120,7 +123,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           {/* Final Action */}
           <button
             onClick={() => setIsOpen(false)}
-            className="w-full bg-[#4dbbc4] text-white py-3 rounded-full font-black text-lg mt-8 mb-3 shadow-[0_10px_20px_-5px_rgba(77,187,196,0.4)] hover:shadow-[0_15px_25px_-5px_rgba(77,187,196,0.5)] active:scale-[0.98] transition-all">
+            className="w-full bg-[#4dbbc4] text-white cursor-pointer py-3 rounded-full font-black text-lg mt-8 mb-3 shadow-[0_10px_20px_-5px_rgba(77,187,196,0.4)] hover:shadow-[0_15px_25px_-5px_rgba(77,187,196,0.5)] active:scale-[0.98] transition-all">
             Close Deal
           </button>
         </div>

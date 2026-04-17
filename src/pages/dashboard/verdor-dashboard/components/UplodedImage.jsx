@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, X, Plus } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 
-const UploadedImage = ({ setImagesFiles, getAllImages, setValue }) => {
+const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, setImageError }) => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,6 +25,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue }) => {
     setImages((prev) => [...prev, ...newUrls]);
     setFiles((prev) => [...prev, ...selectedFiles]);
     setImagesFiles((prev) => [...prev, ...selectedFiles]);
+    setImageError?.("");
 
     e.target.value = null;
   };
@@ -154,6 +155,11 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue }) => {
         multiple
         accept="image/*"
       />
+      {imageError && (
+        <p className="text-red-500 text-sm mt-3">
+          {imageError}
+        </p>
+      )}
     </div>
   );
 };

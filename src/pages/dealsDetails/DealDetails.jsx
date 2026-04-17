@@ -51,6 +51,8 @@ const DealDetails = () => {
 
     const finalPrice = price - (price * disc) / 100;
 
+    
+
     return (
         <div className='bg-white pt-40 px-4'>
             <div className="max-w-305 mx-auto">

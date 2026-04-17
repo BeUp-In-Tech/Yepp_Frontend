@@ -19,6 +19,7 @@ const dealFormDefaultValues = {
 
 const VendorCreateDeal = () => {
     const [imageFiles, setImagesFiles] = useState([]);
+    const [imageError, setImageError] = useState("");
     const { user } = useSelector((state => state?.auth));
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({
         defaultValues: dealFormDefaultValues,
@@ -58,7 +59,19 @@ const VendorCreateDeal = () => {
     const discountPercentage = Number(watchDiscount) || 0;
     const finalPrice = regularPrice - (regularPrice * (discountPercentage / 100));
 
+    const validateImages = () => {
+        if (imageFiles.length === 0) {
+            setImageError("Image is required");
+            return false;
+        }
+
+        setImageError("");
+        return true;
+    };
+
     const onSubmit = (data) => {
+        if (!validateImages()) return;
+
         const createDeal = {
             category: data?.category,
             title: data?.title,
@@ -74,23 +87,37 @@ const VendorCreateDeal = () => {
         };
         const formData = new FormData();
         formData.append("data", JSON.stringify(createDeal));
+
+        if (imageFiles.length <=0) {
+            toast.error("Image is required");
+            return;
+        }
+
         imageFiles.forEach((file) => {
             formData.append("files", file);
         });
+
         formData.append("qr", data?.qr_code?.[0]);
         formData.append("upc", data?.upc_code?.[0]);
         createNewDeal(formData);
     };
+
+    const onInvalid = () => {
+        validateImages();
+    };
+
     return (
         <div className="bg-white min-h-screen px-4 pt-28 pb-12">
             <div className="max-w-305 mx-auto">
                 <h1 className="text-[#262626] text-2xl sm:text-[32px] font-bold pb-6">Add New Deal</h1>
-                <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+                <form onSubmit={handleSubmit(onSubmit, onInvalid)} autoComplete="off">
                     {/* Media and Deal Pricing */}
                     <div className="flex flex-col md:flex-row gap-12.5">
                         <UplodedImage
                             setImagesFiles={setImagesFiles}
                             setValue={setValue}
+                            imageError={imageError}
+                            setImageError={setImageError}
                         />
                         <div className="w-full md:w-1/2 space-y-3 lg:space-y-6">
                             <h2 className="text-[#2B9DAE] text-xl font-bold mb-3">Deal Pricing:</h2>
@@ -352,7 +379,7 @@ const VendorCreateDeal = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
+                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] cursor-pointer text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (
