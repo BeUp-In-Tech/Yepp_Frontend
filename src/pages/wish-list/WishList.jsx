@@ -43,7 +43,7 @@ const WishList = () => {
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
 
     return (
-        <div className="bg-white px-4 pt-56 pb-12.5">
+        <div className="min-h-[80vh] bg-white px-4 pt-56 pb-12.5">
             <TabSection
                 activeTab={activeTab}
                 setActiveTab={setActiveTab} />

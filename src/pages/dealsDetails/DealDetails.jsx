@@ -56,16 +56,16 @@ const DealDetails = () => {
     
 
     return (
-        <div className='bg-white pt-40 px-4'>
+        <div className='bg-white px-4 pt-56 pb-8'>
             <div className="max-w-305 mx-auto">
-                <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex flex-col gap-6 md:flex-row lg:gap-8">
                     {/* left side */}
-                    <div className="w-full lg:w-6/12 space-y-6">
+                    <div className="w-full space-y-4 md:w-6/12 sm:space-y-6">
                         <div className="relative group rounded-lg overflow-hidden">
                             <img
                                 src={images[currentImageIndex]}
                                 alt="Profile"
-                                className="w-full h-92.5 object-cover transition-all duration-500" />
+                                className="h-60 w-full object-cover transition-all duration-500 sm:h-72 md:h-80 lg:h-92.5" />
                             <button
                                 onClick={prevImage}
                                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full backdrop-blur-sm transition-all">
@@ -82,51 +82,53 @@ const DealDetails = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <h1 className="text-2xl font-semibold text-[#262626] leading-tight">
+                            <h1 className="text-xl font-semibold leading-tight text-[#262626] sm:text-2xl">
                                 {title}
                             </h1>
 
                             <div className="flex items-center gap-1">
-                                <Store size={18} className='text-[#525252]' />
+                                <Store className='h-4 w-4 shrink-0 text-[#525252] sm:h-[18px] sm:w-[18px]' />
                                 <Link to={`/vendor-details/${shop?._id}`} className="flex items-center gap-1 group cursor-pointer">
-                                    <span className="font-semibold text-lg text-[#525252] transition-transform duration-300 group-hover:translate-x-1">
+                                    <span className="text-sm font-semibold text-[#525252] transition-transform duration-300 group-hover:translate-x-1 sm:text-lg">
                                         {shop?.business_name}
                                     </span>
-                                    <ArrowRight size={20} className="text-[#525252] mt-1 transition-transform duration-300 group-hover:translate-x-2" />
+                                    <ArrowRight className="mt-0.5 h-4 w-4 text-[#525252] transition-transform duration-300 group-hover:translate-x-2 sm:mt-1 sm:h-5 sm:w-5" />
 
                                 </Link>
                             </div>
 
-                            <div className="flex justify-between items-center">
-                                <div className="text-[#007E8E] font-medium text-lg">
-                                    <span className="text-[#007E8E] font-medium text-lg">{deal?.data.available_outlet[0]?.address}</span>
-                                    <span className="text-3xl ml-2">•</span>
+                            <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0 break-words text-base font-medium leading-relaxed text-[#007E8E] sm:text-lg">
+                                    <span>{deal?.data.available_outlet[0]?.address}</span>
+                                    <span className="mx-1 text-xl sm:mx-2 sm:text-3xl">•</span>
                                     <span> {outletDistanceMiles.toFixed(2)} miles away</span>
                                 </div>
-                                <CopiedLink _id={_id} />
+                                <div className="shrink-0">
+                                    <CopiedLink _id={_id} />
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-4">
-                                <div className='space-x-4'>
-                                    <span className="text-4xl text-[#262626] font-bold">
+                            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                                <div className='flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4'>
+                                    <span className="text-3xl font-bold text-[#262626] sm:text-4xl">
                                         ${finalPrice.toFixed(2)}
                                     </span>
 
-                                    <span className="text-xl text-[#A3A3A3] line-through">
+                                    <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
                                         ${price.toFixed(2)}
                                     </span>
-                                    <span className="bg-cyan-100 text-[#00444E] px-2 py-1 rounded-md font-bold">{discount}% off</span>
+                                    <span className="rounded-md bg-cyan-100 px-2 py-1 text-sm font-bold text-[#00444E] sm:text-base">{discount}% off</span>
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-0 sm:mt-2'>
                                     <Countdown countdown={promotedUntil} />
                                 </div>
                             </div>
 
-                            <div className="flex gap-4 pt-4">
-                                <button onClick={() => handleSaveForLater(_id)} className="flex items-center gap-2 px-10 py-3 border border-[#4BBDCF] text-[#4BBDCF] rounded-full font-bold hover:bg-cyan-50 transition-colors cursor-pointer">
-                                    Save For Later <Heart size={22} />
+                            <div className="grid grid-cols-2 gap-3 pt-4 sm:gap-4">
+                                <button onClick={() => handleSaveForLater(_id)} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[#4BBDCF] px-3 py-3 text-sm font-bold text-[#4BBDCF] transition-colors hover:bg-cyan-50 cursor-pointer sm:text-base">
+                                    Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-[22px] sm:w-[22px]" />
                                 </button>
-                                <button onClick={() => setIsOpen(true)} className="flex-1 py-3 bg-[#4BBDCF] text-white rounded-full font-bold hover:bg-cyan-500 shadow-md transition-colors cursor-pointer">
+                                <button onClick={() => setIsOpen(true)} className="min-h-12 w-full rounded-full bg-[#4BBDCF] px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-cyan-500 cursor-pointer sm:text-base">
                                     Show Coupon
                                 </button>
                             </div>
@@ -137,7 +139,7 @@ const DealDetails = () => {
                                 deal={deal}
                             />
                             <div className="pb-8 pt-2">
-                                <h3 className="font-bold text-2xl text-[#262626] mb-3">Location</h3>
+                                <h3 className="mb-3 text-xl font-bold text-[#262626] sm:text-2xl">Location</h3>
                                 <div className="rounded-xl overflow-hidden border border-gray-400 h-70">
                                     <OutLetshowMap locations={available_outlet} />
                                 </div>
@@ -146,16 +148,16 @@ const DealDetails = () => {
                     </div>
 
                     {/* right side */}
-                    <div className="w-full lg:w-5/12">
+                    <div className="w-full md:w-5/12">
                         <section>
-                            <h3 className="font-bold text-xl text-[#262626] mb-2">How to Redeem</h3>
+                            <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">How to Redeem</h3>
                             <Redeem />
                         </section>
                         <section>
-                            <h3 className="font-bold text-xl text-[#262626] mb-2">Highlight</h3>
+                            <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">Highlight</h3>
                             <ul className="space-y-2">
                                 {highlight.map((text, i) => (
-                                    <li key={i} className="flex items-center gap-2 text-[#262626] text-base">
+                                    <li key={i} className="flex items-center gap-2 text-sm text-[#262626] sm:text-base">
                                         <span className="h-1.5 w-1.5 bg-[#6e6a6a] rounded-full" /> {text}
                                     </li>
                                 ))}
@@ -163,10 +165,10 @@ const DealDetails = () => {
                         </section>
 
                         <section>
-                            <h3 className="font-bold text-xl text-[#262626] mb-2 mt-4">Tags</h3>
+                            <h3 className="mb-2 mt-4 text-lg font-bold text-[#262626] sm:text-xl">Tags</h3>
                             <ul className="space-y-2">
                                 {tags.map((text, i) => (
-                                    <li key={i} className="flex items-center gap-2 text-[#262626] text-base">
+                                    <li key={i} className="flex items-center gap-2 text-sm text-[#262626] sm:text-base">
                                         <span className="h-1.5 w-1.5 bg-[#6e6a6a] rounded-full" /> {text}
                                     </li>
                                 ))}
@@ -174,8 +176,8 @@ const DealDetails = () => {
                         </section>
                         {/* Description & Included */}
                         <section className="space-y-4 mt-4">
-                            <h3 className="font-bold text-xl text-[#262626] mb-2">Description</h3>
-                            <p className="text-base text-[#262626] leading-relaxed">
+                            <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">Description</h3>
+                            <p className="text-sm leading-relaxed text-[#262626] sm:text-base">
                                 {description}
                             </p>
                         </section>
