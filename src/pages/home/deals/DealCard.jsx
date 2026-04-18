@@ -17,7 +17,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
         const imageHeight = imageSize === "tall" ? "h-56 min-[501px]:h-44" : "h-36 min-[501px]:h-44";
 
         return (
-            <article className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-hover hover:shadow-md">
+            <Link to={`/deal-details/${_id}`} className="block overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-hover hover:shadow-md">
                 <div className={`relative w-full ${imageHeight}`}>
                     <img
                         src={image || "/no-image.png"}
@@ -56,19 +56,16 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                         <Countdown countdown={promotedUntil} compact />
                     </div>
 
-                    <Link
-                        to={`/deal-details/${_id}`}
-                        className="mt-3 block w-full rounded-full bg-[#4BBDCF] py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-[#72cfdd]"
-                    >
+                    <span className="mt-3 block w-full rounded-full bg-[#4BBDCF] py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-[#72cfdd]">
                         Redeem Now
-                    </Link>
+                    </span>
                 </div>
-            </article>
+            </Link>
         );
     }
 
     return (
-        <article className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
+        <Link to={`/deal-details/${_id}`} className="block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
                 <img
                     src={image || "/no-image.png"}
@@ -106,14 +103,11 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     <Countdown countdown={promotedUntil} />
                 </div>
 
-                <Link
-                    to={`/deal-details/${_id}`}
-                    className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer"
-                >
+                <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now
-                </Link>
+                </span>
             </div>
-        </article>
+        </Link>
     );
 };
 

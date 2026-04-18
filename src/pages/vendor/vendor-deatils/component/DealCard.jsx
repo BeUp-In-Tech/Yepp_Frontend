@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const DealCard = ({ deal, businessName }) => {
     const { _id, images, promotedUntil, reguler_price, discount } = deal || {};
     return (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
+        <Link to={`/deal-details/${_id}`} className="block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
                 <img
                     src={images[0]}
@@ -36,14 +36,11 @@ const DealCard = ({ deal, businessName }) => {
                     </div>
                     <Countdown countdown={promotedUntil} />
                 </div>
-                {/* Action Button */}
-                <Link to={`/deal-details/${_id}`}>
-                    <button className="w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
-                        Redeem Now
-                    </button>
-                </Link>
+                <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                    Redeem Now
+                </span>
             </div>
-        </div>
+        </Link>
     );
 };
 

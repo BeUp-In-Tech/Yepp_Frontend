@@ -1,17 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Countdown from "../home/deals/Countdown";
 import { Store, Trash } from "lucide-react";
 
 const WishListCard = ({ deal, handleDeleteWistListId }) => {
+    const navigate = useNavigate();
     const {
         _id, title, reguler_price, discount, promotedUntil, shop, activePromotion } = deal || {};
+    const dealDetailsPath = `/deal-details/${_id}`;
     const image = deal?.images?.[0];
     const now = new Date();
 
     const expiredDeal = new Date(deal?.promotedUntil) < now && activePromotion !== null;
     const activeDeal = new Date(deal?.promotedUntil) >= now && activePromotion !== null;
 
-    const handleWishListId = (id) => {
+    const handleCardClick = () => {
+        navigate(dealDetailsPath);
+    };
+
+    const handleCardKeyDown = (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            navigate(dealDetailsPath);
+        }
+    };
+
+    const handleWishListId = (event, id) => {
+        event.stopPropagation();
         handleDeleteWistListId(id);
     };
 
@@ -20,7 +34,13 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
     const finalPrice = price - discountAmount;
 
     return (
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
+        <div
+            className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md cursor-pointer"
+            onClick={handleCardClick}
+            onKeyDown={handleCardKeyDown}
+            role="link"
+            tabIndex={0}
+        >
             <div className="relative h-48 w-full">
                 <img
                     src={image || "/no-image.png"}
@@ -41,7 +61,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     <h3 className="text-base font-semibold text-[#262626] line-clamp-2 leading-tight">
                         {deal.title}
                     </h3>
-                    <div className="text-right cursor-pointer" onClick={() => handleWishListId(deal?._id)}>
+                    <div className="text-right cursor-pointer" onClick={(event) => handleWishListId(event, deal?._id)}>
                         <Trash className="text-[#262626]" size={20} />
                     </div>
                 </div>
@@ -72,10 +92,10 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                 </div>
 
                 {/* Action Button */}
-                <Link to={`/deal-details/${_id}`}>
-                    <button className="w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <Link to={dealDetailsPath} onClick={(event) => event.stopPropagation()}>
+                    <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                         Redeem Now
-                    </button>
+                    </span>
                 </Link>
             </div>
         </div>
