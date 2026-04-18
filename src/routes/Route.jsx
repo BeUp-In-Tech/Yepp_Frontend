@@ -78,7 +78,7 @@ function AppRoutes() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/wish-list" element={<WishList />} />
+            <Route path="/saved_deals" element={<WishList />} />
 
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />

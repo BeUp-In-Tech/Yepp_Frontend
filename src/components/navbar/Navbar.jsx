@@ -12,9 +12,21 @@ import { persistor } from '../../app/store';
 import toast from 'react-hot-toast';
 import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
 
+const getSavedDealsCount = () => {
+    try {
+        if (typeof localStorage === "undefined") return 0;
+
+        const savedIds = JSON.parse(localStorage.getItem("saveForLater"));
+        return Array.isArray(savedIds) ? savedIds.length : 0;
+    } catch {
+        return 0;
+    }
+};
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
+    const [savedDealsCount, setSavedDealsCount] = useState(getSavedDealsCount);
     const menuRef = useRef(null);
     const isAuthenticated = useAuth();
     const dispatch = useDispatch();
@@ -31,6 +43,9 @@ const Navbar = () => {
         : unreadCount > 0
             ? `Open notifications, ${unreadCount} unread`
             : "Open notifications";
+    const savedDealsLabel = savedDealsCount > 0
+        ? `View saved deals, ${savedDealsCount} saved`
+        : "View saved deals";
 
 
     useEffect(() => {
@@ -48,6 +63,20 @@ const Navbar = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isOpen]);
+
+    useEffect(() => {
+        const updateSavedDealsCount = () => {
+            setSavedDealsCount(getSavedDealsCount());
+        };
+
+        window.addEventListener("storage", updateSavedDealsCount);
+        window.addEventListener("savedDealsUpdated", updateSavedDealsCount);
+
+        return () => {
+            window.removeEventListener("storage", updateSavedDealsCount);
+            window.removeEventListener("savedDealsUpdated", updateSavedDealsCount);
+        };
+    }, []);
 
     const hanldeLogOut = async () => {
         dispatch(userLoggedOut());
@@ -111,8 +140,13 @@ const Navbar = () => {
                             }
                         </div>
                         <div className='flex justify-center items-center gap-5 cursor-pointer mr-16 md:mr-0'>
-                            <NavLink to='/wish-list' aria-label="View wishlist" className={({ isActive }) => isActive ? 'text-[#4BBDCF] font-bold' : ''}>
+                            <NavLink to='/saved_deals' aria-label={savedDealsLabel} className={({ isActive }) => `relative ${isActive ? 'text-[#4BBDCF] font-bold' : ''}`}>
                                 <Heart size={22} aria-hidden="true" />
+                                {savedDealsCount > 0 && (
+                                    <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
+                                        {savedDealsCount > 99 ? "99+" : savedDealsCount}
+                                    </span>
+                                )}
                             </NavLink>
                             {
                                 user?.role === 'VENDOR' && <button
@@ -159,12 +193,12 @@ const Navbar = () => {
                     ref={menuRef}>
                     <div className="flex flex-col gap-2 p-3">
                         <NavLink
-                            to="/wish-list"
+                            to="/saved_deals"
                             className={({ isActive }) =>
                                 `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
                             }
                         >
-                            Wish List
+                            Saved Deals
                         </NavLink>
                         {
                             user?.role === 'ADMIN' && <NavLink

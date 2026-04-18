@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Countdown from "../home/deals/Countdown";
-import { Store, Trash } from "lucide-react";
+import { Heart, Store } from "lucide-react";
 
 const WishListCard = ({ deal, handleDeleteWistListId }) => {
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
 
     const handleWishListId = (event, id) => {
         event.stopPropagation();
-        handleDeleteWistListId(id);
+        handleDeleteWistListId?.(id);
     };
 
     const price = Number(reguler_price);
@@ -61,9 +61,15 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     <h3 className="text-base font-semibold text-[#262626] line-clamp-2 leading-tight">
                         {deal.title}
                     </h3>
-                    <div className="text-right cursor-pointer" onClick={(event) => handleWishListId(event, deal?._id)}>
-                        <Trash className="text-[#262626]" size={20} />
-                    </div>
+                    <button
+                        type="button"
+                        aria-label="Remove from saved deals"
+                        className="text-right cursor-pointer border-0 bg-transparent p-0"
+                        onClick={(event) => handleWishListId(event, deal?._id)}
+                        onKeyDown={(event) => event.stopPropagation()}
+                    >
+                        <Heart className="fill-[#4BBDCF] text-[#4BBDCF]" size={20} />
+                    </button>
                 </div>
 
                 <div className="flex items-center gap-1 mt-2 text-[#A3A3A3] text-sm">

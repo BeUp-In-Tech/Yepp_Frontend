@@ -40,6 +40,7 @@ const DealDetails = () => {
         if (!savedIds.includes(id)) {
             savedIds.push(id);
             localStorage.setItem("saveForLater", JSON.stringify(savedIds));
+            window.dispatchEvent(new Event("savedDealsUpdated"));
             toast.success("Successfully Added!");
         } else {
             toast.error("Already Added!");
