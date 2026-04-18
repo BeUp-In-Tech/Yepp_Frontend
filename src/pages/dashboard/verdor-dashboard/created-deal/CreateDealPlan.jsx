@@ -273,7 +273,7 @@ const CreateDealPlan = () => {
                                         Enter your coupon or voucher code to get a discount on this plan.
                                     </p>
 
-                                    <div className="flex items-center gap-2 bg-[#f4fbfc] border-[1.5px] border-[#d0eaed] rounded-xl pl-4 pr-1.5 py-1.5 transition-all duration-200 focus-within:border-[#1fa8ae] focus-within:shadow-[0_0_0_3px_rgba(31,168,174,0.12)]">
+                                    <div className="flex items-center gap-2 bg-[#f4fbfc] border-[1.5px] border-[#d0eaed] rounded-xl pl-4 pr-1.5 py-1.5 transition-all duration-200 focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(76,175,80,0.16)]">
                                         <input
                                             {...register("voucherCode")}
                                             placeholder="ABCD456"

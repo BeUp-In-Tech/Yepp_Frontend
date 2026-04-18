@@ -33,7 +33,7 @@ const Charts = () => {
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/25 cursor-pointer sm:w-36"
+                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-primary focus:ring-2 focus:ring-primary/25 cursor-pointer sm:w-36"
                     >
                         <option value="views">Views</option>
                         <option value="impressions">Impressions</option>
@@ -41,7 +41,7 @@ const Charts = () => {
                     <select
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
-                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-[#2B9DAE] focus:ring-2 focus:ring-[#2B9DAE]/25 cursor-pointer sm:w-32"
+                        className="min-w-0 rounded-lg border border-[#D4EEF3] bg-[#F8FCFD] px-3 py-2.5 text-sm font-semibold text-[#262626] shadow-sm outline-none transition-all duration-200 hover:border-[#4BBDCF] focus:border-primary focus:ring-2 focus:ring-primary/25 cursor-pointer sm:w-32"
                     >
                         {Object.keys(chatData?.data || {}).map((y) => (
                             <option key={y} value={y}>

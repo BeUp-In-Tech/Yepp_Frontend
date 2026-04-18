@@ -54,7 +54,7 @@ const Security = () => {
                             type="text"
                             placeholder="********************"
                             {...register("currentPassword", { required: "Current password is required" })}
-                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all"
+                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -66,7 +66,7 @@ const Security = () => {
                                 required: "New password is required",
                                 minLength: { value: 8, message: "Must be at least 8 characters" }
                             })}
-                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all"
+                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all"
                         />
                     </div>
                     <div>
@@ -77,7 +77,7 @@ const Security = () => {
                             {...register("confirmPassword", {
                                 validate: value => value === newPassword || "Passwords do not match"
                             })}
-                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all"
+                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all"
                         />
                         {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
                     </div>

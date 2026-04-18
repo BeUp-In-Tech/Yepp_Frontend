@@ -59,7 +59,7 @@ const EmailSending = () => {
                         })}
                         className={`w-full pl-10 pr-5 py-3 rounded-full border-2 outline-none text-gray-700 text-base transition-colors ${errors.email
                             ? "border-gray-300"
-                            : "focus:border-[#3ab0c2] border-gray-300"
+                            : "focus:border-primary border-gray-300"
                             }`}
                     />
                 </div>

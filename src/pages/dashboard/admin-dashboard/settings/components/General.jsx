@@ -22,7 +22,7 @@ const General = () => {
                                 {...register("appName", { required: "App name is required" })}
                                 type="text"
                                 placeholder="App Name"
-                                className={`w-full px-4 py-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:ring-2 transition-all placeholder-gray-400 ${errors.appName ? 'border-red-400 focus:ring-red-100' : 'border-gray-200 focus:ring-cyan-500/20 focus:border-cyan-500'
+                                className={`w-full px-4 py-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:ring-2 transition-all placeholder-gray-400 ${errors.appName ? 'border-red-400 focus:ring-red-100' : 'border-gray-200 focus:ring-primary/20 focus:border-primary'
                                     }`}
                             />
                             {errors.appName && <span className="text-xs text-red-500">{errors.appName.message}</span>}
@@ -39,7 +39,7 @@ const General = () => {
                                 })}
                                 type="email"
                                 placeholder="example.support@gmail.com"
-                                className={`w-full px-4 py-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:ring-2 transition-all placeholder-gray-400 ${errors.supportEmail ? 'border-red-400 focus:ring-red-100' : 'border-gray-200 focus:ring-cyan-500/20 focus:border-cyan-500'
+                                className={`w-full px-4 py-2.5 bg-gray-50 border rounded-lg focus:outline-none focus:ring-2 transition-all placeholder-gray-400 ${errors.supportEmail ? 'border-red-400 focus:ring-red-100' : 'border-gray-200 focus:ring-primary/20 focus:border-primary'
                                     }`}
                             />
                             {errors.supportEmail && <span className="text-xs text-red-500">{errors.supportEmail.message}</span>}
@@ -49,7 +49,7 @@ const General = () => {
                             <div className="relative">
                                 <select
                                     {...register("currency")}
-                                    className="w-full appearance-none px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all text-gray-600"
+                                    className="w-full appearance-none px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-gray-600"
                                 >
                                     <option value="USD ($)">USD ($)</option>
                                     <option value="EUR (€)">EUR (€)</option>
@@ -63,7 +63,7 @@ const General = () => {
                             <div className="relative">
                                 <select
                                     {...register("timezone")}
-                                    className="w-full appearance-none px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all text-gray-600"
+                                    className="w-full appearance-none px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-gray-600"
                                 >
                                     <option value="UTC">UTC</option>
                                     <option value="EST">EST</option>

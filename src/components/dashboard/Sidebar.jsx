@@ -49,42 +49,42 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     <nav className="flex-1">
                         <ul className='space-y-2 pr-5 mt-4 pl-3.5'>
                             <p className='text-primary font-semibold text-lg'>Main</p>
-                            <NavLink to='/dashboard/admin-dashboard' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-dashboard' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <LayoutDashboard size={17} />
                                 <span>Dashboard</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-vendor' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-vendor' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <Store size={17} />
                                 <span>Shop</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-deals' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-deals' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <Tag size={18} />
                                 <span>Deals</span>
                             </NavLink>
                         </ul>
                         <ul className='space-y-2 pr-5 mt-4 pl-3.5'>
                             <p className='text-primary font-semibold text-lg'>Management</p>
-                            <NavLink to='/dashboard/admin-payments' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-payments' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <CreditCard size={18} />
                                 <span>Payments</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-content' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-content' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <TicketX size={19} />
                                 <span>Content</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-voucher' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-voucher' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <BookText size={19} />
                                 <span>Vouchers</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-plan' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-plan' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <FolderKanban size={19}/>
                                 <span>Plans</span>
                             </NavLink>
-                            <NavLink to='/dashboard/admin-notification' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            <NavLink to='/dashboard/admin-notification' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <BellRing size={18} />
                                 <span>Notification</span>
                             </NavLink>
-                            {/* <NavLink to='/dashboard/admin-settings' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[#4BBDCF] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[#4BBDCF]' : 'pl-3 text-white'}`}>
+                            {/* <NavLink to='/dashboard/admin-settings' className={({ isActive }) => `flex items-center gap-1 w-full py-3 ease-in-out text-base font-semibold hover:bg-[#F9F0FF] hover:text-secondary hover:border-[var(--primary-color)] hover:border-l-8 hover:rounded-sm  ${isActive ? 'bg-[#F9F0FF] py-2 pl-3 rounded-sm text-primary border-l-8 border-[var(--primary-color)]' : 'pl-3 text-white'}`}>
                                 <Settings size={18} />
                                 <span>Settings</span>
                             </NavLink> */}

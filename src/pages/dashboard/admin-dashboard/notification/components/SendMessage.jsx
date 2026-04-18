@@ -18,7 +18,7 @@ const SendMessage = () => {
                             <input
                                 {...register("title")}
                                 placeholder="Notification Title"
-                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
 
@@ -28,7 +28,7 @@ const SendMessage = () => {
                                 {...register("message")}
                                 rows="6"
                                 placeholder="write your message here"
-                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
                         <div>

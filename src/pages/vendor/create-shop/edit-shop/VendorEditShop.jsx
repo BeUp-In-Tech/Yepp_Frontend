@@ -144,7 +144,7 @@ const VendorEditShop = () => {
                                     placeholder="Enter your business name"
                                     className={`w-full pl-12 pr-4 py-4 border rounded-full outline-none transition-all ${errors.businessName
                                         ? "border-red-500"
-                                        : "border-gray-300 focus:border-[#2B9DAE]"
+                                        : "border-gray-300 focus:border-primary"
                                         }`}
                                 />
                             </div>
@@ -222,7 +222,7 @@ const VendorEditShop = () => {
                                         placeholder="Business email"
                                         className={`w-full pl-12 pr-4 py-4 border rounded-full outline-none transition-all ${errors.email
                                             ? "border-red-500"
-                                            : "border-gray-300 focus:border-[#2B9DAE]"
+                                            : "border-gray-300 focus:border-primary"
                                             }`}
                                     />
                                 </div>
@@ -240,7 +240,7 @@ const VendorEditShop = () => {
                                 <input
                                     {...register("website")}
                                     placeholder="Website link"
-                                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-[#2B9DAE] outline-none transition-all"
+                                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-primary outline-none transition-all"
                                 />
                             </div>
                         </div>
@@ -253,7 +253,7 @@ const VendorEditShop = () => {
                                     {...register("description", { maxLength: MAX_DESCRIPTION })}
                                     placeholder="Business Description"
                                     rows="3"
-                                    className="w-full p-5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2B9DAE]/20 focus:border-[#2B9DAE] outline-none resize-none transition-all"
+                                    className="w-full p-5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none transition-all"
                                 />
                                 <span
                                     className={`absolute bottom-4 right-5 text-sm font-medium ${descriptionValue.length > MAX_DESCRIPTION ? "text-red-500" : "text-gray-400"

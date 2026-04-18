@@ -96,7 +96,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="text"
                                 placeholder="Categories Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_name', {
                                     required: 'Category name required',
                                 })}
@@ -112,7 +112,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="file"
                                 accept="image/*"
-                                className="w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_image')}
                             />
                         </div>

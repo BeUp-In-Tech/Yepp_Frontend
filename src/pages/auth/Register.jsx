@@ -75,7 +75,7 @@ const Register = () => {
                             <input
                                 type="text"
                                 placeholder="User Name"
-                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('username', { required: 'User name is required' })}
                             />
                         </div>
@@ -88,7 +88,7 @@ const Register = () => {
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('email', { required: 'Email is required' })}
                             />
                         </div>
@@ -101,7 +101,7 @@ const Register = () => {
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Password"
-                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('password', { required: 'Password is required' })}
                             />
                             <button
@@ -120,7 +120,7 @@ const Register = () => {
                             <input
                                 type={confirmPassword ? 'text' : 'password'}
                                 placeholder="Confirm Password"
-                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('conpassword', {
                                     required: 'Confirm password is required',
                                     validate: (val) =>

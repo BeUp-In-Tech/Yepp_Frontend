@@ -40,7 +40,7 @@ const PasswordChange = ({ setActiveTab }) => {
                         <input
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Old password"
-                            className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                            className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                             {...register('oldPassword', { required: 'Old password is required' })}
                         />
                         <button
@@ -61,7 +61,7 @@ const PasswordChange = ({ setActiveTab }) => {
                         <input
                             type={showNewPassword ? 'text' : 'password'}
                             placeholder="New password"
-                            className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                            className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                             {...register('newPassword', { required: 'New password is required' })}
                         />
                         <button

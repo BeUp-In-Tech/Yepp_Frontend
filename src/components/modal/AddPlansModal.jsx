@@ -58,7 +58,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="text"
                                 placeholder="Plam Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder:text-gray-800"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-gray-800"
                                 {...register('plan_name', {
                                     required: 'Paln name required',
                                 })}
@@ -75,7 +75,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="number"
                                 placeholder="Plan price"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder:text-gray-800"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-gray-800"
                                 {...register('paln_price', {
                                     required: 'Plan Price required',
                                 })}
@@ -92,7 +92,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="number"
                                 placeholder="Plan duration day"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder:text-gray-800"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-gray-800"
                                 {...register('plan_duration', {
                                     required: 'Plan duration required',
                                 })}
@@ -110,7 +110,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                                 type="text"
                                 placeholder="Plan short description"
                                 rows={3}
-                                className="mt-2 w-full px-6 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 placeholder:text-gray-800"
+                                className="mt-2 w-full px-6 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-gray-800"
                                 {...register('plan_description', {
                                     required: 'Plan description required',
                                 })}
@@ -127,7 +127,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="file"
                                 placeholder="User Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('photo', {
                                     required: 'Upload photo',
                                 })}

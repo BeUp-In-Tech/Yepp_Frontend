@@ -107,7 +107,7 @@ const EditOutlet = ({ outletNumber }) => {
                             <Store className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                                 placeholder="Enter outlet name"
                                 {...register("outlet_name", {
                                     required: "Outlet name is required",
@@ -129,7 +129,7 @@ const EditOutlet = ({ outletNumber }) => {
                             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                                 placeholder="Shop name, street, city"
                                 {...register("address", {
                                     required: "Address is required",
@@ -178,7 +178,7 @@ const EditOutlet = ({ outletNumber }) => {
                         </label>
                         <input
                             type="text"
-                            className="w-full mt-2 px-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                            className="w-full mt-2 px-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                             placeholder="Zip code"
                             {...register("zip_code", {
                                 required: "Zip code is required",

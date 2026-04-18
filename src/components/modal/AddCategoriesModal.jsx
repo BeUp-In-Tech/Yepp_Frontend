@@ -36,7 +36,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
     
     return (
         <div
-            className="fxeid inset-0 z-50 flex items-center justify-center p-4 bg-black/10 backdrop-blur-xs overflow-y-auto pt-36"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/10 backdrop-blur-xs overflow-y-auto pt-36"
             onClick={toggleModal}>
             <div
                 className="relative w-full max-w-125 p-6 bg-white rounded-xl shadow-2xl animate-in fade-in zoom-in duration-200 "
@@ -54,7 +54,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="text"
                                 placeholder="Categories Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_name', {
                                     required: 'User name required',
                                 })}
@@ -70,7 +70,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="file"
                                 placeholder="User Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400 "
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary "
                                 {...register('photo', {
                                     required: 'Upload photo',
                                 })}
