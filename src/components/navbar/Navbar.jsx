@@ -127,7 +127,7 @@ const Navbar = () => {
                                     :
                                     <NavLink
                                         to='/login'
-                                        className='bg-[#4BBDCF] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2 rounded-full cursor-pointer'
+                                        className='bg-[#4CAF50] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2 rounded-full cursor-pointer'
                                     >
                                         Sign In
                                     </NavLink>

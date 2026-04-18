@@ -34,8 +34,9 @@ const Table = ({ vednorData }) => {
         setOpenDropdownId(null);
         shopApprovedEdit({
             id: id,
-            data: {shop_approval:status},
-        })
+            data: { shop_approval: status },
+        });
+        window.location.reload();
     };
 
     return (

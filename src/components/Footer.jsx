@@ -8,13 +8,6 @@ const Footer = () => {
         <footer className="w-full bg-[#F0F9FF]">
             <div className='px-4 sm:px-6 lg:px-8'>
                 <div className="max-w-305 mx-auto pt-8 sm:pt-9">
-                    {/* Logo Section */}
-                    <div className="mb-8 sm:mb-10 flex justify-start">
-                        <Link to="/" className="">
-                            <img src={images.logoIocn} className='h-12 w-full' alt="logo" />
-                        </Link>
-                    </div>
-
                     <div className="grid gap-8 pb-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-start">
                         <div className="flex flex-col items-start gap-4 sm:flex-row">
                             <div className="shrink-0 border-2 border-[#4BBDCF] p-1.5 rounded-md bg-white">

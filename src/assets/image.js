@@ -29,7 +29,7 @@ import impression from './images/impression.png';
 import homeIcon from './images/image/homeIcon.svg';
 import dealIcon from './images/image/edit.svg';
 import contentIcon from './images/image/contentIcon.svg';
-import logoIocn from './images/image/logo.svg';
+import logoIocn from './images/logo.png';
 import whatapp from './images/whatsapp.png';
 import messanger from './images/facebook.png';
 import copy from './images/copy.png';

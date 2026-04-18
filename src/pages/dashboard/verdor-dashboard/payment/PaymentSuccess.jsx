@@ -10,6 +10,8 @@ const PaymentSuccess = () => {
     const brandTealHover = "hover:bg-[#3da1ab]";
     const brandText = "text-[#4db8c2]";
 
+    console.log(dealId, transectionId);
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#f0f9ff] px-4">
             <div className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl max-w-md w-full p-10 text-center border border-blue-50">

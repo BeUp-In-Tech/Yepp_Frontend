@@ -8,14 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CreateVoucherModal = ({ isOpen, toggleModal }) => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            voucher_code: "ABCD123",
-            voucher_discount: "20",
-            voucher_limit: 200,
-            voucher_validity: new Date(
-                new Date().setDate(new Date().getDate() + 7)
-            ).toISOString().split("T")[0]
-        }
+        defaultValues: {}
     });
     const [createVoucher, { isLoading, error, isSuccess }] = useCreateVoucherMutation();
 

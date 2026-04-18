@@ -48,18 +48,18 @@ const BothNavbar = () => {
                         </Link>
                     </div>
                     <div className='flex justify-between items-center gap-5 lg:gap-20'>
-                        <div className="hidden sm:flex items-center space-x-5 lg:space-x-10 rounded-full">
+                        <div className="hidden md:flex items-center space-x-4 lg:space-x-10 rounded-full">
                             <NavLink to='/shop-overview' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>Dashboard</NavLink>
                             <NavLink to='/my-deals' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Deals</NavLink>
                             <NavLink to='/my-profile' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Profile</NavLink>
                         </div>
-                        <div className='hidden sm:block'>
-                            <div className='bg-[#4BBDCF] hover:bg-[#3db0c1] px-6 py-2.5 rounded-full flex items-center gap-2 cursor-pointer'>
+                        <div className='hidden md:block'>
+                            <div className='bg-[#4BBDCF] hover:bg-[#3db0c1] px-4 lg:px-6 py-2.5 rounded-full flex items-center gap-2 cursor-pointer'>
                                 <img src={images.switchIcon} alt="" aria-hidden="true" />
                                 <Link to='/' className='text-[#FFFFFF] text-base font-bold cursor-pointer'>Switch to user mode</Link>
                             </div>
                         </div>
-                        <div className='flex justify-center items-center gap-5 cursor-pointer mr-16 sm:mr-0'>
+                        <div className='flex justify-center items-center gap-5 cursor-pointer mr-16 md:mr-0'>
                             <button
                                 type="button"
                                 aria-label={notificationLabel}
@@ -83,7 +83,7 @@ const BothNavbar = () => {
                     }
 
                     {/* Mobile Menu Button */}
-                    <div className="sm:hidden absolute z-50 right-3">
+                    <div className="md:hidden absolute z-50 right-3">
                         <button
                             type="button"
                             aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -98,7 +98,7 @@ const BothNavbar = () => {
                 {/* Mobile Menu Overlay */}
                 <div
                     id="vendor-mobile-menu"
-                    className={`sm:hidden absolute left-4 right-4 top-full z-20 overflow-hidden rounded-lg border border-slate-100 bg-white/95 text-black shadow-xl backdrop-blur transition-all duration-300 ease-out
+                    className={`md:hidden absolute left-4 right-4 top-full z-20 overflow-hidden rounded-lg border border-slate-100 bg-white/95 text-black shadow-xl backdrop-blur transition-all duration-300 ease-out
                    ${isOpen ? "mt-3 max-h-96 opacity-100 translate-y-0" : "mt-0 max-h-0 opacity-0 -translate-y-2 pointer-events-none"}`}
                     ref={menuRef}>
                     <div className="flex flex-col gap-2 p-3">

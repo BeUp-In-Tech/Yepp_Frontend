@@ -49,8 +49,8 @@ export const dealApi = apiSlice.injectEndpoints({
             providesTags: ["Deals"],
         }),
         getMyDeals: builder.query({
-            query: (text) => ({
-                url: `/service/my_deals?join=shop-business_name|business_logo,category-category_name|category_logo&fields=title,images,reguler_price,discount,promotedUntil,activePromotion&page=1&limit=20&searchTerm=${text}`,
+            query: ({ text, openTab }) => ({
+                url: `/service/my_deals?deal_filter=${openTab}&join=shop-business_name|business_logo,category-category_name|category_logo&fields=title,images,reguler_price,discount,promotedUntil,activePromotion&page=1&limit=20&searchTerm=${text}`,
                 method: "GET",
                 credentials: "include",
             }),

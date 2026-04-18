@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import ShopcreateRoute from "./ShopcreateRoute";
 import InitialPageLoader from "../components/skeleton/InitialPageLoader";
+import PaymentSuccess from "../pages/dashboard/verdor-dashboard/payment/PaymentSuccess";
 
 // Lazy loaded pages
 const Home = lazy(() => import("../pages/home/Home"));
@@ -45,7 +46,7 @@ const Plans = lazy(() => import("../pages/dashboard/admin-dashboard/plans/Plans"
 const Deals = lazy(() => import("../pages/dashboard/verdor-dashboard/deals/Deals"));
 const VendorCreateDeal = lazy(() => import("../pages/dashboard/verdor-dashboard/created-deal/VendorCreateDeal"));
 const CreateDealPlan = lazy(() => import("../pages/dashboard/verdor-dashboard/created-deal/CreateDealPlan"));
-const PaymentSuccess = lazy(() => import("../pages/dashboard/verdor-dashboard/payment/PaymentSuccess"));
+// const PaymentSuccess = lazy(() => import("../pages/dashboard/verdor-dashboard/payment/PaymentSuccess"));
 const PaymentCancel = lazy(() => import("../pages/dashboard/verdor-dashboard/payment/PaymentCancel"));
 const VendorEditDeal = lazy(() => import("../pages/dashboard/verdor-dashboard/edit-deal/VendorEditDeal"));
 const Menu = lazy(() => import("../pages/dashboard/verdor-dashboard/menu/Menu"));
@@ -155,14 +156,14 @@ function AppRoutes() {
               <Route path="/show-outlets" element={<ShowOutlets />} />
               <Route path="/show-outlets/:id" element={<ShowOutlets />} />
               <Route path="/all-top-views" element={<AllTopViewsDeal />} />
+              <Route path="/payment_success" element={<PaymentSuccess />} />
+              <Route path="/payment_cancel" element={<PaymentCancel />} />
             </Route>
 
             <Route element={<DashboardLayout />}>
               <Route path="/vendor/dashboard/deals" element={<Deals />} />
               <Route path="/vendor/dashboard/create-deal" element={<VendorCreateDeal />} />
               <Route path="/vendor/dashboard/create-deal-plan" element={<CreateDealPlan />} />
-              <Route path="/vendor/dashboard/payment-success" element={<PaymentSuccess />} />
-              <Route path="/vendor/dashboard/payment-cancel" element={<PaymentCancel />} />
               <Route path="/vendor/dashboard/edit-deal" element={<VendorEditDeal />} />
             </Route>
           </Route>

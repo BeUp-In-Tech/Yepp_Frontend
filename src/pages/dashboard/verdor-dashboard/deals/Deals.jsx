@@ -10,11 +10,14 @@ const ROWS_PER_PAGE = Number(import.meta.env.VITE_ROWS_PER_PAGE) || 10;
 
 const Deals = () => {
     const [searchText, setSearchText] = useState("");
-    const [activeTab, setActiveTab] = useState("Active");
+    const [activeTab, setActiveTab] = useState("promoted");
     const [currentPage, setCurrentPage] = useState(1);
     const [now, setNow] = useState(new Date());
 
-    const { data: myDeals, isLoading } = useGetMyDealsQuery(searchText);
+    const { data: myDeals, isLoading } = useGetMyDealsQuery({
+        text: searchText,
+        openTab: activeTab
+    });
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -50,11 +53,11 @@ const Deals = () => {
 
     const currentTabDeals = useMemo(() => {
         switch (activeTab) {
-            case "Active":
+            case "promoted":
                 return activeDeals;
-            case "Expired":
+            case "expired":
                 return expiredDeals;
-            case "new_deal":
+            case "new":
                 return newDeals;
             default:
                 return [];
@@ -93,15 +96,17 @@ const Deals = () => {
         return <DealCardSkeleton />;
     }
 
+    console.log(myDeals);
+
     return (
         <div className="bg-white min-h-screen px-4 pt-32 pb-12">
             <div className="max-w-305 mx-auto">
-                <div className="flex flex-col sm:flex-row items-center gap-3">
+                <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="px-5 py-1 max-w-100 w-full rounded-full flex items-center gap-1 font-medium border border-[#737373] cursor-pointer">
                         <Search className="text-[#737373]" size={20} />
                         <input
                             type="text"
-                            className="w-full py-1 sm:py-2 outline-0 text-[#262626] text-base"
+                            className="w-full py-1 md:py-2 outline-0 text-[#262626] text-base"
                             value={searchText}
                             onChange={(e) => setSearchText(e.target.value)}
                             placeholder="Search your deals...."
@@ -110,7 +115,7 @@ const Deals = () => {
 
                     <Link
                         to="/create-deal"
-                        className="bg-[#4BBDCF] hover:bg-[#3db0c1] px-10 sm:px-20 py-2.5 sm:py-3.5 rounded-full flex items-center gap-1 text-white text-base font-bold max-w-100 sm:max-w-75 w-full cursor-pointer"
+                        className="bg-[#4BBDCF] hover:bg-[#3db0c1] px-10 md:px-20 py-2.5 md:py-3.5 rounded-full flex items-center justify-center gap-1 text-white text-base font-bold max-w-100 md:max-w-75 w-full cursor-pointer"
                     >
                         <span>
                             <Plus />
@@ -119,11 +124,11 @@ const Deals = () => {
                     </Link>
                 </div>
 
-                <div className="flex items-center justify-between mt-8 sm:mt-12.5 border-b border-gray-200">
-                    <div className="flex items-center gap-1 sm:gap-3 pb-3 overflow-x-auto">
+                <div className="flex items-center justify-between mt-8 md:mt-12.5 border-b border-gray-200">
+                    <div className="flex w-full items-center gap-1 sm:gap-3 pb-3 overflow-x-auto no-scrollbar">
                         <button
-                            onClick={() => setActiveTab("Active")}
-                            className={`rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "Active"
+                            onClick={() => setActiveTab("promoted")}
+                            className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "promoted"
                                 ? "bg-[#4BBDCF] text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
@@ -132,8 +137,8 @@ const Deals = () => {
                         </button>
 
                         <button
-                            onClick={() => setActiveTab("Expired")}
-                            className={`rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "Expired"
+                            onClick={() => setActiveTab("expired")}
+                            className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "expired"
                                 ? "bg-[#4BBDCF] text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
@@ -142,8 +147,8 @@ const Deals = () => {
                         </button>
 
                         <button
-                            onClick={() => setActiveTab("new_deal")}
-                            className={`rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "new_deal"
+                            onClick={() => setActiveTab("new")}
+                            className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "new"
                                 ? "bg-[#4BBDCF] text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
