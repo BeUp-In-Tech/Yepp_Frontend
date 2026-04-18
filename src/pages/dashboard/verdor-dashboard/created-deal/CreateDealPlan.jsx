@@ -288,7 +288,7 @@ const CreateDealPlan = () => {
                                                 disabled:opacity-50 disabled:cursor-not-allowed
                                                 ${isSuccess
                                                     ? 'bg-linear-to-br from-[#1fa8ae] to-[#2dd4bf]'
-                                                    : 'bg-[#0f1f2e] hover:bg-[#1a3347] active:scale-[0.97]'
+                                                    : 'bg-primary hover:bg-secondary active:scale-[0.97]'
                                                 }`}
                                             style={{ fontFamily: "'Sora', sans-serif" }}
                                         >

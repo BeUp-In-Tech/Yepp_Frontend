@@ -55,7 +55,7 @@ const Menu = () => {
 
                     {/* Left Column: Business Details */}
                     <div className="space-y-6">
-                        <h2 className="text-xl font-bold text-[#2B9DAE]">Business Details</h2>
+                        <h2 className="text-xl font-bold text-primary">Business Details</h2>
 
                         <div className="space-y-1">
                             <label className="block text-base font-medium text-[#262626]">Business Name</label>
@@ -94,7 +94,7 @@ const Menu = () => {
                                 </div>
                                 <div className="flex flex-col gap-3">
                                     <span className="text-sm text-[#737373] uppercase tracking-wider font-bold">JPEG, PNG or PDF max 10 MB</span>
-                                    <label className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white px-6 py-2.5 rounded-full flex items-center gap-2 text-sm font-medium cursor-pointer transition-colors w-fit">
+                                    <label className="bg-primary hover:bg-secondary text-white px-6 py-2.5 rounded-full flex items-center gap-2 text-sm font-medium cursor-pointer transition-colors w-fit">
                                         <Plus className="w-4 h-4" /> Upload from files
                                         <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                                     </label>
@@ -121,7 +121,7 @@ const Menu = () => {
                     {/* Right Column */}
                     <div className="space-y-8">
                         <div className="space-y-6">
-                            <h2 className="text-xl font-bold text-[#2B9DAE]">Contact Information</h2>
+                            <h2 className="text-xl font-bold text-primary">Contact Information</h2>
 
                             <div className="space-y-1">
                                 <label className="block text-base font-medium text-[#262626]">Email</label>
@@ -153,7 +153,7 @@ const Menu = () => {
                         </div>
 
                         <div className="space-y-6">
-                            <h2 className="text-xl font-bold text-[#2B9DAE]">Location Details</h2>
+                            <h2 className="text-xl font-bold text-primary">Location Details</h2>
                             <div className="space-y-1">
                                 <label className="block text-base font-medium text-[#262626]">Location</label>
                                 <div className="relative">
@@ -182,7 +182,7 @@ const Menu = () => {
                     <div className="md:col-span-2 flex justify-center mt-8">
                         <button
                             type="submit"
-                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3.5 px-16 rounded-full shadow-lg transition-all transform cursor-pointer"
+                            className="bg-primary hover:bg-secondary text-white font-bold py-3.5 px-16 rounded-full shadow-lg transition-all transform cursor-pointer"
                         >
                             Save Changes
                         </button>

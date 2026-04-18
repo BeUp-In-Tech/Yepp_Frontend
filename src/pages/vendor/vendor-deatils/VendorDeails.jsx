@@ -25,7 +25,7 @@ const VendorDeails = () => {
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
     const businessName = shopDetails?.data?.business_name;
     return (
-        <div className="bg-white pt-36 px-4">
+        <div className="bg-white pt-48 px-4">
             <div className="max-w-305 mx-auto">
                 <div className="flex flex-col">
                     <div className="flex flex-col md:flex-row gap-3">
@@ -46,10 +46,10 @@ const VendorDeails = () => {
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-4 py-10">
-                        <button onClick={() => setActiveTab('active-deals')} className={`w-full sm:w-auto px-10 py-2.5 ${activeTab === 'active-deals' ? 'bg-[#4db8c9] hover:bg-[#3da7b8] text-white' : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-400'} text-xl font-medium rounded-full transition-colors duration-200`}>
+                        <button onClick={() => setActiveTab('active-deals')} className={`w-full sm:w-auto px-10 py-2.5 ${activeTab === 'active-deals' ? 'bg-primary hover:bg-secondary text-white' : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-400'} text-xl font-medium rounded-full transition-colors duration-200`}>
                             Active Deals
                         </button>
-                        <button onClick={() => setActiveTab('address')} className={`w-full sm:w-auto px-10 py-2.5 ${activeTab === 'address' ? 'bg-[#4db8c9] hover:bg-[#3da7b8] text-white' : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-400'} text-xl font-medium rounded-full transition-colors duration-200`}>
+                        <button onClick={() => setActiveTab('address')} className={`w-full sm:w-auto px-10 py-2.5 ${activeTab === 'address' ? 'bg-primary hover:bg-secondary text-white' : 'bg-white border border-gray-300 hover:bg-gray-50 text-gray-400'} text-xl font-medium rounded-full transition-colors duration-200`}>
                             Address & Location
                         </button>
                     </div>

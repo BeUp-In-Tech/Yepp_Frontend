@@ -10,7 +10,7 @@ export const StatCardOne = ({ total_revenue }) => {
                 {/* <p className="text-base mt-1 font-medium"> <span className="text-[#34C759]">+12%</span> last month</p> */}
             </div>
             <div className="bg-[#F9F0FF] p-4 rounded-md">
-                <TrendingUp className="text-[#2B9DAE]" size={28} />
+                <TrendingUp className="text-primary" size={28} />
             </div>
         </div>
     );

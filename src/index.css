@@ -2,6 +2,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #79be7b;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.hover\:bg-secondary:hover {
+  background-color: var(--secondary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.hover\:text-secondary:hover {
+  color: var(--secondary-color);
+}
+
+.group:hover .group-hover\:text-secondary {
+  color: var(--secondary-color);
+}
+
+.fill-primary {
+  fill: var(--primary-color);
+}
+
 body {
   font-family: "Manrope", sans-serif;
 }
@@ -28,7 +65,7 @@ html {
   background-position: 30% 70%;
 }
 
-.forget-bg-image{
+.forget-bg-image {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 100% 25%;
@@ -50,9 +87,11 @@ html {
   0% {
     opacity: 0.7;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0.7;
   }

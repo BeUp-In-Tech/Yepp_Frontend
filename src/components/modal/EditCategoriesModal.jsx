@@ -135,7 +135,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                             <button
                                 type="submit"
                                 disabled={editLoading}
-                                className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl w-full flex justify-center items-center">
+                                className="bg-primary hover:bg-secondary text-white font-bold py-3 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl w-full flex justify-center items-center">
                                 {editLoading ? (
                                     <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                                 ) : (

@@ -17,7 +17,7 @@ const DealCard = ({ deal }) => {
                     alt={deal.title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-white shadow-lg text-[#00444E] text-sm font-bold px-1.5 py-1 rounded">
+                <div className="absolute top-3 left-3 bg-white shadow-lg text-primary text-sm font-bold px-1.5 py-1 rounded">
                     <div className="flex items-center gap-1">
                         <Eye size={20} />
                         <span>{String(totalViews || 0).padStart(2, "0")}</span>
@@ -53,7 +53,7 @@ const DealCard = ({ deal }) => {
                         </div>
                     }
                 </div>
-                <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now
                 </span>
             </div>

@@ -39,7 +39,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           <div className="w-full space-y-3 mb-4 px-2">
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Price:</span>
-              <span className="text-[#4dbbc4] font-bold text-xl">${discount_price.toFixed(2)}</span>
+              <span className="text-primary font-bold text-xl">${discount_price.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Regular:</span>
@@ -53,7 +53,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
             </div>
           </div>
           <div className="text-center mb-4">
-            <p className="text-[#4dbbc4] font-bold tracking-wide">
+            <p className="text-primary font-bold tracking-wide">
               You save ${price_saved.toFixed(2)}
             </p>
           </div>
@@ -63,7 +63,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-2.5 cursor-pointer rounded-full text-sm font-extrabold uppercase tracking-wider transition-all duration-200 ${activeTab === tab
-                  ? 'bg-[#4dbbc4] text-white shadow-lg'
+                  ? 'bg-primary text-white shadow-lg'
                   : 'text-gray-400 hover:text-gray-600'
                   }`}
               >
@@ -77,13 +77,13 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
             {activeTab === 'coupon' && (
               <div className="w-full animate-in fade-in slide-in-from-bottom-2">
                 <div className="bg-[#e6f7f8] border-2 border-[#4dbbc4]/30 rounded-2xl p-6 text-center">
-                  <span className="block text-xs text-[#4dbbc4] font-bold mb-2 uppercase tracking-widest">Promo Code</span>
+                  <span className="block text-xs text-primary font-bold mb-2 uppercase tracking-widest">Promo Code</span>
                   <h3 className="text-4xl font-black text-gray-800 mb-5 tracking-tighter">
                     {coupon}
                   </h3>
                   <button
                     onClick={handleCopy}
-                    className={`flex items-center gap-2 mx-auto px-8 py-3 rounded-xl font-bold transition-all cursor-pointer ${copied ? 'bg-emerald-500 text-white' : 'bg-[#4dbbc4] text-white hover:bg-[#3daab3] hover:shadow-md'
+                    className={`flex items-center gap-2 mx-auto px-8 py-3 rounded-xl font-bold transition-all cursor-pointer ${copied ? 'bg-emerald-500 text-white' : 'bg-primary text-white hover:bg-secondary hover:shadow-md'
                       }`}
                   >
                     {copied ? <Check size={20} /> : <Copy size={20} />}
@@ -123,7 +123,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           {/* Final Action */}
           <button
             onClick={() => setIsOpen(false)}
-            className="w-full bg-[#4dbbc4] text-white cursor-pointer py-3 rounded-full font-black text-lg mt-8 mb-3 shadow-[0_10px_20px_-5px_rgba(77,187,196,0.4)] hover:shadow-[0_15px_25px_-5px_rgba(77,187,196,0.5)] active:scale-[0.98] transition-all">
+            className="w-full bg-primary text-white cursor-pointer py-3 rounded-full font-black text-lg mt-8 mb-3 shadow-[0_10px_20px_-5px_rgba(77,187,196,0.4)] hover:shadow-[0_15px_25px_-5px_rgba(77,187,196,0.5)] active:scale-[0.98] transition-all">
             Close Deal
           </button>
         </div>

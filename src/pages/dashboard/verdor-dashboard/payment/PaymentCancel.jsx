@@ -6,8 +6,8 @@ const PaymentCancel = () => {
     const params = new URLSearchParams(location.search);
     const dealId = params.get("deal_id");
 
-    const brandRed = "bg-[#ef4444]";
-    const brandRedHover = "hover:bg-[#dc2626]";
+    const brandRed = "bg-primary";
+    const brandRedHover = "hover:bg-secondary";
     const brandText = "text-[#ef4444]";
     return (
         <div className="min-h-screen flex items-center justify-center px-4">

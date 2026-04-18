@@ -28,8 +28,8 @@ const CategoryHeader = () => {
                     to="/categories"
                     className={({ isActive }) =>
                         `shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${isActive
-                            ? "bg-[#4BBDCF] text-white"
-                            : "bg-[#f0f9ff] text-[#00616F] hover:bg-[#E0F2FE]"
+                            ? "bg-primary text-white"
+                            : "bg-[#f0f9ff] text-primary hover:bg-[#E0F2FE]"
                         }`
                     }>
                     See all

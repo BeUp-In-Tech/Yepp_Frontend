@@ -91,7 +91,7 @@ const VaucherTable = () => {
                                 </td>
                                 <td className="py-4 px-6 text-right">
                                     <div className="flex justify-end gap-3">
-                                        <button onClick={() => handleEdidtVoucher(voucher?._id)} className="bg-blue-50 hover:bg-[#4BBDCF] text-[#177988] hover:text-white py-1.5 px-4 rounded-sm text-sm font-medium transition-colors border border-[#4BBDCF] cursor-pointer">
+                                        <button onClick={() => handleEdidtVoucher(voucher?._id)} className="bg-primary hover:bg-secondary text-white py-1.5 px-4 rounded-sm text-sm font-medium transition-colors border border-[#4BBDCF] cursor-pointer">
                                             Edit
                                         </button>
                                         <button onClick={() => openConfirm(voucher?._id)} className="bg-red-50 hover:bg-red-600 text-red-600 hover:text-white py-1.5 px-4 rounded-sm text-sm font-medium transition-colors border border-red-200 cursor-pointer">

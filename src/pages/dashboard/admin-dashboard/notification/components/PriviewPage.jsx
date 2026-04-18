@@ -22,7 +22,7 @@ const PriviewPage = () => {
                 <hr className="mb-4 border-gray-100" />
                 <h4 className="font-bold mb-1 text-gray-800">Notification Title</h4>
                 <p className="text-sm text-gray-500 mb-6 leading-relaxed">Your notification message will appear</p>
-                <button className="bg-[#4FBCC8] text-white px-4 py-2 rounded-md text-sm font-medium">
+                <button className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium">
                     View Deals
                 </button>
             </div>

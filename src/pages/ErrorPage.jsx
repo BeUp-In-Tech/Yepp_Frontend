@@ -12,7 +12,7 @@ const ErrorPage = () => {
                 We can't find the page you're looking for. It might have been moved or the deal has ended.
             </p>
 
-            <a href="/" className="bg-[#5BC0DE] hover:bg-[#46a3be] text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-md">
+            <a href="/" className="bg-primary hover:bg-secondary text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-md">
                 Back to Local Deals
             </a>
 

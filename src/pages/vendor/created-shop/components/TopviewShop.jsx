@@ -11,12 +11,12 @@ const TopviewShop = () => {
     return (
         <div>
             <div className="flex justify-between items-end mb-6">
-                <h2 className="font-bold text-teal-800 text-lg">
+                <h2 className="font-bold text-primary text-lg">
                     Top Viewed Deals
                 </h2>
                 <Link
                     to="/all-top-views"
-                    className="text-gray-500 hover:text-teal-800 hover:font-semibold text-base cursor-pointer"
+                    className="text-gray-500 hover:text-secondary hover:font-semibold text-base cursor-pointer"
                 >
                     See all
                 </Link>

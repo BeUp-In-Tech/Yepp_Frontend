@@ -25,7 +25,7 @@ const ListCard = ({ title, subtitle, icon: Icon }) => {
                     <h2 className="text-gray-800 text-lg font-bold">{title}</h2>
                     <p className="text-gray-400 text-sm">{subtitle}</p>
                 </div>
-                <Link to='/dashboard/admin-vendor' className="flex items-center text-[#00444E] font-semibold group cursor-pointer">
+                <Link to='/dashboard/admin-vendor' className="flex items-center text-primary font-semibold group cursor-pointer">
                     View all <ArrowRight size={18} className="ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>

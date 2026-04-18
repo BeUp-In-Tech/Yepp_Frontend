@@ -54,7 +54,7 @@ const DealPlanCard = () => {
                 </div>
                 <button
                     type="submit"
-                    className="flex items-center gap-2 bg-[#4FBCC9] hover:bg-[#3daab7] text-white px-5 py-2.5 rounded-md font-medium transition-colors shadow-sm"
+                    className="flex items-center gap-2 bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-md font-medium transition-colors shadow-sm"
                 >
                     <Save size={18} />
                     Save Changes

@@ -29,7 +29,7 @@ const Categories = () => {
             <div className="max-w-305 mx-auto">
                 <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
-                        <p className="text-base font-semibold text-[#2B9DAE]">Categories</p>
+                        <p className="text-base font-semibold text-primary">Categories</p>
                         <h1 className="text-2xl font-bold text-[#262626] sm:text-[32px]">
                             Browse deals by category
                         </h1>

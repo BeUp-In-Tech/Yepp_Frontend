@@ -6,13 +6,13 @@ const Table = ({ paymentData }) => {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-y border-gray-100 bg-gray-50/50">
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Transaction ID</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Deals</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Plan</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Status</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Amount</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Provider</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Date</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Transaction ID</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Deals</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Plan</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Status</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Amount</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Provider</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Date</th>
                     </tr>
                 </thead>
 
@@ -22,8 +22,8 @@ const Table = ({ paymentData }) => {
                             <tr key={item?._id} className="hover:bg-gray-50/80 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-md bg-cyan-50 flex items-center justify-center border border-cyan-100 text-cyan-600">
-                                            <BadgeRussianRuble size={20} className="text-[#2B9DAE]" />
+                                        <div className="w-8 h-8 rounded-md bg-cyan-50 flex items-center justify-center border border-cyan-100 text-primary">
+                                            <BadgeRussianRuble size={20} className="text-primary" />
                                         </div>
                                         <div>
                                             <div className="font-semibold text-[#525252] text-sm">

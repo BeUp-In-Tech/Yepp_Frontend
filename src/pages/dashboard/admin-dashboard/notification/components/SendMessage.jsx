@@ -68,7 +68,7 @@ const SendMessage = () => {
                             </div>
                         </label>
 
-                        <button type="submit" className="w-full bg-[#4FBCC8] text-white py-3 rounded-lg font-semibold flex justify-center items-center gap-2 hover:bg-[#43aab6] transition-colors mt-6 cursor-pointer">
+                        <button type="submit" className="w-full bg-primary text-white py-3 rounded-lg font-semibold flex justify-center items-center gap-2 hover:bg-secondary transition-colors mt-6 cursor-pointer">
                             <span><Send /></span> Sent Notification
                         </button>
                     </div>

@@ -13,19 +13,19 @@ const Settings = () => {
                 title='Settings'
                 description='Configure platform settings and preferences.' />
             <div className="flex items-center mt-10 gap-3 overflow-x-auto">
-                <div onClick={() => setActiveTab('General')} className={`flex items-center ${activeTab === 'General' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
+                <div onClick={() => setActiveTab('General')} className={`flex items-center ${activeTab === 'General' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
                     <span><Setting size={20} /></span>
                     <button>General</button>
                 </div>
-                <div onClick={() => setActiveTab('Users')} className={`flex items-center ${activeTab === 'Users' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm  cursor-pointer`}>
+                <div onClick={() => setActiveTab('Users')} className={`flex items-center ${activeTab === 'Users' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm  cursor-pointer`}>
                     <span><User size={20} /></span>
                     <button>Users</button>
                 </div>
-                <div onClick={() => setActiveTab('Notification')} className={`flex items-center ${activeTab === 'Notification' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
+                <div onClick={() => setActiveTab('Notification')} className={`flex items-center ${activeTab === 'Notification' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
                     <span><Bell size={20} /></span>
                     <button>Notification</button>
                 </div>
-                <div onClick={() => setActiveTab('Security')} className={`flex items-center ${activeTab === 'Security' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
+                <div onClick={() => setActiveTab('Security')} className={`flex items-center ${activeTab === 'Security' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
                     <span><ShieldAlert size={20} /></span>
                     <button>Security</button>
                 </div>

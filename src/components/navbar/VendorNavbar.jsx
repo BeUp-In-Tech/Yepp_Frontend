@@ -30,7 +30,7 @@ const VendorNavbar = () => {
                 <div className="max-w-305 mx-auto flex items-center justify-between relative">
                     <div className="max-w-52.5 sm:max-w-62.5 flex items-center gap-2 cursor-pointer">
                         <Link to="/" className="relative flex items-center justify-center" aria-label="Yepp Ads home">
-                            {/* <button className='bg-[#4BBDCF] py-2 px-5 rounded-md text-white'>Logo</button> */}
+                            {/* <button className='bg-primary py-2 px-5 rounded-md text-white'>Logo</button> */}
                             <img src={images.logoIocn} className='h-12 w-full' alt="Yepp Ads" />
                         </Link>
                     </div>
@@ -41,7 +41,7 @@ const VendorNavbar = () => {
                                 <img src={images.needHelp} alt="" aria-hidden="true" />
                                 <span className='text-base font-semibold text-[#737373]'>Need Help?</span>
                             </NavLink>
-                            <NavLink to='/contact-us' className='text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300'>Contact us</NavLink>
+                            <NavLink to='/contact-us' className='text-base text-primary font-semibold tracking-wider transition-all duration-300'>Contact us</NavLink>
                         </div>
                     </div>
                     {
@@ -59,7 +59,7 @@ const VendorNavbar = () => {
                             aria-expanded={isOpen}
                             aria-controls="shop-mobile-menu"
                             onClick={() => setIsOpen(!isOpen)}
-                            className="focus:outline-none border bg-white font-extrabold text-[#4BBDCF] rounded-full p-1 cursor-pointer">
+                            className="focus:outline-none border bg-white font-extrabold text-primary rounded-full p-1 cursor-pointer">
                             {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
                         </button>
                     </div>
@@ -74,7 +74,7 @@ const VendorNavbar = () => {
                         <NavLink
                             to="/contact-us"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             Need Help?
@@ -82,7 +82,7 @@ const VendorNavbar = () => {
                         <NavLink
                             to="/contact-us"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             Contact us

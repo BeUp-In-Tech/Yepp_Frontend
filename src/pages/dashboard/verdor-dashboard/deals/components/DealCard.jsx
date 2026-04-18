@@ -99,7 +99,7 @@ const DealCard = ({ deal }) => {
                             <Link
                                 to={`/vendor-edit-deal/${deal?._id}`}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     Update
                                 </span>
@@ -108,7 +108,7 @@ const DealCard = ({ deal }) => {
                                 onClick={() => openConfirm(deal?._id)}
                                 disabled={isLoading}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     {isLoading ? "Deleting..." : "Delete"}
                                 </span>
@@ -120,7 +120,7 @@ const DealCard = ({ deal }) => {
                             <Link
                                 to={`/create-deal-plan/${deal?._id}`}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     Active
                                 </span>
@@ -128,7 +128,7 @@ const DealCard = ({ deal }) => {
                             <Link
                                 to={`/vendor-edit-deal/${deal?._id}`}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     Update
                                 </span>
@@ -137,7 +137,7 @@ const DealCard = ({ deal }) => {
                                 onClick={() => openConfirm(deal?._id)}
                                 disabled={isLoading}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     {isLoading ? "Deleting..." : "Delete"}
                                 </span>
@@ -149,7 +149,7 @@ const DealCard = ({ deal }) => {
                             <Link
                                 to={`/create-deal-plan/${deal?._id}`}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     Reactivate
                                 </span>
@@ -157,7 +157,7 @@ const DealCard = ({ deal }) => {
                             <Link
                                 to={`/vendor-edit-deal/${deal?._id}`}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     Update
                                 </span>
@@ -166,7 +166,7 @@ const DealCard = ({ deal }) => {
                                 onClick={() => openConfirm(deal?._id)}
                                 disabled={isLoading}
                                 className={actionButtonClasses}>
-                                <span className="absolute inset-0 bg-[#3db8c1] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
+                                <span className="absolute inset-0 bg-secondary -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-in-out"></span>
                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                                     {isLoading ? "Deleting..." : "Delete"}
                                 </span>

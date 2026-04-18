@@ -55,7 +55,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
 
   return (
     <div className="w-full md:w-1/2">
-      <h1 className="text-[#2B9DAE] text-xl font-bold">Media:</h1>
+      <h1 className="text-primary text-xl font-bold">Media:</h1>
       <p className="text-[#262626] text-base font-medium">
         You can upload up to 3 images to showcase your deal.
       </p>

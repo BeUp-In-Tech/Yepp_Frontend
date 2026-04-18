@@ -11,7 +11,7 @@ const ContactUs = () => {
         <main className="min-h-[calc(100vh-50px)] bg-gray-50 px-4 pt-55 pb-12 sm:pt-56 sm:pb-16">
             <div className="mx-auto max-w-4xl rounded-lg border border-gray-100 bg-white px-5 py-8 shadow-sm sm:px-8 lg:px-10">
                 <header className="mb-8">
-                    <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#00616F]">Contact</p>
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-primary">Contact</p>
                     <h1 className="mb-4 text-3xl font-bold leading-tight text-[#111827] sm:text-4xl">
                         We would love to hear from you
                     </h1>
@@ -27,14 +27,14 @@ const ContactUs = () => {
                             <span className="mb-2 block font-semibold text-[#111827]">Email</span>
                             <PeragraphContent>
                                 For general inquiries or support, feel free to email us at
-                                <span className="font-semibold text-[#00616F]"> support@yeppads.com</span>.
+                                <span className="font-semibold text-primary"> support@yeppads.com</span>.
                                 We aim to respond within 24 hours.
                             </PeragraphContent>
                         </li>
                         <li className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4">
                             <span className="mb-2 block font-semibold text-[#111827]">Phone</span>
                             <PeragraphContent>
-                                Prefer speaking to someone? Call us at <span className="font-semibold text-[#00616F]">[phone number]</span> during our business hours:
+                                Prefer speaking to someone? Call us at <span className="font-semibold text-primary">[phone number]</span> during our business hours:
                                 <br />
                                 Monday to Friday: 9:00 AM - 6:00 PM (GMT).
                             </PeragraphContent>
@@ -58,7 +58,7 @@ const ContactUs = () => {
                     <PeragraphContent>
                         Connect with us on social media for updates, promotions, and exciting deals:
                     </PeragraphContent>
-                    <ul className="grid gap-3 text-base font-semibold text-[#00616F] sm:grid-cols-2">
+                    <ul className="grid gap-3 text-base font-semibold text-primary sm:grid-cols-2">
                         <li>
                             <Link to="#" className="block rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 transition-colors hover:bg-[#E8F7FB]">Facebook</Link>
                         </li>

@@ -95,7 +95,7 @@ const EditOutlet = ({ outletNumber }) => {
         <div className="w-full max-w-3xl mx-auto px-5 pt-32 pb-12">
             <div className="bg-white rounded-2xl w-full p-6 md:p-8 border border-gray-300">
                 <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-2xl font-bold text-[#2B9DAE]">Edit Outlet</h3>
+                    <h3 className="text-2xl font-bold text-primary">Edit Outlet</h3>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
@@ -195,7 +195,7 @@ const EditOutlet = ({ outletNumber }) => {
                         <button
                             type="submit"
                             disabled={editLoading}
-                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="bg-primary hover:bg-secondary text-white font-bold py-3 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {editLoading ? (
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full" />

@@ -40,7 +40,7 @@ export default function OutletLocation() {
       <div className="space-y-8">
         {/* Address Section */}
         <div className="pt-40">
-          <h2 className="text-3xl font-semibold text-cyan-600 mb-5">
+          <h2 className="text-3xl font-semibold text-primary mb-5">
             Address:
           </h2>
           <div className="space-y-5">
@@ -57,9 +57,9 @@ export default function OutletLocation() {
                     }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <Store className="w-6 h-6 text-cyan-600 shrink-0" />
+                    <Store className="w-6 h-6 text-primary shrink-0" />
                     <p className="text-xl text-gray-500 truncate">
-                      <span className="text-cyan-600 font-medium">
+                      <span className="text-primary font-medium">
                         {outlet.name}:
                       </span>{" "}
                       {outlet.address}
@@ -75,7 +75,7 @@ export default function OutletLocation() {
 
         {/* Location Section */}
         <div>
-          <h2 className="text-3xl font-semibold text-cyan-600 mb-5">
+          <h2 className="text-3xl font-semibold text-primary mb-5">
             Location:
           </h2>
 
@@ -99,9 +99,9 @@ export default function OutletLocation() {
           </div>
 
           <div className="mt-4 flex items-start gap-2 text-gray-600">
-            <MapPin className="w-5 h-5 text-cyan-600 mt-0.5" />
+            <MapPin className="w-5 h-5 text-primary mt-0.5" />
             <p className="text-base">
-              <span className="font-semibold text-cyan-600">
+              <span className="font-semibold text-primary">
                 {selectedOutlet.name}
               </span>{" "}
               — {selectedOutlet.address}

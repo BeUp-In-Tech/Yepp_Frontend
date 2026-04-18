@@ -52,14 +52,14 @@ const SearchBox = ({ handleSearch }) => {
 
                 <button
                     type="submit"
-                    className="hidden sm:block bg-[#52bad1] hover:bg-[#46a5ba] text-white text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors">
+                    className="hidden sm:block bg-primary hover:bg-secondary text-white text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors">
                     Search
                 </button>
                 <button
                     type="submit"
                     aria-label="Search deals"
                     className="sm:hidden shrink-0 text-white text-sm px-3 py-2 rounded-full font-medium transition-colors">
-                    <SendHorizontal className="w-6 h-6 -rotate-45 text-[#4BBDCF]" aria-hidden="true" />
+                    <SendHorizontal className="w-6 h-6 -rotate-45 text-primary" aria-hidden="true" />
                 </button>
             </form>
         </div>
