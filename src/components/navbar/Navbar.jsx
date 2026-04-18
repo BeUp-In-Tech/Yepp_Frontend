@@ -10,7 +10,7 @@ import { userLoggedOut } from '../../features/auth/authSlice';
 import Cookies from "js-cookie";
 import { persistor } from '../../app/store';
 import toast from 'react-hot-toast';
-import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
+import { useGetAllNotificaitonQuery, useOpenNotificationPanelMutation } from '../../features/notification/notificaitonApi';
 
 const getSavedDealsCount = () => {
     try {
@@ -28,16 +28,19 @@ const Navbar = () => {
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
     const [savedDealsCount, setSavedDealsCount] = useState(getSavedDealsCount);
     const menuRef = useRef(null);
+    const openingNotificationPanelRef = useRef(false);
     const isAuthenticated = useAuth();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state?.auth);
     const location = useLocation();
     const shouldShowCategoryHeader = location.pathname !== "/categories";
-    const { data: notificationData } = useGetAllNotificaitonQuery(
-        { id: user?._id },
+    const notificationQueryArgs = { id: user?._id };
+    const { data: notificationData, refetch: refetchNotifications } = useGetAllNotificaitonQuery(
+        notificationQueryArgs,
         { skip: !user?._id || user?.role !== 'VENDOR' }
     );
-    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    const [openNotificationPanel] = useOpenNotificationPanelMutation();
+    const unreadCount = Number(notificationData?.data?.unreadCount ?? notificationData?.unreadCount) || 0;
     const notificationLabel = openNotificationModal
         ? "Close notifications"
         : unreadCount > 0
@@ -99,6 +102,27 @@ const Navbar = () => {
         await persistor.purge();
     }
 
+    const handleNotificationToggle = async () => {
+        if (openNotificationModal) {
+            setOpenNotificationModal(false);
+            return;
+        }
+
+        setOpenNotificationModal(true);
+
+        if (!user?._id || openingNotificationPanelRef.current) return;
+
+        openingNotificationPanelRef.current = true;
+
+        try {
+            await openNotificationPanel({ listArgs: notificationQueryArgs }).unwrap();
+        } catch {
+            refetchNotifications();
+        } finally {
+            openingNotificationPanelRef.current = false;
+        }
+    };
+
     return (
         <div>
             <nav className="fixed w-full px-4 z-50 bg-[#E0F2FE] py-5">
@@ -153,7 +177,7 @@ const Navbar = () => {
                                     type="button"
                                     aria-label={notificationLabel}
                                     aria-expanded={openNotificationModal}
-                                    onClick={() => setOpenNotificationModal(!openNotificationModal)}
+                                    onClick={handleNotificationToggle}
                                     className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}>
                                     <Bell size={22} aria-hidden="true" />
                                     {unreadCount > 0 && (

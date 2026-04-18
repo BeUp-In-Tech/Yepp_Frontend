@@ -52,7 +52,7 @@ const SearchBox = ({ handleSearch }) => {
 
                 <button
                     type="submit"
-                    className="hidden sm:block bg-primary hover:bg-secondary text-white text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors">
+                    className="hidden cursor-pointer sm:block bg-primary hover:bg-secondary text-white text-sm sm:text-base px-4 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors">
                     Search
                 </button>
                 <button

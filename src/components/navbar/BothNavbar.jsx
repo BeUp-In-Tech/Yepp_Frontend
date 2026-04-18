@@ -4,18 +4,21 @@ import { Bell, Menu, X } from 'lucide-react';
 import Notification from './Notification';
 import { images } from '../../assets/image';
 import { useSelector } from 'react-redux';
-import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
+import { useGetAllNotificaitonQuery, useOpenNotificationPanelMutation } from '../../features/notification/notificaitonApi';
 
 const BothNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
     const menuRef = useRef(null);
+    const openingNotificationPanelRef = useRef(false);
     const { user } = useSelector((state) => state?.auth);
-    const { data: notificationData } = useGetAllNotificaitonQuery(
-        { id: user?._id },
+    const notificationQueryArgs = { id: user?._id };
+    const { data: notificationData, refetch: refetchNotifications } = useGetAllNotificaitonQuery(
+        notificationQueryArgs,
         { skip: !user?._id }
     );
-    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    const [openNotificationPanel] = useOpenNotificationPanelMutation();
+    const unreadCount = Number(notificationData?.data?.unreadCount ?? notificationData?.unreadCount) || 0;
     const notificationLabel = openNotificationModal
         ? "Close notifications"
         : unreadCount > 0
@@ -36,6 +39,27 @@ const BothNavbar = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isOpen]);
+
+    const handleNotificationToggle = async () => {
+        if (openNotificationModal) {
+            setOpenNotificationModal(false);
+            return;
+        }
+
+        setOpenNotificationModal(true);
+
+        if (!user?._id || openingNotificationPanelRef.current) return;
+
+        openingNotificationPanelRef.current = true;
+
+        try {
+            await openNotificationPanel({ listArgs: notificationQueryArgs }).unwrap();
+        } catch {
+            refetchNotifications();
+        } finally {
+            openingNotificationPanelRef.current = false;
+        }
+    };
 
     return (
         <div>
@@ -64,7 +88,7 @@ const BothNavbar = () => {
                                 type="button"
                                 aria-label={notificationLabel}
                                 aria-expanded={openNotificationModal}
-                                onClick={() => setOpenNotificationModal(!openNotificationModal)}
+                                onClick={handleNotificationToggle}
                                 className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}
                             >
                                 <Bell size={22} aria-hidden="true" />

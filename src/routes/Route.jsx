@@ -105,6 +105,8 @@ function AppRoutes() {
             <Route path="/category/:id" element={<CategorieDetails />} />
             <Route path="/deal-details/:id" element={<DealDetails />} />
             <Route path="/deal/:id" element={<DealDetails />} />
+            <Route path="/notification" element={<ShowNotification />} />
+            <Route path="/notification/:id" element={<ShowNotification />} />
             <Route path="/show-notification" element={<ShowNotification />} />
             <Route path="/testing" element={<Testing />} />
           </Route>
