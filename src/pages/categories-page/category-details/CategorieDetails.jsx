@@ -6,6 +6,7 @@ import DealCard from "./DealCard";
 import { MapPin } from "lucide-react";
 import { useState } from "react";
 import Pagination from "../../vendor/created-shop/components/Pagination";
+import DynamicLocation from "../../../components/location/DynamicLocation";
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const CategorieDetails = () => {
@@ -37,18 +38,21 @@ const CategorieDetails = () => {
     return (
         <div className="bg-gray-50 min-h-[65vh] py-36">
             <div className="fixed left-0 right-0 top-[162px] z-30 bg-gray-50 sm:top-[172px]">
-                <div className="max-w-305 mx-2 sm:mx-4 md:mx-8 flex items-center justify-between py-3">
+                <div className="max-w-305 mx-auto px-2 sm:px-4 md:px-8 flex items-center justify-between py-3">
                     <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
-                    <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
-                        <MapPin size={12} /> <span className="text-sm md:text-base">New york, United States</span>
-                    </div>
+                    <DynamicLocation
+                        latitude={latitude}
+                        longitude={longitude}
+                        className="flex gap-2 items-center text-[#00616F] text-sm md:text-base font-semibold"
+                        iconClassName="h-3 w-3 shrink-0"
+                    />
                 </div>
             </div>
-            <div className="max-w-305 mx-2 sm:mx-4 md:mx-8 py-3 md:py-6">
+            <div className="max-w-305 mx-auto px-2 sm:px-4 md:px-8 py-3 md:py-6">
                 <div className="invisible mb-6 flex items-center justify-between py-3" aria-hidden="true">
                     <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
                     <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
-                        <MapPin size={12} /> <span className="text-sm md:text-base">New york, United States</span>
+                        <MapPin size={12} /> <span className="text-sm md:text-base">Current location</span>
                     </div>
                 </div>
 
