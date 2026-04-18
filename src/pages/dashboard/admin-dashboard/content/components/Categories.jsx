@@ -25,7 +25,7 @@ const Categories = () => {
                     <h1 className="text-lg font-bold text-[#262626]">Categories Pages</h1>
                     <p className="text-sm text-[#737373] font-medium">Manage information pages on your platform</p>
                 </div>
-                <div onClick={handleAddCategories} className="bg-[#4BBDCF] flex items-center p-2 rounded-sm cursor-pointer">
+                <div onClick={handleAddCategories} className="bg-primary flex items-center p-2 rounded-sm cursor-pointer">
                     <Plus className='text-[#FFFFFF]' size={26} />
                     <button className='text-[#FFFFFF] font-semibold cursor-pointer'>Add Categories</button>
                 </div>

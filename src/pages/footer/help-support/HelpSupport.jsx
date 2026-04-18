@@ -10,7 +10,7 @@ const HelpSupport = () => {
         <main className='min-h-screen bg-gray-50 px-4 pt-55 pb-12 sm:pt-56 sm:pb-16'>
             <div className="mx-auto max-w-4xl rounded-lg border border-gray-100 bg-white px-5 py-8 shadow-sm sm:px-8 lg:px-10">
                 <header className="mb-8">
-                    <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#00616F]">Support</p>
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-primary">Support</p>
                     <h1 className="mb-4 text-3xl font-bold leading-tight text-[#111827] sm:text-4xl">Help & Support</h1>
                     <PeragraphContent>
                         We are here to assist you with any questions or issues you may have while using Yepp Ads.
@@ -29,7 +29,7 @@ const HelpSupport = () => {
                                 <span className="mb-2 block font-semibold text-[#111827]">Email Support</span>
                                 <PeragraphContent>
                                     For detailed inquiries or assistance, email us at{' '}
-                                    <a href="mailto:support@yeppads.com" className="font-semibold text-[#00616F] hover:underline">support@yeppads.com</a>.
+                                    <a href="mailto:support@yeppads.com" className="font-semibold text-primary hover:underline">support@yeppads.com</a>.
                                     We strive to respond to all emails within 24 hours.
                                 </PeragraphContent>
                             </li>
@@ -37,7 +37,7 @@ const HelpSupport = () => {
                                 <span className="mb-2 block font-semibold text-[#111827]">Phone Support</span>
                                 <PeragraphContent>
                                     If you prefer speaking to a customer service representative, give us a call at{' '}
-                                    <span className="font-semibold text-[#00616F]">[phone number]</span>. Our hours of operation are:
+                                    <span className="font-semibold text-primary">[phone number]</span>. Our hours of operation are:
                                     <br />
                                     Monday - Friday: 9:00 AM - 6:00 PM (GMT).
                                 </PeragraphContent>
@@ -52,7 +52,7 @@ const HelpSupport = () => {
                         </PeragraphContent>
                         <ul className="ml-5 list-disc space-y-2 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
                             <li>
-                                Emailing <a href="mailto:support@yeppads.com" className="font-semibold text-[#00616F] hover:underline">support@yeppads.com</a> with a description of the problem.
+                                Emailing <a href="mailto:support@yeppads.com" className="font-semibold text-primary hover:underline">support@yeppads.com</a> with a description of the problem.
                             </li>
                             <li>Calling us directly for immediate assistance.</li>
                         </ul>
@@ -75,7 +75,7 @@ const HelpSupport = () => {
                         <h2 className="mb-3 text-xl font-bold leading-snug text-[#1F2937]">Feedback & Suggestions</h2>
                         <PeragraphContent>
                             We value your input. If you have any feedback or suggestions for improving Yepp Ads,
-                            feel free to send them to <a href="mailto:support@appname.com" className="font-semibold text-[#00616F] hover:underline">support@appname.com</a>.
+                            feel free to send them to <a href="mailto:support@appname.com" className="font-semibold text-primary hover:underline">support@appname.com</a>.
                             Your suggestions help us enhance your experience.
                         </PeragraphContent>
                     </section>

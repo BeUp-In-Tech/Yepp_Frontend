@@ -36,7 +36,7 @@ const Security = () => {
                             <button
                                 type="button"
                                 onClick={() => field.onChange(!field.value)}
-                                className={`${field.value ? 'bg-cyan-500' : 'bg-gray-200'
+                                className={`${field.value ? 'bg-primary' : 'bg-gray-200'
                                     } relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none`}
                             >
                                 <span
@@ -86,7 +86,7 @@ const Security = () => {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="flex items-center gap-2 bg-[#4BBDCF] hover:bg-[#46a4c1] text-white font-medium py-2.5 px-6 rounded-lg transition-colors cursor-pointer"
+                    className="flex items-center gap-2 bg-primary hover:bg-secondary text-white font-medium py-2.5 px-6 rounded-lg transition-colors cursor-pointer"
                 >
                     <ShieldAlert size={24} />
                     Update Password

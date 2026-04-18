@@ -22,7 +22,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                         alt={title}
                         className="h-full w-full object-cover"
                     />
-                    <div className="absolute left-2 top-2 rounded bg-[#A8EBF7] px-2 py-1 text-xs font-bold text-[#00444E]">
+                    <div className="absolute left-2 top-2 rounded bg-[#A8EBF7] px-2 py-1 text-xs font-bold text-primary">
                         {discount}% off
                     </div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1 text-xs font-medium text-white">
@@ -54,7 +54,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                         <Countdown countdown={promotedUntil} compact />
                     </div>
 
-                    <span className="mt-3 block w-full rounded-full bg-[#4BBDCF] py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-[#72cfdd]">
+                    <span className="mt-3 block w-full rounded-full bg-primary py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-secondary">
                         Redeem Now
                     </span>
                 </div>
@@ -70,7 +70,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     alt={title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-[#A8EBF7] text-[#00444E] text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-3 left-3 bg-[#A8EBF7] text-primary text-xs font-bold px-2 py-1 rounded">
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
@@ -101,7 +101,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     <Countdown countdown={promotedUntil} />
                 </div>
 
-                <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now
                 </span>
             </div>

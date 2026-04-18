@@ -74,7 +74,7 @@ export default function ShowoutletMap({ outlets = [] }) {
         <div className="w-full max-w-305 mx-auto pb-10">
             <div className="flex flex-col md:flex-row border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white min-h-110">
                 <div className="md:w-5/12 flex flex-col p-3 sm:p-6 border-b md:border-b-0 md:border-r border-gray-200">
-                    <p className="text-[26px] font-bold text-cyan-600 mb-5">
+                    <p className="text-[26px] font-bold text-primary mb-5">
                         Our outlets
                     </p>
 
@@ -107,11 +107,11 @@ export default function ShowoutletMap({ outlets = [] }) {
                                         className="flex items-center justify-between flex-1 min-w-0 text-left cursor-pointer"
                                     >
                                         <div className="flex gap-2 min-w-0">
-                                            <Store className="w-5 h-5 text-cyan-600 shrink-0 mt-1.5" />
+                                            <Store className="w-5 h-5 text-primary shrink-0 mt-1.5" />
 
                                             <div className="min-w-0">
                                                 <p className="text-lg text-gray-500 truncate">
-                                                    <span className="text-cyan-600 font-semibold">
+                                                    <span className="text-primary font-semibold">
                                                         {outlet?.outlet_name || outlet?.address}:
                                                     </span>{" "}
                                                     {outlet?.address}
@@ -132,7 +132,7 @@ export default function ShowoutletMap({ outlets = [] }) {
                                         to={`/outlet-edit/${outlet?._id}`}
                                         state={{ outlet }}
                                         onClick={(e) => e.stopPropagation()}
-                                        className="ml-3 relative z-20 shrink-0 inline-flex items-center gap-1 rounded-md border border-cyan-600 px-3 py-2 text-sm font-semibold text-cyan-600 hover:bg-cyan-600 hover:text-white transition-all duration-200"
+                                        className="ml-3 relative z-20 shrink-0 inline-flex items-center gap-1 rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-semibold text-white hover:bg-secondary transition-all duration-200"
                                     >
                                         <Pencil className="w-4 h-4" />
                                         Edit
@@ -209,7 +209,7 @@ export default function ShowoutletMap({ outlets = [] }) {
                         </div>
 
                         {selectedOutletDistance != null && (
-                            <p className="text-base font-semibold text-cyan-600 shrink-0 text wrap-anywhere">
+                            <p className="text-base font-semibold text-primary shrink-0 text wrap-anywhere">
                                 {formatDistance(selectedOutletDistance)} Distance
                             </p>
                         )}

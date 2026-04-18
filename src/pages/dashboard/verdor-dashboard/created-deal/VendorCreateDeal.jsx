@@ -120,7 +120,7 @@ const VendorCreateDeal = () => {
                             setImageError={setImageError}
                         />
                         <div className="w-full md:w-1/2 space-y-3 lg:space-y-6">
-                            <h2 className="text-[#2B9DAE] text-xl font-bold mb-3">Deal Pricing:</h2>
+                            <h2 className="text-primary text-xl font-bold mb-3">Deal Pricing:</h2>
                             {/* Regular Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
@@ -199,7 +199,7 @@ const VendorCreateDeal = () => {
                     {/* Deal Info and Plan */}
                     <div className="flex flex-col md:flex-row gap-12.5">
                         <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
-                            <h2 className="text-xl font-bold text-[#2B9DAE]">Deal Info:</h2>
+                            <h2 className="text-xl font-bold text-primary">Deal Info:</h2>
 
                             {/* Title */}
                             <div>
@@ -379,7 +379,7 @@ const VendorCreateDeal = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] cursor-pointer text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
+                            className="bg-primary hover:bg-secondary cursor-pointer text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (

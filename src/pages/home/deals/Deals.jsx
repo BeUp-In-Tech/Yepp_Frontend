@@ -37,7 +37,7 @@ const Deals = () => {
                     <DynamicLocation
                         latitude={latitude}
                         longitude={longitude}
-                        className="flex max-w-[52%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-[#00616F] sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg"
+                        className="flex max-w-[52%] items-start justify-end gap-1.5 text-right text-sm font-semibold leading-snug text-primary sm:max-w-none sm:items-center sm:gap-2 sm:text-base md:text-lg"
                         iconClassName="mt-0.5 h-4 w-4 shrink-0 sm:mt-0 sm:h-5 sm:w-5"
                     />
                 </div>

@@ -80,7 +80,7 @@ const PasswordChange = ({ setActiveTab }) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full sm:w-60 bg-[#4FC3D4] hover:bg-[#3db0c1] text-white font-semibold py-3 rounded-full shadow-md cursor-pointer flex items-center justify-center">
+                    className="w-full sm:w-60 bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-full shadow-md cursor-pointer flex items-center justify-center">
                     {isLoading ? (
                         <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                     ) : (

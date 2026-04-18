@@ -6,9 +6,9 @@ const PaymentSuccess = () => {
     const params = new URLSearchParams(location.search);
     const dealId = params.get("deal_id");
     const transectionId = params.get("tr_id");
-    const brandTeal = "bg-[#4db8c2]";
-    const brandTealHover = "hover:bg-[#3da1ab]";
-    const brandText = "text-[#4db8c2]";
+    const brandTeal = "bg-primary";
+    const brandTealHover = "hover:bg-secondary";
+    const brandText = "text-primary";
 
     console.log(dealId, transectionId);
 
@@ -46,7 +46,7 @@ const PaymentSuccess = () => {
                     </Link>
                     <Link
                         to={`/deal-details/${dealId}`}
-                        className={`bg-[#a79b9b] hover:bg-[#999191] text-white py-3.5 rounded-xl font-semibold transition-all shadow-md`}>
+                        className={`bg-primary hover:bg-secondary text-white py-3.5 rounded-xl font-semibold transition-all shadow-md`}>
                         View Deal Details
                     </Link>
                 </div>

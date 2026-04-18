@@ -34,7 +34,7 @@ const EmailSending = () => {
     return (
         <div className="w-full max-w-lg bg-white rounded-xl px-8 py-10 md:px-12 md:py-12 text-center shadow-2xl">
             <div className="w-14 h-14 rounded-full bg-[#e8f9fb] flex items-center justify-center mx-auto mb-5">
-                <Mail className="w-7 h-7 text-[#4FC3D4]" />
+                <Mail className="w-7 h-7 text-primary" />
             </div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-1">
                 Verify your email
@@ -71,7 +71,7 @@ const EmailSending = () => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-[#4FC3D4] hover:bg-[#3ab0c2] disabled:opacity-60 disabled:cursor-not-allowed text-white py-3 mt-3 rounded-full flex items-center justify-center gap-2 transition-colors cursor-pointer font-medium text-base"
+                    className="w-full bg-primary hover:bg-secondary disabled:opacity-60 disabled:cursor-not-allowed text-white py-3 mt-3 rounded-full flex items-center justify-center gap-2 transition-colors cursor-pointer font-medium text-base"
                 >
                     {isLoading ? (
                         <div className="w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" />

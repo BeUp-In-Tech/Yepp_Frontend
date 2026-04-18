@@ -26,8 +26,8 @@ const CreatedShop = () => {
             <div className='space-y-3 mt-3'>
               <h1 className="text-xl sm:text-2xl font-bold text-[#262626]">{shopDetails?.data?.business_name}</h1>
               <NavLink to='/create-deal'>
-                <button className="mt-1 flex items-center gap-1 bg-[#4BBDCF] text-white w-full px-6 sm:px-12 py-2.5 rounded-full text-base font-medium
-              hover:bg-[#3db0c1] transition cursor-pointer">
+                <button className="mt-1 flex items-center gap-1 bg-primary text-white w-full px-6 sm:px-12 py-2.5 rounded-full text-base font-medium
+              hover:bg-secondary transition cursor-pointer">
                   <Plus size={18} /> Add New Deal
                 </button>
               </NavLink>

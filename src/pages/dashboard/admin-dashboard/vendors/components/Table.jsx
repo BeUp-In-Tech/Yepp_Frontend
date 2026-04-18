@@ -44,12 +44,12 @@ const Table = ({ vednorData }) => {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-y border-gray-100 bg-gray-50/50">
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Shop</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">User</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Deals</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Status</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E]">Revenue</th>
-                        <th className="px-6 py-4 text-base font-semibold text-[#00444E] text-right">Action</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Shop</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">User</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Deals</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Status</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary">Revenue</th>
+                        <th className="px-6 py-4 text-base font-semibold text-primary text-right">Action</th>
                     </tr>
                 </thead>
 
@@ -59,8 +59,8 @@ const Table = ({ vednorData }) => {
                             <tr key={item?._id} className="hover:bg-gray-50/80 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-md bg-cyan-50 flex items-center justify-center border border-cyan-100 text-cyan-600">
-                                            <Store size={22} className="text-[#2B9DAE]" />
+                                        <div className="w-10 h-10 rounded-md bg-cyan-50 flex items-center justify-center border border-cyan-100 text-primary">
+                                            <Store size={22} className="text-primary" />
                                         </div>
                                         <div>
                                             <div className="font-bold text-[#525252] text-base">

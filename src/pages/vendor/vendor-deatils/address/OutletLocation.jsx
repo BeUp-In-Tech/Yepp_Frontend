@@ -70,7 +70,7 @@ export default function OutletLocation({ outlets = [] }) {
 
         {/* LEFT */}
         <div className="md:w-5/12 flex flex-col p-3 sm:p-6 border-b md:border-b-0 md:border-r border-gray-200">
-          <p className="text-[26px] font-bold text-cyan-600 mb-5">
+          <p className="text-[26px] font-bold text-primary mb-5">
             Our outlets
           </p>
           <div className="space-y-5">
@@ -100,11 +100,11 @@ export default function OutletLocation({ outlets = [] }) {
                     }`}
                 >
                   <div className="flex gap-2 min-w-0">
-                    <Store className="w-5 h-5 text-cyan-600 shrink-0 mt-1.5" />
+                    <Store className="w-5 h-5 text-primary shrink-0 mt-1.5" />
 
                     <div className="min-w-0">
                       <p className="text-lg text-gray-500 truncate">
-                        <span className="text-cyan-600 font-semibold">
+                        <span className="text-primary font-semibold">
                           {outlet?.outlet_name || outlet?.address}:
                         </span>{" "}
                         {outlet?.address}
@@ -195,7 +195,7 @@ export default function OutletLocation({ outlets = [] }) {
             </div>
 
             {selectedOutletDistance != null && (
-              <p className="text-base font-semibold text-cyan-600 shrink-0 text wrap-anywhere">
+              <p className="text-base font-semibold text-primary shrink-0 text wrap-anywhere">
                 {formatDistance(selectedOutletDistance)} Distance
               </p>
             )}

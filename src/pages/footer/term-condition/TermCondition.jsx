@@ -81,7 +81,7 @@ const TermsAndConditions = () => {
                 </Description>
                 <Description>
                     For more information about how Google Analytics collects and processes data, you can review their privacy policy here:{" "}
-                    <Link to="https://www.google.com/analytics/learn/privacy.html" className="font-semibold text-[#00616F] hover:underline">
+                    <Link to="https://www.google.com/analytics/learn/privacy.html" className="font-semibold text-primary hover:underline">
                         Google Analytics Privacy Policy
                     </Link>.
                 </Description>
@@ -127,11 +127,11 @@ const TermsAndConditions = () => {
                 </Description>
                 <Description>
                     <strong>Email:</strong>{" "}
-                    <Link to="mailto:support@yeppads.com" className="font-semibold text-[#00616F] hover:underline">support@yeppads.com</Link>
+                    <Link to="mailto:support@yeppads.com" className="font-semibold text-primary hover:underline">support@yeppads.com</Link>
                 </Description>
                 <Description>
                     <strong>Website:</strong>{" "}
-                    <Link to="http://www.yeppads.com" className="font-semibold text-[#00616F] hover:underline">www.yeppads.com</Link>
+                    <Link to="http://www.yeppads.com" className="font-semibold text-primary hover:underline">www.yeppads.com</Link>
                 </Description>
             </div>
         </div>

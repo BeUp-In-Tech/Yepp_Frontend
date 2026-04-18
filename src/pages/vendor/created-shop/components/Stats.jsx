@@ -21,7 +21,7 @@ const Stats = () => {
                     <img className='w-9 sm:w-12.5' src={images.impression} alt="statIcon" />
                 </div>
                 <div className='text-center space-y-2 sm:space-y-4'>
-                    <p className="text-[#00444E] text-base sm:text-2xl font-bold">Total Impression: {totalImpressions || 0}</p>
+                    <p className="text-primary text-base sm:text-2xl font-bold">Total Impression: {totalImpressions || 0}</p>
                     <p className="text-[#262626] text-base sm:text-2xl font-bold">{ctr || 0}%  <span className="text-yellow-500 text-base sm:text-2xl font-bold ml-1 sm:ml-2">CTR</span></p>
                 </div>
             </div>

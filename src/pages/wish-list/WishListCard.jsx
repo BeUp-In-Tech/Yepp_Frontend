@@ -48,10 +48,10 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     className="w-full h-full object-cover"
                 />
                 <div className="flex justify-between">
-                    <div className="absolute top-3 left-3 bg-[#A8EBF7] text-[#00444E] text-xs font-bold px-2 py-1 rounded">
+                    <div className="absolute top-3 left-3 bg-[#A8EBF7] text-primary text-xs font-bold px-2 py-1 rounded">
                         {discount}% off</div>
                     <div className={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded
-                         ${new Date(promotedUntil) < now ? 'bg-[#e9e2e2] text-[#737373]' : 'bg-[#A8EBF7] text-[#00444E]'}`}> {new Date(promotedUntil) < now ? 'Expired' : 'Available'}
+                         ${new Date(promotedUntil) < now ? 'bg-[#e9e2e2] text-[#737373]' : 'bg-[#A8EBF7] text-primary'}`}> {new Date(promotedUntil) < now ? 'Expired' : 'Available'}
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                         onClick={(event) => handleWishListId(event, deal?._id)}
                         onKeyDown={(event) => event.stopPropagation()}
                     >
-                        <Heart className="fill-[#4BBDCF] text-[#4BBDCF]" size={20} />
+                        <Heart className="fill-primary text-primary" size={20} />
                     </button>
                 </div>
 
@@ -99,7 +99,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
 
                 {/* Action Button */}
                 <Link to={dealDetailsPath} onClick={(event) => event.stopPropagation()}>
-                    <span className="block w-full mt-4 bg-[#4BBDCF] hover:bg-[#72cfdd] text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                    <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                         Redeem Now
                     </span>
                 </Link>

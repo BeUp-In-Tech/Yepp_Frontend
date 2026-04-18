@@ -39,7 +39,7 @@ const NotificationMsg = () => {
                             </div>
                             <button
                                 onClick={() => handleToggle(item.id)}
-                                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 focus:outline-none ${item.enabled ? 'bg-[#4BBDCF]' : 'bg-[#E5E5E5]'
+                                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-200 focus:outline-none ${item.enabled ? 'bg-primary' : 'bg-[#E5E5E5]'
                                     }`}
                             >
                                 <span

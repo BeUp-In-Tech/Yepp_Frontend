@@ -1,7 +1,7 @@
 const HeadingTitle = ({ title, description }) => {
     return (
         <div>
-            <h1 className='text-[#00444E] text-2xl font-bold'>{title}</h1>
+            <h1 className='text-primary text-2xl font-bold'>{title}</h1>
             <p className='text-base font-medium text-[#737373] mt-1'>{description}</p>
         </div>
     );

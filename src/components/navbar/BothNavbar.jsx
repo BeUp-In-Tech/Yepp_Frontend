@@ -43,18 +43,18 @@ const BothNavbar = () => {
                 <div className="max-w-305 mx-auto flex items-center justify-between relative">
                     <div className="max-w-52.5 sm:max-w-62.5 flex items-center gap-2 cursor-pointer">
                         <Link to="/" className="relative flex items-center justify-center" aria-label="Yepp Ads home">
-                            {/* <button className='bg-[#4BBDCF] py-2 px-5 rounded-md text-white'>Logo</button> */}
+                            {/* <button className='bg-primary py-2 px-5 rounded-md text-white'>Logo</button> */}
                             <img src={images.logoIocn} className='h-12 w-full' alt="Yepp Ads" />
                         </Link>
                     </div>
                     <div className='flex justify-between items-center gap-5 lg:gap-20'>
                         <div className="hidden md:flex items-center space-x-4 lg:space-x-10 rounded-full">
-                            <NavLink to='/shop-overview' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>Dashboard</NavLink>
-                            <NavLink to='/my-deals' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Deals</NavLink>
-                            <NavLink to='/my-profile' className={({ isActive }) => isActive ? 'text-base text-[#00616F] font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Profile</NavLink>
+                            <NavLink to='/shop-overview' className={({ isActive }) => isActive ? 'text-base text-primary font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>Dashboard</NavLink>
+                            <NavLink to='/my-deals' className={({ isActive }) => isActive ? 'text-base text-primary font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Deals</NavLink>
+                            <NavLink to='/my-profile' className={({ isActive }) => isActive ? 'text-base text-primary font-semibold tracking-wider transition-all duration-300' : 'text-[#A3A3A3] font-semibold tracking-wider transition-all duration-300'}>My Profile</NavLink>
                         </div>
                         <div className='hidden md:block'>
-                            <div className='bg-[#4BBDCF] hover:bg-[#3db0c1] px-4 lg:px-6 py-2.5 rounded-full flex items-center gap-2 cursor-pointer'>
+                            <div className='bg-primary hover:bg-secondary px-4 lg:px-6 py-2.5 rounded-full flex items-center gap-2 cursor-pointer'>
                                 <img src={images.switchIcon} alt="" aria-hidden="true" />
                                 <Link to='/' className='text-[#FFFFFF] text-base font-bold cursor-pointer'>Switch to user mode</Link>
                             </div>
@@ -65,7 +65,7 @@ const BothNavbar = () => {
                                 aria-label={notificationLabel}
                                 aria-expanded={openNotificationModal}
                                 onClick={() => setOpenNotificationModal(!openNotificationModal)}
-                                className={`relative cursor-pointer ${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}
+                                className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}
                             >
                                 <Bell size={22} aria-hidden="true" />
                                 {unreadCount > 0 && (
@@ -90,7 +90,7 @@ const BothNavbar = () => {
                             aria-expanded={isOpen}
                             aria-controls="vendor-mobile-menu"
                             onClick={() => setIsOpen(!isOpen)}
-                            className="focus:outline-none border bg-white font-extrabold text-[#4BBDCF] rounded-full p-1 cursor-pointer">
+                            className="focus:outline-none border bg-white font-extrabold text-primary rounded-full p-1 cursor-pointer">
                             {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
                         </button>
                     </div>
@@ -105,7 +105,7 @@ const BothNavbar = () => {
                         <NavLink
                             to="/shop-overview"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             Dashboard
@@ -113,7 +113,7 @@ const BothNavbar = () => {
                         <NavLink
                             to="/my-deals"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             My Deals
@@ -121,7 +121,7 @@ const BothNavbar = () => {
                         <NavLink
                             to="/my-profile"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             My Profile
@@ -129,7 +129,7 @@ const BothNavbar = () => {
                         <NavLink
                             to="/"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             Switch to user mode

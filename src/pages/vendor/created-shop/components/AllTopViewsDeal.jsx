@@ -26,7 +26,7 @@ const AllTopViewsDeal = () => {
         <div className="bg-white min-h-screen px-4 pt-32 pb-12">
             <div className="max-w-305 mx-auto">
                 <div className="flex justify-between items-end mb-6">
-                    <h2 className="font-bold text-teal-800 text-xl">Top Viewed Deals</h2>
+                    <h2 className="font-bold text-primary text-xl">Top Viewed Deals</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {currentDeals?.map((deal, index) => (

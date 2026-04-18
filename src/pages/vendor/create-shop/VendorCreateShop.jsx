@@ -94,7 +94,7 @@ const VendorCreateShop = () => {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-[#2B9DAE]">Business Details</h2>
+            <h2 className="text-2xl font-bold text-primary">Business Details</h2>
             <div className="space-y-2">
               <label className="block text-lg font-medium text-[#262626]">Business Name</label>
               <div className="relative">
@@ -132,7 +132,7 @@ const VendorCreateShop = () => {
                 </div>
                 <div className="flex flex-col gap-4">
                   <span className="text-xs text-[#737373] uppercase tracking-widest font-bold">JPEG, PNG or PDF max 10 MB</span>
-                  <label className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white px-8 py-3 rounded-full flex items-center gap-2 text-sm font-bold cursor-pointer transition-all shadow-md active:scale-95 w-fit">
+                  <label className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full flex items-center gap-2 text-sm font-bold cursor-pointer transition-all shadow-md active:scale-95 w-fit">
                     <Plus className="w-5 h-5" /> Upload from files
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                   </label>
@@ -153,7 +153,7 @@ const VendorCreateShop = () => {
           </div>
           <div className="space-y-5">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-[#2B9DAE]">Contact Information</h2>
+              <h2 className="text-2xl font-bold text-primary">Contact Information</h2>
               <div className="space-y-2">
                 <label className="block text-lg font-medium text-[#262626]">Business Email</label>
                 <div className="relative">
@@ -194,7 +194,7 @@ const VendorCreateShop = () => {
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-[#2B9DAE]">Location Details</h2>
+              <h2 className="text-2xl font-bold text-primary">Location Details</h2>
               <p className="text-[#737373] text-base leading-relaxed">
                 If you operate a single outlet, click "Single Outlet" and enter its address and location details to continue.
               </p>
@@ -207,22 +207,22 @@ const VendorCreateShop = () => {
                 {outlets.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between p-5 bg-[#F8FAFC] rounded-2xl group hover:bg-[#F1F5F9] transition-colors cursor-pointer border border-transparent hover:border-[#4BBDCF]/20">
                     <div className="flex items-center gap-4">
-                      <div className="text-[#2B9DAE]">
+                      <div className="text-primary">
                         <Store size={22} />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1">
-                        <span className="font-bold text-[#2B9DAE] text-lg whitespace-nowrap">Outlet {idx + 1}:</span>
+                        <span className="font-bold text-primary text-lg whitespace-nowrap">Outlet {idx + 1}:</span>
                         <span className="text-[#737373] text-base truncate max-w-50 sm:max-w-xs">{item.address}</span>
                       </div>
                     </div>
-                    <ChevronRight className="text-gray-300 group-hover:text-[#2B9DAE] transition-colors" size={24} />
+                    <ChevronRight className="text-gray-300 group-hover:text-secondary transition-colors" size={24} />
                   </div>
                 ))}
 
                 <button
                   type="button"
                   onClick={() => setShowModal(true)}
-                  className="w-full py-3 bg-[#4BBDCF] hover:bg-[#3db0c1] text-white rounded-xl flex items-center justify-center gap-2 text-lg font-bold transition-all shadow-md active:scale-[0.99]">
+                  className="w-full py-3 bg-primary hover:bg-secondary text-white rounded-xl flex items-center justify-center gap-2 text-lg font-bold transition-all shadow-md active:scale-[0.99]">
                   <Plus size={24} /> Add Outlet
                 </button>
               </div>
@@ -243,7 +243,7 @@ const VendorCreateShop = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
+              className="bg-primary hover:bg-secondary text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
               {isLoading ? (
                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
               ) : (

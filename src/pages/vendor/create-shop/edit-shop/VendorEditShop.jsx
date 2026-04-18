@@ -131,7 +131,7 @@ const VendorEditShop = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-5">
                     <div className="space-y-6">
-                        <h2 className="text-2xl font-bold text-[#2B9DAE]">Business Details</h2>
+                        <h2 className="text-2xl font-bold text-primary">Business Details</h2>
                         <div className="space-y-2">
                             <label className="block text-lg font-medium text-[#262626]">Business Name</label>
                             <div className="relative">
@@ -189,7 +189,7 @@ const VendorEditShop = () => {
                                     <span className="text-xs text-[#737373] uppercase tracking-widest font-bold">
                                         JPEG, PNG or PDF max 10 MB
                                     </span>
-                                    <label className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white px-8 py-3 rounded-full flex items-center gap-2 text-sm font-bold cursor-pointer transition-all shadow-md active:scale-95 w-fit">
+                                    <label className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full flex items-center gap-2 text-sm font-bold cursor-pointer transition-all shadow-md active:scale-95 w-fit">
                                         <Plus className="w-5 h-5" /> Upload from files
                                         <input
                                             ref={fileInputRef2}
@@ -207,7 +207,7 @@ const VendorEditShop = () => {
                     {/* ── Right column: Contact Information ── */}
                     <div className="space-y-3">
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold text-[#2B9DAE]">Contact Information</h2>
+                            <h2 className="text-2xl font-bold text-primary">Contact Information</h2>
 
                             <div className="space-y-2">
                                 <label className="block text-lg font-medium text-[#262626]">Business Email</label>
@@ -273,7 +273,7 @@ const VendorEditShop = () => {
                         <button
                             type="submit"
                             disabled={editLoading}
-                            className="bg-[#4BBDCF] hover:bg-[#3db0c1] text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl"
+                            className="bg-primary hover:bg-secondary text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl"
                         >
                             {editLoading ? (
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full" />

@@ -76,7 +76,7 @@ const General = () => {
                     <div className="mt-8">
                         <button
                             type="submit"
-                            className="flex items-center gap-2 bg-[#4FBCC9] hover:bg-[#3daab7] text-white px-5 py-2.5 rounded-md font-medium transition-colors shadow-sm active:scale-95"
+                            className="flex items-center gap-2 bg-primary hover:bg-secondary text-white px-5 py-2.5 rounded-md font-medium transition-colors shadow-sm active:scale-95"
                         >
                             <Save size={18} />
                             Save Changes

@@ -117,7 +117,7 @@ const DealDetails = () => {
                                     <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
                                         ${price.toFixed(2)}
                                     </span>
-                                    <span className="rounded-md bg-cyan-100 px-2 py-1 text-sm font-bold text-[#00444E] sm:text-base">{discount}% off</span>
+                                    <span className="rounded-md bg-cyan-100 px-2 py-1 text-sm font-bold text-primary sm:text-base">{discount}% off</span>
                                 </div>
                                 <div className='mt-0 sm:mt-2'>
                                     <Countdown countdown={promotedUntil} />
@@ -125,10 +125,10 @@ const DealDetails = () => {
                             </div>
 
                             <div className="grid grid-cols-2 gap-3 pt-4 sm:gap-4">
-                                <button onClick={() => handleSaveForLater(_id)} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[#4BBDCF] px-3 py-3 text-sm font-bold text-[#4BBDCF] transition-colors hover:bg-cyan-50 cursor-pointer sm:text-base">
+                                <button onClick={() => handleSaveForLater(_id)} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-transparent bg-primary px-3 py-3 text-sm font-bold text-white transition-colors hover:bg-secondary cursor-pointer sm:text-base">
                                     Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-[22px] sm:w-[22px]" />
                                 </button>
-                                <button onClick={() => setIsOpen(true)} className="min-h-12 w-full rounded-full bg-[#4BBDCF] px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-cyan-500 cursor-pointer sm:text-base">
+                                <button onClick={() => setIsOpen(true)} className="min-h-12 w-full rounded-full bg-primary px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-secondary cursor-pointer sm:text-base">
                                     Show Coupon
                                 </button>
                             </div>

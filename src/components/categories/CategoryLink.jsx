@@ -11,8 +11,8 @@ const CategoryLink = ({ category, variant = "header" }) => {
                 to={to}
                 className={({ isActive }) =>
                     `flex flex-col items-center gap-2 text-center transition-colors ${isActive
-                        ? "text-[#4DB6C1]"
-                        : "text-[#262626] hover:text-[#4DB6C1]"
+                        ? "text-primary"
+                        : "text-[#262626] hover:text-secondary"
                     }`
                 }
             >
@@ -31,8 +31,8 @@ const CategoryLink = ({ category, variant = "header" }) => {
             to={to}
             className={({ isActive }) =>
                 `flex min-w-0 flex-col items-center gap-1 text-center transition-colors ${isActive
-                    ? "text-[#4DB6C1]"
-                    : "text-[#262626] hover:text-[#4DB6C1]"
+                    ? "text-primary"
+                    : "text-[#262626] hover:text-secondary"
                 }`
             }
         >

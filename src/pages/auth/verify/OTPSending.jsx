@@ -133,7 +133,7 @@ const OTPSending = () => {
                     <button
                         onClick={handleSubmitOTP}
                         disabled={isLoading || timeLeft === 0}
-                        className="w-full bg-[#4FC3D4] hover:bg-[#4BB6C9] text-white py-3 rounded-full mt-4 transition-colors flex items-center justify-center cursor-pointer"
+                        className="w-full bg-primary hover:bg-secondary text-white py-3 rounded-full mt-4 transition-colors flex items-center justify-center cursor-pointer"
                     >
                         {isLoading ? (
                             <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>

@@ -105,7 +105,7 @@ const Navbar = () => {
                 <div className="max-w-305 mx-auto flex items-center justify-between relative">
                     <div className="max-w-52.5 sm:max-w-62.5 flex items-center gap-2 cursor-pointer">
                         <Link to="/" className="relative flex items-center justify-center" aria-label="Yepp Ads home">
-                            {/* <button className='bg-[#4BBDCF] py-2 px-5 rounded-md text-white'>Logo</button> */}
+                            {/* <button className='bg-primary py-2 px-5 rounded-md text-white'>Logo</button> */}
                             <img src={images.logoIocn} className='h-12 w-full' alt="Yepp Ads" />
                         </Link>
                     </div>
@@ -113,13 +113,13 @@ const Navbar = () => {
                     <div className='flex justify-between items-center gap-20'>
                         <div className={`hidden md:flex items-center ${user?.role === 'ADMIN' || user?.role === 'VENDOR' ? 'space-x-0' : 'space-x-3'} rounded-full`}>
                             {
-                                isAuthenticated ? '' : <p className='text-lg text-[#00616F] font-semibold tracking-wider transition-all duration-300'>Interested in becoming a vendor?</p>
+                                isAuthenticated ? '' : <p className='text-lg text-primary font-semibold tracking-wider transition-all duration-300'>Interested in becoming a vendor?</p>
                             }
                             {
                                 isAuthenticated ?
                                     <button
                                         onClick={hanldeLogOut}
-                                        className={`bg-[#52bad1] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 cursor-pointer 
+                                        className={`bg-primary hover:bg-secondary text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 cursor-pointer 
                                         ${(user?.role === 'ADMIN' || user?.role === 'VENDOR') ? 'rounded-l-full' : 'rounded-full'}`}
                                     >
                                         LogOut
@@ -127,20 +127,20 @@ const Navbar = () => {
                                     :
                                     <NavLink
                                         to='/login'
-                                        className='bg-[#4CAF50] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2 rounded-full cursor-pointer'
+                                        className='bg-primary hover:bg-secondary text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2 rounded-full cursor-pointer'
                                     >
                                         Sign In
                                     </NavLink>
                             }
                             {
-                                user?.role === 'ADMIN' && <NavLink to='/dashboard/admin-dashboard' className='bg-[#52bad1] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 rounded-r-full cursor-pointer'>Dashboard</NavLink>
+                                user?.role === 'ADMIN' && <NavLink to='/dashboard/admin-dashboard' className='bg-primary hover:bg-secondary text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 rounded-r-full cursor-pointer'>Dashboard</NavLink>
                             }
                             {
-                                user?.role === 'VENDOR' && <NavLink to='/shop-overview' className='bg-[#52bad1] hover:bg-[#46a5ba] text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 rounded-r-full cursor-pointer'>Dashboard</NavLink>
+                                user?.role === 'VENDOR' && <NavLink to='/shop-overview' className='bg-primary hover:bg-secondary text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2.5 rounded-r-full cursor-pointer'>Dashboard</NavLink>
                             }
                         </div>
                         <div className='flex justify-center items-center gap-5 cursor-pointer mr-16 md:mr-0'>
-                            <NavLink to='/saved_deals' aria-label={savedDealsLabel} className={({ isActive }) => `relative ${isActive ? 'text-[#4BBDCF] font-bold' : ''}`}>
+                            <NavLink to='/saved_deals' aria-label={savedDealsLabel} className={({ isActive }) => `relative ${isActive ? 'text-primary font-bold' : ''}`}>
                                 <Heart size={22} aria-hidden="true" />
                                 {savedDealsCount > 0 && (
                                     <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
@@ -154,7 +154,7 @@ const Navbar = () => {
                                     aria-label={notificationLabel}
                                     aria-expanded={openNotificationModal}
                                     onClick={() => setOpenNotificationModal(!openNotificationModal)}
-                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-[#4BBDCF] font-bold' : ''}`}>
+                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}>
                                     <Bell size={22} aria-hidden="true" />
                                     {unreadCount > 0 && (
                                         <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
@@ -179,7 +179,7 @@ const Navbar = () => {
                             aria-expanded={isOpen}
                             aria-controls="main-mobile-menu"
                             onClick={() => setIsOpen(!isOpen)}
-                            className="focus:outline-none border bg-white font-extrabold text-[#4BBDCF] rounded-full p-1 cursor-pointer">
+                            className="focus:outline-none border bg-white font-extrabold text-primary rounded-full p-1 cursor-pointer">
                             {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
                         </button>
                     </div>
@@ -195,7 +195,7 @@ const Navbar = () => {
                         <NavLink
                             to="/saved_deals"
                             className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                             }
                         >
                             Saved Deals
@@ -204,7 +204,7 @@ const Navbar = () => {
                             user?.role === 'ADMIN' && <NavLink
                                 to="/dashboard/admin-dashboard"
                                 className={({ isActive }) =>
-                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                                 }
                             >
                                 Dashboard
@@ -214,7 +214,7 @@ const Navbar = () => {
                             user?.role === 'VENDOR' && <NavLink
                                 to="/shop-overview"
                                 className={({ isActive }) =>
-                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                                 }
                             >
                                 Dashboard
@@ -225,7 +225,7 @@ const Navbar = () => {
                                 <button
                                     type="button"
                                     onClick={hanldeLogOut}
-                                    className="rounded-lg px-4 py-3 text-left text-base font-semibold tracking-wider text-[#262626] transition-colors hover:bg-[#F0F9FF] hover:text-[#00616F] cursor-pointer"
+                                    className="rounded-lg px-4 py-3 text-left text-base font-semibold tracking-wider text-[#262626] transition-colors hover:bg-[#F0F9FF] hover:text-secondary cursor-pointer"
                                 >
                                     LogOut
                                 </button>
@@ -233,7 +233,7 @@ const Navbar = () => {
                                 <NavLink
                                     to="/login"
                                     className={({ isActive }) =>
-                                        `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-[#00616F]" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-[#00616F]"}`
+                                        `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                                     }
                                 >
                                     Sign In

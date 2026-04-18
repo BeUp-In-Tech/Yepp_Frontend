@@ -23,7 +23,7 @@ const Plans = () => {
                         <h1 className="text-lg font-bold text-[#262626]">Plan Pages</h1>
                         <p className="text-sm text-[#737373] font-medium">Create and manage subscription plans for vendors.</p>
                     </div>
-                    <div onClick={handleAddPlan} className="bg-[#4BBDCF] flex items-center p-2 rounded-sm cursor-pointer">
+                    <div onClick={handleAddPlan} className="bg-primary flex items-center p-2 rounded-sm cursor-pointer">
                         <Plus className='text-[#FFFFFF]' size={26} />
                         <button className='text-[#FFFFFF] font-semibold cursor-pointer'>Add Plan</button>
                     </div>

@@ -43,7 +43,7 @@ const CategorieDetails = () => {
                     <DynamicLocation
                         latitude={latitude}
                         longitude={longitude}
-                        className="flex gap-2 items-center text-[#00616F] text-sm md:text-base font-semibold"
+                        className="flex gap-2 items-center text-primary text-sm md:text-base font-semibold"
                         iconClassName="h-3 w-3 shrink-0"
                     />
                 </div>
@@ -51,7 +51,7 @@ const CategorieDetails = () => {
             <div className="max-w-305 mx-auto px-2 sm:px-4 md:px-8 py-3 md:py-6">
                 <div className="invisible mb-6 flex items-center justify-between py-3" aria-hidden="true">
                     <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
-                    <div className="flex gap-2 items-center text-[#00616F] text-base font-semibold">
+                    <div className="flex gap-2 items-center text-primary text-base font-semibold">
                         <MapPin size={12} /> <span className="text-sm md:text-base">Current location</span>
                     </div>
                 </div>

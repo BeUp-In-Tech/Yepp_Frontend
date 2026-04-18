@@ -112,7 +112,7 @@ function ActualProfile() {
           <div className="flex-1 space-y-2">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-semibold">Nayem Ahmed</h2>
-              <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
+              <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-primary">
                 VERIFIED
               </span>
             </div>

@@ -19,11 +19,11 @@ const Content = () => {
                 description='Manage pages, categories.'
             />
             {/* <div className="flex items-center gap-3 mt-5">
-                <div onClick={() => setActiveTab('staticpage')} className={`flex items-center ${activeTab === 'staticpage' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
+                <div onClick={() => setActiveTab('staticpage')} className={`flex items-center ${activeTab === 'staticpage' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
                     <span><PanelsTopLeft size={20} /></span>
                     <button>Static Pages</button>
                 </div>
-                <div onClick={() => setActiveTab('categories')} className={`flex items-center ${activeTab === 'categories' ? 'bg-[#4BBDCF] text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
+                <div onClick={() => setActiveTab('categories')} className={`flex items-center ${activeTab === 'categories' ? 'bg-primary text-white' : 'bg-[#e9e3e3] text-[#A3A3A3]'} px-2 py-1.5 rounded-sm gap-1 cursor-pointer`}>
                     <span><LayoutDashboard /></span>
                     <button>Categories</button>
                 </div>

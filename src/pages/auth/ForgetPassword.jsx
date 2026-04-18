@@ -61,7 +61,7 @@ const ForgetPassword = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-[#4FC3D4] hover:bg-[#72dcec] text-white py-3 rounded-full flex items-center justify-center space-x-3 transition-colors cursor-pointer outline-0">
+                            className="w-full bg-primary hover:bg-secondary text-white py-3 rounded-full flex items-center justify-center space-x-3 transition-colors cursor-pointer outline-0">
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (

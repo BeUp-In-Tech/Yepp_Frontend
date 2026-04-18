@@ -115,7 +115,7 @@ const Deals = () => {
 
                     <Link
                         to="/create-deal"
-                        className="bg-[#4BBDCF] hover:bg-[#3db0c1] px-10 md:px-20 py-2.5 md:py-3.5 rounded-full flex items-center justify-center gap-1 text-white text-base font-bold max-w-100 md:max-w-75 w-full cursor-pointer"
+                        className="bg-primary hover:bg-secondary px-10 md:px-20 py-2.5 md:py-3.5 rounded-full flex items-center justify-center gap-1 text-white text-base font-bold max-w-100 md:max-w-75 w-full cursor-pointer"
                     >
                         <span>
                             <Plus />
@@ -129,7 +129,7 @@ const Deals = () => {
                         <button
                             onClick={() => setActiveTab("promoted")}
                             className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "promoted"
-                                ? "bg-[#4BBDCF] text-white"
+                                ? "bg-primary text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
                         >
@@ -139,7 +139,7 @@ const Deals = () => {
                         <button
                             onClick={() => setActiveTab("expired")}
                             className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "expired"
-                                ? "bg-[#4BBDCF] text-white"
+                                ? "bg-primary text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
                         >
@@ -149,7 +149,7 @@ const Deals = () => {
                         <button
                             onClick={() => setActiveTab("new")}
                             className={`shrink-0 whitespace-nowrap rounded-full text-sm sm:text-base px-3 sm:px-6 py-2 font-medium cursor-pointer ${activeTab === "new"
-                                ? "bg-[#4BBDCF] text-white"
+                                ? "bg-primary text-white"
                                 : "bg-white text-[#A3A3A3]"
                                 }`}
                         >

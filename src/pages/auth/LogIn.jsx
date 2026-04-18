@@ -97,7 +97,7 @@ const LogIn = () => {
 
                     <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w-68.5 mx-auto">
                         <div className="w-full p-1.5 flex">
-                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-[#4FC3D4] hover:bg-[#3db0c1] text-white text-base font-medium cursor-pointer">
+                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-base font-medium cursor-pointer">
                                 Log In
                             </Link>
                             <Link to='/register' className="text-center w-full py-2 px-4 rounded-full text-[#262626] text-base font-medium cursor-pointer">
@@ -140,7 +140,7 @@ const LogIn = () => {
                         )}
 
                         <div className="text-right">
-                            <Link to="/forgetpassword" className="text-sm text-cyan-500 font-medium hover:underline">
+                            <Link to="/forgetpassword" className="text-sm text-primary font-medium hover:underline">
                                 Forgot Password?
                             </Link>
                         </div>
@@ -148,7 +148,7 @@ const LogIn = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-[#4FC3D4] hover:bg-[#3db0c1] text-white font-semibold py-3 rounded-full shadow-md cursor-pointer flex items-center justify-center">
+                            className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-full shadow-md cursor-pointer flex items-center justify-center">
                             {isLoading ? (
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (
@@ -165,7 +165,7 @@ const LogIn = () => {
                     <SocilaLink />
                     <div className="text-center mt-8 text-base">
                         <span className="text-[#000000]">Don't have an account? </span>
-                        <Link to="/register" className="text-[#2B9DAE] font-semibold hover:underline">
+                        <Link to="/register" className="text-primary font-semibold hover:underline">
                             Sign up
                         </Link>
                     </div>

@@ -22,10 +22,10 @@ const Charts = () => {
         <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border border-gray-100 mb-8">
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="space-y-2">
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#00616F]">
+                    <h2 className="text-xl sm:text-2xl font-bold text-primary">
                         Personal Overview
                     </h2>
-                    <span className="inline-flex rounded-full bg-[#E8F8FB] px-3 py-1 text-sm font-semibold text-[#00616F]">
+                    <span className="inline-flex rounded-full bg-[#E8F8FB] px-3 py-1 text-sm font-semibold text-primary">
                         Last 1 year
                     </span>
                 </div>
