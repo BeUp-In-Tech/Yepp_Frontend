@@ -77,6 +77,7 @@ const OutletModal = ({ onClose, onSave }) => {
             <div className="w-full h-64 rounded-xl overflow-hidden border mt-2">
 
               <GoogleMapComponent
+                address={address}
                 onMarkerSelect={setCoordinates}
               />
 

@@ -20,7 +20,7 @@ const CreatedShop = () => {
       <div className='max-w-305 mx-auto'>
         <div className="flex items-center justify-between mb-8">
           <div className="flex gap-4">
-            <div className="w-25 sm:w-32.5 h-25 sm:h-32.5 rounded-full border-2 border-[#4BBDCF] overflow-hidden bg-white">
+            <div className="w-25 sm:w-32.5 h-25 sm:h-32.5 rounded-full border-2 border-[#4CAF50] overflow-hidden bg-white">
               <img src={shopDetails?.data?.business_logo} alt="Salon" className="object-fill p-1.5 w-25 sm:w-32 h-25 sm:h-32 rounded-full aspect-auto" />
             </div>
             <div className='space-y-3 mt-3'>

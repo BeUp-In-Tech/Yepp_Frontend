@@ -98,13 +98,13 @@ const LogIn = () => {
                         </p>
                     </div>
 
-                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w-68.5 mx-auto">
+                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w- mx-auto">
                         <div className="w-full p-1.5 flex">
                             <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-base font-medium cursor-pointer">
-                                Log In
+                                Business Log In
                             </Link>
                             <Link to='/register' className="text-center w-full py-2 px-4 rounded-full text-[#262626] text-base font-medium cursor-pointer">
-                                Sign up
+                                Business Sign Up
                             </Link>
                         </div>
                     </div>

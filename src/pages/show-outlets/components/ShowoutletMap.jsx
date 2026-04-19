@@ -1,22 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin, Store, ChevronRight, Pencil } from "lucide-react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import outletMapIcon from "../../../assets/images/outletMap.png";
 import useUserLocation from "../../../hooks/useUserLocation";
 import { Link } from "react-router-dom";
+import { googleMapsLoaderOptions } from "../../../lib/googleMapsLoader";
 
 export default function ShowoutletMap({ outlets = [] }) {
     const { latitude, longitude } = useUserLocation();
     const [selectedOutlet, setSelectedOutlet] = useState(outlets?.[0] || null);
     const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
-    const libraries = useMemo(() => ["maps"], []);
-
-    const { isLoaded } = useJsApiLoader({
-        id: "google-map-script",
-        googleMapsApiKey: GOOGLE_MAP_API_KEY,
-        libraries,
-    });
+    const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
 
     useEffect(() => {
         const func = () => {

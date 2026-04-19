@@ -24,6 +24,7 @@ const EditOutlet = ({ outletNumber }) => {
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
     } = useForm({
         defaultValues: {
             outlet_name: "",
@@ -32,6 +33,7 @@ const EditOutlet = ({ outletNumber }) => {
             coordinates: null,
         },
     });
+    const addressValue = watch("address");
 
     useEffect(() => {
         if (isSuccess) {
@@ -158,6 +160,7 @@ const EditOutlet = ({ outletNumber }) => {
                                 <>
                                     <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden border border-gray-300 mt-2">
                                         <GoogleMapComponent
+                                            address={addressValue}
                                             selectedLocation={field.value}
                                             onMarkerSelect={(coords) => field.onChange(coords)}
                                         />
@@ -201,7 +204,7 @@ const EditOutlet = ({ outletNumber }) => {
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full" />
                             ) : (
                                 <span className="font-medium text-lg text-white">
-                                    Update Shop
+                                    Update Outlet
                                 </span>
                             )}
                         </button>

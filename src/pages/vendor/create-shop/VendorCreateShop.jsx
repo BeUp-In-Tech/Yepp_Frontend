@@ -7,6 +7,7 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useCreateShopMutation } from "../../../features/shop/shopApi";
 import OutletModal from "./components/OutletModal";
+import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 
 const VendorCreateShop = () => {
   const [logoPreview, setLogoPreview] = useState(null);
@@ -14,6 +15,7 @@ const VendorCreateShop = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [createShop, { isLoading, error, isSuccess }] = useCreateShopMutation();
+  const { data: currentUser, isLoading: currentUserLoading } = useHandleCurrentLoggedInUserQuery();
 
   useEffect(() => {
     if (isSuccess) {
@@ -51,6 +53,12 @@ const VendorCreateShop = () => {
     }
   };
 
+  if (currentUserLoading) {
+    return <p>Loading....</p>
+  }
+
+  console.log(currentUser?.data);
+
   const removeLogo = () => {
     setLogoPreview(null);
     setValue("businessLogo", null);
@@ -61,7 +69,7 @@ const VendorCreateShop = () => {
     setShowModal(false);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const shopData = {
       shop: {
         business_name: data.businessName,
@@ -79,7 +87,12 @@ const VendorCreateShop = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(shopData));
     formData.append("file", data.businessLogo);
-    createShop(formData);
+
+    const res = await createShop(formData);
+    console.log(res?.data?.statusCode)
+    if (res?.data?.statusCode === 201) {
+      navigate('/shop-overview');
+    }
   };
   return (
     <div className="bg-white min-h-screen px-4 pt-32 pb-12">
@@ -175,7 +188,8 @@ const VendorCreateShop = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                   <PhoneInput
-                    country={"bd"}
+                    country={"us"}
+                    onlyCountries={["us"]}
                     enableSearch
                     value={value}
                     containerClass="w-full"

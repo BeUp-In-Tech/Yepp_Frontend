@@ -1,24 +1,75 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useUserLocation from "../../../../hooks/useUserLocation";
+import { googleMapsLoaderOptions } from "../../../../lib/googleMapsLoader";
+import outletMapIcon from "../../../../assets/images/outletMap.png";
 
-const GoogleMapComponent = ({ onMarkerSelect }) => {
-    const { isLoaded } = useJsApiLoader({
-        id: "google-map-script",
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY
-    });
+
+const GoogleMapComponent = ({ address, onMarkerSelect }) => {
+    const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
     const [marker, setMarker] = useState(null);
     const { latitude, longitude } = useUserLocation();
-    const center = {
+
+    const userLocation = useMemo(() => {
+        const lat = Number(latitude);
+        const lng = Number(longitude);
+
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+            return null;
+        }
+
+        return { lat, lng };
+    }, [latitude, longitude]);
+    const fallbackCenter = {
         lat: latitude,
-        lng: longitude
+        lng: longitude,
     };
+    const center = marker || userLocation || fallbackCenter;
+
+    useEffect(() => {
+        const func = () => {
+            if (!isLoaded) return;
+
+            const searchAddress = address?.trim();
+
+            if (!searchAddress) {
+                setMarker(userLocation);
+                onMarkerSelect?.(userLocation ? [userLocation.lng, userLocation.lat] : null);
+                return;
+            }
+
+            setMarker(null);
+            onMarkerSelect?.(null);
+
+            const timer = setTimeout(() => {
+                const geocoder = new window.google.maps.Geocoder();
+
+                geocoder.geocode({ address: searchAddress }, (results, status) => {
+                    const location = results?.[0]?.geometry?.location;
+
+                    if (status !== "OK" || !location) return;
+
+                    const nextMarker = {
+                        lat: location.lat(),
+                        lng: location.lng(),
+                    };
+
+                    setMarker(nextMarker);
+                    onMarkerSelect?.([nextMarker.lng, nextMarker.lat]);
+                });
+            }, 600);
+
+            return () => clearTimeout(timer);
+        }
+        func();
+    }, [address, isLoaded, onMarkerSelect, userLocation]);
+
     const handleMapClick = (event) => {
 
         const lat = event.latLng.lat();
         const lng = event.latLng.lng();
 
-        setMarker({ lng, lat });
+        setMarker({ lat, lng });
 
         if (onMarkerSelect) {
             onMarkerSelect([lng, lat]);
@@ -39,7 +90,7 @@ const GoogleMapComponent = ({ onMarkerSelect }) => {
                 height: "100%"
             }}
             center={center}
-            zoom={10}
+            zoom={marker ? 15 : 10}
             onClick={handleMapClick}
             options={{
                 mapTypeControl: false,
@@ -47,7 +98,13 @@ const GoogleMapComponent = ({ onMarkerSelect }) => {
                 gestureHandling: "greedy",
             }}
         >
-            {marker && <Marker position={marker} />}
+            {marker && <Marker
+                position={marker}
+                icon={{
+                    url: outletMapIcon,
+                    scaledSize: new window.google.maps.Size(40, 40),
+                }}
+            />}
         </GoogleMap>
     );
 };
