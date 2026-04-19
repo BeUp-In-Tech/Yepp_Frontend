@@ -184,7 +184,7 @@ const Navbar = () => {
                         </button>
                     </div>
                 </div>
-                
+
                 {/* Mobile Menu Overlay */}
                 <div
                     id="main-mobile-menu"

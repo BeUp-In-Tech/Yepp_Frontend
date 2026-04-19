@@ -33,7 +33,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
             toggleModal();
         }
     }
-    
+
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/10 backdrop-blur-xs overflow-y-auto pt-36"
@@ -46,7 +46,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
                     className="absolute top-6 right-4 text-gray-400 hover:text-gray-600">
                     <X />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 pb-5">Add Categories Form</h2>
+                <h2 className="text-2xl font-bold text-gray-800 pb-5">Add Categories</h2>
                 <div className="">
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="relative">
@@ -56,7 +56,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
                                 placeholder="Categories Name"
                                 className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_name', {
-                                    required: 'User name required',
+                                    required: 'Categories Name required',
                                 })}
                             />
                         </div>
@@ -69,13 +69,18 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
                             <label className="text-left text-gray-800">Category Image</label>
                             <input
                                 type="file"
-                                placeholder="User Name"
+                                placeholder="Categories Image"
                                 className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary "
                                 {...register('photo', {
-                                    required: 'Upload photo',
+                                    required: 'Categories image required',
                                 })}
                             />
                         </div>
+                        {errors.category_name && (
+                            <p className="text-sm text-red-500 ml-4">
+                                {errors.photo.message}
+                            </p>
+                        )}
                         <div className="text-center pt-10">
                             <button
                                 type="submit"

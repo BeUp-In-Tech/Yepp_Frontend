@@ -98,7 +98,7 @@ const EditPlanModal = ({ isOpen, toggleModal, editId }) => {
                     className="absolute top-6 right-4 text-gray-400 hover:text-gray-600">
                     <X />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 pb-5">Edit Plan Form</h2>
+                <h2 className="text-2xl font-bold text-gray-800 pb-5">Edit Plan</h2>
                 <div className="">
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         {/* Plan Name */}

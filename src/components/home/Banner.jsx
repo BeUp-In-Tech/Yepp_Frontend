@@ -1,6 +1,7 @@
 import SearchBox from './SearchBox';
 
 const Banner = ({ handleSearch }) => {
+    
     return (
         <div className='bg-image px-4 bg-no-repeat bg-cover min-h-[52vh] sm:min-h-[56vh] md:min-h-[60vh]'>
             <div className='max-w-305 mx-auto flex min-h-[52vh] flex-col justify-center pt-44 pb-12 sm:min-h-[56vh] sm:pt-46 sm:pb-16 md:min-h-[60vh] md:pt-44 md:pb-20'>

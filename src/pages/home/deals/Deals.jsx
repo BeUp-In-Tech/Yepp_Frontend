@@ -32,7 +32,7 @@ const Deals = () => {
     return (
         <div className="bg-gray-50 min-h-[10vh] px-4 py-12.5">
             <div className="max-w-305 mx-auto">
-                <div className="flex items-start justify-between gap-4 mb-6">
+                <div className="flex items-start justify-between gap-2 mb-6">
                     <h2 className="text-base font-bold leading-tight text-[#262626] sm:text-2xl md:text-[28px]">Explore nearby</h2>
                     <DynamicLocation
                         latitude={latitude}

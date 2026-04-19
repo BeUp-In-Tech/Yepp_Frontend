@@ -50,7 +50,7 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                     className="absolute top-6 right-4 text-gray-400 hover:text-gray-600">
                     <X />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 pb-5">Add Plan Form</h2>
+                <h2 className="text-2xl font-bold text-gray-800 pb-5">Add Plan</h2>
                 <div className="">
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="relative">
@@ -129,10 +129,15 @@ const AddPlansModal = ({ isOpen, toggleModal }) => {
                                 placeholder="User Name"
                                 className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('photo', {
-                                    required: 'Upload photo',
+                                    required: 'Plan image required',
                                 })}
                             />
                         </div>
+                        {errors.plan_description && (
+                            <p className="text-sm text-red-500 ml-4">
+                                {errors.photo.message}
+                            </p>
+                        )}
                         <div className="text-center pt-5">
                             <button
                                 type="submit"

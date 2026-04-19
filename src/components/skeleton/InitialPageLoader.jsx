@@ -4,12 +4,12 @@ const InitialPageLoader = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 animate-pulse">
-            <div className="fixed top-0 left-0 right-0 z-50 bg-[#E0F2FE] px-4 py-5">
+            <div className="fixed top-0 left-0 right-0 z-50 bg-[color-mix(in_srgb,var(--primary-color)_12%,white)] px-4 py-5">
                 <div className="max-w-305 mx-auto flex items-center justify-between">
                     <div className="h-12 w-36 rounded-md bg-white/80" />
                     <div className="hidden md:flex items-center gap-3">
                         <div className="h-5 w-72 rounded-full bg-white/70" />
-                        <div className="h-10 w-24 rounded-full bg-[#9EDAE5]" />
+                        <div className="h-10 w-24 rounded-full bg-[color-mix(in_srgb,var(--primary-color)_35%,white)]" />
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="h-7 w-7 rounded-full bg-white/80" />
@@ -18,12 +18,12 @@ const InitialPageLoader = () => {
                 </div>
             </div>
 
-            <div className="fixed top-20 left-0 right-0 z-40 bg-[#F0F9FF] px-4">
+            <div className="fixed top-20 left-0 right-0 z-40 bg-[color-mix(in_srgb,var(--primary-color)_8%,white)] px-4">
                 <div className="max-w-305 mx-auto py-3 flex items-center gap-5 overflow-hidden">
                     {categoryItems.map((_, index) => (
                         <div key={index} className="flex shrink-0 items-center gap-2">
-                            <div className="h-6 w-6 rounded-full bg-[#D8EEF7]" />
-                            <div className="h-4 w-24 rounded-full bg-[#D8EEF7]" />
+                            <div className="h-6 w-6 rounded-full bg-[color-mix(in_srgb,var(--primary-color)_18%,white)]" />
+                            <div className="h-4 w-24 rounded-full bg-[color-mix(in_srgb,var(--primary-color)_18%,white)]" />
                         </div>
                     ))}
                 </div>
@@ -38,7 +38,7 @@ const InitialPageLoader = () => {
                         <div className="mt-10 flex w-full max-w-220 flex-col gap-3 rounded-lg bg-white p-3 shadow-sm sm:flex-row">
                             <div className="h-12 flex-1 rounded-md bg-gray-100" />
                             <div className="h-12 flex-1 rounded-md bg-gray-100" />
-                            <div className="h-12 w-full rounded-md bg-[#7CCFDC] sm:w-36" />
+                            <div className="h-12 w-full rounded-md bg-primary sm:w-36" />
                         </div>
                     </div>
                 </section>
@@ -55,8 +55,8 @@ const InitialPageLoader = () => {
                                         <div className="h-4 w-full rounded-md bg-gray-100" />
                                         <div className="h-4 w-2/3 rounded-md bg-gray-100" />
                                         <div className="flex items-center justify-between pt-2">
-                                            <div className="h-6 w-20 rounded-full bg-[#D8EEF7]" />
-                                            <div className="h-9 w-24 rounded-md bg-[#9EDAE5]" />
+                                            <div className="h-6 w-20 rounded-full bg-[color-mix(in_srgb,var(--primary-color)_18%,white)]" />
+                                            <div className="h-9 w-24 rounded-md bg-primary" />
                                         </div>
                                     </div>
                                 </div>

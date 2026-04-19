@@ -38,7 +38,7 @@ const LogIn = () => {
     // email and password
     useEffect(() => {
         if (!user) return;
-        toast.success("Login successful!");
+        // toast.success("Login successful!");
 
         // fcm token when user loing
         const registerToken = async () => {
@@ -70,7 +70,10 @@ const LogIn = () => {
 
     const onSubmit = async (data) => {
         try {
-            await handleLogin(data).unwrap();
+            const res = await handleLogin(data).unwrap();
+            if (res?.data) {
+                toast.success("Login successful!");
+            }
         } catch (error) {
             const message = error?.data?.message || "Login failed!";
             toast.error(message);
@@ -88,7 +91,7 @@ const LogIn = () => {
                 <div className="w-full max-w-117.5 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100">
                     <div className="text-center mb-8">
                         <h1 className="text-2xl font-bold text-[#262626]">
-                            Welcome Back, Yapp
+                            Welcome Back
                         </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Let's get you back to your business

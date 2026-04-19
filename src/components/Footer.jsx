@@ -39,7 +39,7 @@ const Footer = () => {
             </div>
             <div className="bg-primary py-4 px-4">
                 <div className="max-w-305 mx-auto">
-                    <p className="text-center text-white text-sm sm:text-left">
+                    <p className="text-center text-white text-base sm:text-left">
                         &copy; {new Date().getFullYear()} Yepp Ads. All rights reserved.
                     </p>
                 </div>

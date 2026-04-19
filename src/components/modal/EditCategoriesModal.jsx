@@ -88,7 +88,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                     className="absolute top-6 right-4 text-gray-400 hover:text-gray-600">
                     <X />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 pb-5">Update Categories Form</h2>
+                <h2 className="text-2xl font-bold text-gray-800 pb-5">Update Categories</h2>
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="relative">

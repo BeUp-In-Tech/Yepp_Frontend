@@ -51,7 +51,7 @@ const Register = () => {
                 <div className="w-full max-w-120 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100">
                     <div className="text-center mb-8 mx-auto">
                         <h1 className="text-2xl font-bold text-[#262626]">
-                           Welcome Back, Yapp
+                           Welcome Back
                         </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Expand your reach and boost your sales.

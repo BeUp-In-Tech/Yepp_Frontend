@@ -12,7 +12,7 @@ const VendorFormSkeleton = () => {
                 <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
                     {/* Left Column */}
                     <div>
-                        <div className="mb-8 h-9 w-56 rounded-md bg-cyan-200" />
+                        <div className="mb-8 h-9 w-56 rounded-md bg-[color-mix(in_srgb,var(--primary-color)_25%,white)]" />
 
                         {/* Business Name */}
                         <div className="mb-8">
@@ -27,7 +27,7 @@ const VendorFormSkeleton = () => {
                                 <div className="h-40 w-32 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-100" />
                                 <div className="flex-1">
                                     <div className="mb-4 h-4 w-40 rounded bg-gray-200" />
-                                    <div className="h-12 w-52 rounded-full bg-cyan-200" />
+                                    <div className="h-12 w-52 rounded-full bg-[color-mix(in_srgb,var(--primary-color)_25%,white)]" />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ const VendorFormSkeleton = () => {
 
                     {/* Right Column */}
                     <div>
-                        <div className="mb-8 h-9 w-60 rounded-md bg-cyan-200" />
+                        <div className="mb-8 h-9 w-60 rounded-md bg-[color-mix(in_srgb,var(--primary-color)_25%,white)]" />
 
                         {/* Business Email */}
                         <div className="mb-8">

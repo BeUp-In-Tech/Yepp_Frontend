@@ -33,7 +33,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           </button>
         </div>
         <div className="mx-5 mb-5 px-6 sm:px-4 flex flex-col items-center">
-          <h2 className="text-[#008080] text-2xl font-bold mb-6 text-center">
+          <h2 className="text-primary text-2xl font-bold mb-6 text-center">
             {title}
           </h2>
           <div className="w-full space-y-3 mb-4 px-2">

@@ -7,7 +7,7 @@ const Content = () => {
     return (
         <div className="min-h-screen pt-3 pb-5">
             <HeadingTitle
-                title='Content Management'
+                title='Categories Management'
                 description='Manage pages, categories.'
             />
             <div className='mt-5'>
