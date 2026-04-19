@@ -10,7 +10,7 @@ const DealCard = ({ deal }) => {
     const newDeal = activePromotion === null;
 
     return (
-        <Link to={`/deal-details/${_id}`} className="block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
+        <Link to={`/deal-details/${_id}`} className="flex h-full flex-col bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
                 <img
                     src={images[0]}
@@ -25,33 +25,35 @@ const DealCard = ({ deal }) => {
                 </div>
             </div>
 
-            <div className="p-4">
+            <div className="flex flex-1 flex-col p-4">
                 <h3 className="text-lg font-semibold text-[#262626] line-clamp-2 min-h-10 leading-tight">
                     {deal.title}
                 </h3>
-                <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-baseline gap-2">
+                <div className="mt-3 flex flex-1 flex-col gap-2">
+                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
                         <span className="text-xl font-bold text-[#262626]">
                             ${(reguler_price - ((reguler_price / 100) * discount)).toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                        <span className="text-sm text-[#A3A3A3] font-medium line-through break-all">
                             ${reguler_price.toFixed(1)}
                         </span>
                     </div>
-                    {
-                        activeDeal && <Countdown countdown={promotedUntil} />
-                    }
-                    {
-                        expiredDeal && <div className="bg-gray-300 py-0.5 px-2 rounded-sm ml-2 text-sm font-semibold text-gray-600">
-                            Expired
-                        </div>
-                    }
-                    {
-                        newDeal && <div className="bg-gray-300 py-0.5 px-2 rounded-sm ml-2 text-sm font-semibold text-gray-600">
-                            Not Promoted Yet
-                        </div>
-                    }
+                    <div className="flex min-w-0 flex-wrap items-center gap-2">
+                        {
+                            activeDeal && <Countdown countdown={promotedUntil} />
+                        }
+                        {
+                            expiredDeal && <div className="max-w-full rounded-sm bg-gray-300 px-2 py-0.5 text-sm font-semibold text-gray-600">
+                                Expired
+                            </div>
+                        }
+                        {
+                            newDeal && <div className="max-w-full rounded-sm bg-gray-300 px-2 py-0.5 text-sm font-semibold text-gray-600">
+                                Not Promoted Yet
+                            </div>
+                        }
+                    </div>
                 </div>
                 <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now

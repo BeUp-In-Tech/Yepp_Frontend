@@ -117,7 +117,7 @@ const DealDetails = () => {
                                     <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
                                         ${price.toFixed(2)}
                                     </span>
-                                    <span className="rounded-md bg-green-100 px-2 py-1 text-sm font-bold text-primary sm:text-base">{discount}% off</span>
+                                    <span className="rounded-md bg-primary px-2 py-1 text-sm font-bold text-white sm:text-base">{discount}% off</span>
                                 </div>
                                 <div className='mt-0 sm:mt-2'>
                                     <Countdown countdown={promotedUntil} />

@@ -63,7 +63,7 @@ const SendMessage = () => {
                                     {...register("scheduleLater")}
                                     className="sr-only peer"
                                 />
-                                <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-[#4EB8C9] transition-colors duration-200"></div>
+                                <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-[var(--primary-color)] transition-colors duration-200"></div>
                                 <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-6"></div>
                             </div>
                         </label>

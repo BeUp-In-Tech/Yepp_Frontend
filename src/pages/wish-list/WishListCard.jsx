@@ -48,10 +48,10 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     className="w-full h-full object-cover"
                 />
                 <div className="flex justify-between">
-                    <div className="absolute top-3 left-3 bg-[#A8EBF7] text-primary text-xs font-bold px-2 py-1 rounded">
+                    <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
                         {discount}% off</div>
                     <div className={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded
-                         ${new Date(promotedUntil) < now ? 'bg-[#e9e2e2] text-[#737373]' : 'bg-[#A8EBF7] text-primary'}`}> {new Date(promotedUntil) < now ? 'Expired' : 'Available'}
+                         ${new Date(promotedUntil) < now ? 'bg-[#e9e2e2] text-[#737373]' : 'bg-primary text-white'}`}> {new Date(promotedUntil) < now ? 'Expired' : 'Available'}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useState } from "react";
+import useUserLocation from "../../../../hooks/useUserLocation";
 
 const GoogleMapComponent = ({ onMarkerSelect }) => {
     const { isLoaded } = useJsApiLoader({
@@ -7,9 +8,10 @@ const GoogleMapComponent = ({ onMarkerSelect }) => {
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY
     });
     const [marker, setMarker] = useState(null);
+    const { latitude, longitude } = useUserLocation();
     const center = {
-        lat: 23.8041,
-        lng: 90.4152
+        lat: latitude,
+        lng: longitude
     };
     const handleMapClick = (event) => {
 

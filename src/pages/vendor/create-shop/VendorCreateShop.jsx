@@ -259,7 +259,6 @@ const VendorCreateShop = () => {
         <OutletModal
           onClose={() => setShowModal(false)}
           onSave={handleAddOutlet}
-          outletNumber={outlets.length + 1}
         />
       )}
     </div>

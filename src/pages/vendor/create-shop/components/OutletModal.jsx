@@ -2,7 +2,7 @@ import { MapPin, Store, X } from "lucide-react";
 import { useState } from "react";
 import GoogleMapComponent from "./GoogleMapComponent";
 
-const OutletModal = ({ onClose, onSave, outletNumber }) => {
+const OutletModal = ({ onClose, onSave }) => {
   const [coordinates, setCoordinates] = useState(null);
   const [outlet_name, setOutletName] = useState("");
   const [address, setAddress] = useState("");
@@ -19,7 +19,7 @@ const OutletModal = ({ onClose, onSave, outletNumber }) => {
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white h-auto rounded-2xl w-full max-w-lg p-8 shadow-2xl">
+      <div className="bg-white h-auto rounded-2xl w-full max-w-xl p-8 shadow-2xl">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold text-primary">Add Outlet</h3>
 
@@ -35,7 +35,7 @@ const OutletModal = ({ onClose, onSave, outletNumber }) => {
           {/* Outlet Name */}
           <div>
             <label className="block text-lg font-medium">
-              Outlet-{outletNumber} Name
+              Name
             </label>
 
             <div className="relative mt-2">
@@ -53,7 +53,7 @@ const OutletModal = ({ onClose, onSave, outletNumber }) => {
           {/* Address */}
           <div>
             <label className="block text-lg font-medium">
-              Outlet-{outletNumber} Address
+              Address
             </label>
 
             <div className="relative mt-2">
@@ -71,7 +71,7 @@ const OutletModal = ({ onClose, onSave, outletNumber }) => {
           {/* Map */}
           <div>
             <label className="block text-lg font-medium">
-              Outlet-{outletNumber} Location
+              Location
             </label>
 
             <div className="w-full h-64 rounded-xl overflow-hidden border mt-2">
