@@ -5,10 +5,11 @@ import { useHandleCurrentLoggedInUserQuery } from "../features/auth/authApi";
 import EmailVerifySkeleton from "../components/skeleton/EmailVerifySkeleton";
 import { useEffect } from "react";
 import { userLoggedIn } from "../features/auth/authSlice";
+import useAuth from './../hooks/useAuth';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useSelector((state) => state?.auth);
-  // const isLoggedIn = useAuth();
+  const isLoggedIn = useAuth();
   const { data: currentUser, isLoading } = useHandleCurrentLoggedInUserQuery();
   const dispatch = useDispatch();
 
