@@ -26,13 +26,15 @@ const Notification = ({ setIsOpen }) => {
         try {
             const url = new URL(webUrl, window.location.origin);
             const normalizedPath = url.pathname.replace(/\/$/, "");
+            const isCurrentAppUrl = url.origin === window.location.origin;
+            const isLocalDevUrl = ["localhost", "127.0.0.1"].includes(url.hostname);
 
-            if (url.origin === window.location.origin && normalizedPath === "/notification") {
+            if ((isCurrentAppUrl || isLocalDevUrl) && normalizedPath === "/notification") {
                 navigate(`${getNotificationDetailPath(notificationId)}${url.search}${url.hash}`);
                 return;
             }
 
-            if (url.origin === window.location.origin) {
+            if (isCurrentAppUrl || isLocalDevUrl) {
                 navigate(`${url.pathname}${url.search}${url.hash}`);
                 return;
             }
