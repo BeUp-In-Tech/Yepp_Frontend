@@ -18,7 +18,7 @@ const SendMessage = () => {
                             <input
                                 {...register("title")}
                                 placeholder="Notification Title"
-                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
 
@@ -28,7 +28,7 @@ const SendMessage = () => {
                                 {...register("message")}
                                 rows="6"
                                 placeholder="write your message here"
-                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                className="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </div>
                         <div>
@@ -63,7 +63,7 @@ const SendMessage = () => {
                                     {...register("scheduleLater")}
                                     className="sr-only peer"
                                 />
-                                <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-[#4EB8C9] transition-colors duration-200"></div>
+                                <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-(--primary-color) transition-colors duration-200"></div>
                                 <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-6"></div>
                             </div>
                         </label>

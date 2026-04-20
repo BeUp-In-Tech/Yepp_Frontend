@@ -88,7 +88,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                     className="absolute top-6 right-4 text-gray-400 hover:text-gray-600">
                     <X />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 pb-5">Update Categories Form</h2>
+                <h2 className="text-2xl font-bold text-gray-800 pb-5">Update Categories</h2>
                 <div>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div className="relative">
@@ -96,7 +96,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="text"
                                 placeholder="Categories Name"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_name', {
                                     required: 'Category name required',
                                 })}
@@ -112,7 +112,7 @@ const EditCategoriesModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="file"
                                 accept="image/*"
-                                className="w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('category_image')}
                             />
                         </div>

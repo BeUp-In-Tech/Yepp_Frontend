@@ -14,7 +14,7 @@ const SearchDealCard = ({ deal }) => {
                     alt={title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-[#A8EBF7] text-primary text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">

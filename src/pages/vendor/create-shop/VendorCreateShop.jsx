@@ -7,6 +7,7 @@ import "react-phone-input-2/lib/style.css";
 import toast from "react-hot-toast";
 import { useCreateShopMutation } from "../../../features/shop/shopApi";
 import OutletModal from "./components/OutletModal";
+import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 
 const VendorCreateShop = () => {
   const [logoPreview, setLogoPreview] = useState(null);
@@ -14,6 +15,7 @@ const VendorCreateShop = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [createShop, { isLoading, error, isSuccess }] = useCreateShopMutation();
+  const { data: currentUser, isLoading: currentUserLoading } = useHandleCurrentLoggedInUserQuery();
 
   useEffect(() => {
     if (isSuccess) {
@@ -51,6 +53,12 @@ const VendorCreateShop = () => {
     }
   };
 
+  if (currentUserLoading) {
+    return <p>Loading....</p>
+  }
+
+  console.log(currentUser?.data);
+
   const removeLogo = () => {
     setLogoPreview(null);
     setValue("businessLogo", null);
@@ -61,7 +69,7 @@ const VendorCreateShop = () => {
     setShowModal(false);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const shopData = {
       shop: {
         business_name: data.businessName,
@@ -79,7 +87,12 @@ const VendorCreateShop = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(shopData));
     formData.append("file", data.businessLogo);
-    createShop(formData);
+
+    const res = await createShop(formData);
+    console.log(res?.data?.statusCode)
+    if (res?.data?.statusCode === 201) {
+      navigate('/shop-overview');
+    }
   };
   return (
     <div className="bg-white min-h-screen px-4 pt-32 pb-12">
@@ -102,7 +115,7 @@ const VendorCreateShop = () => {
                 <input
                   {...register("businessName", { required: "Business name is required" })}
                   placeholder="Enter your business name"
-                  className={`w-full pl-12 pr-4 py-4 border rounded-full outline-none transition-all ${errors.businessName ? 'border-red-500' : 'border-gray-300 focus:border-[#2B9DAE]'}`}
+                  className={`w-full pl-12 pr-4 py-4 border rounded-full outline-none transition-all ${errors.businessName ? 'border-red-500' : 'border-gray-300 focus:border-primary'}`}
                 />
               </div>
               {errors.businessName && <p className="text-red-500 text-xs mt-1 ml-4">{errors.businessName.message}</p>}
@@ -146,7 +159,7 @@ const VendorCreateShop = () => {
                   {...register("description")}
                   placeholder="Business Description"
                   rows="5"
-                  className="w-full p-5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2B9DAE]/20 focus:border-[#2B9DAE] outline-none resize-none transition-all"
+                  className="w-full p-5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none transition-all"
                 />
               </div>
             </div>
@@ -164,7 +177,7 @@ const VendorCreateShop = () => {
                       pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
                     })}
                     placeholder="Business email"
-                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-[#2B9DAE] outline-none transition-all"
+                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-primary outline-none transition-all"
                   />
                 </div>
                 {errors.email && <p className="text-red-500 text-xs mt-1 ml-4">{errors.email.message}</p>}
@@ -175,7 +188,8 @@ const VendorCreateShop = () => {
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                   <PhoneInput
-                    country={"bd"}
+                    country={"us"}
+                    onlyCountries={["us"]}
                     enableSearch
                     value={value}
                     containerClass="w-full"
@@ -233,7 +247,7 @@ const VendorCreateShop = () => {
                   <input
                     {...register("website")}
                     placeholder="Website link"
-                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-[#2B9DAE] outline-none transition-all"
+                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-primary outline-none transition-all"
                   />
                 </div>
               </div>
@@ -259,7 +273,6 @@ const VendorCreateShop = () => {
         <OutletModal
           onClose={() => setShowModal(false)}
           onSave={handleAddOutlet}
-          outletNumber={outlets.length + 1}
         />
       )}
     </div>

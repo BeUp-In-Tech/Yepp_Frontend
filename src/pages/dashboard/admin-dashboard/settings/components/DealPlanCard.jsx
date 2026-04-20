@@ -45,7 +45,7 @@ const DealPlanCard = () => {
                                     <input
                                         type="number"
                                         {...register(plan.id, { min: 0 })}
-                                        className="w-16 px-2 py-1 bg-white border border-gray-200 rounded text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
+                                        className="w-16 px-2 py-1 bg-white border border-gray-200 rounded text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                                     />
                                 </div>
                             </div>

@@ -4,7 +4,7 @@ const ShopOutletSkeleton = () => {
       <div className="max-w-305 mx-auto space-y-6">
         {/* Top Brand Section */}
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
-          <div className="h-32 w-32 shrink-0 animate-pulse rounded-full border-2 border-cyan-400 bg-gray-200" />
+          <div className="h-32 w-32 shrink-0 animate-pulse rounded-full border-2 border-[var(--primary-color)] bg-gray-200" />
 
           <div className="flex-1 space-y-3">
             <div className="h-10 w-72 animate-pulse rounded-md bg-gray-200" />
@@ -23,7 +23,7 @@ const ShopOutletSkeleton = () => {
                 {[1, 2].map((item) => (
                   <div
                     key={item}
-                    className="rounded-xl border border-gray-200 bg-[#f7f9fb] p-4"
+                    className="rounded-xl border border-gray-200 bg-[color-mix(in_srgb,var(--primary-color)_5%,white)] p-4"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex min-w-0 flex-1 items-start gap-3">

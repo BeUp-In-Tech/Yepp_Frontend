@@ -9,6 +9,7 @@ export const verifyApi = apiSlice.injectEndpoints({
                 body: email,
                 credentials: "include",
             }),
+            invalidatesTags: ["User"],
         }),
         handleSendOTPVerification: builder.mutation({
             query: (otpData) => ({
@@ -16,9 +17,9 @@ export const verifyApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: otpData,
                 credentials: "include",
-            })
+            }),
+            invalidatesTags: ["User"],
         }),
-        invalidatesTags: ["User"],
     }),
 });
 

@@ -38,7 +38,7 @@ const LogIn = () => {
     // email and password
     useEffect(() => {
         if (!user) return;
-        toast.success("Login successful!");
+        // toast.success("Login successful!");
 
         // fcm token when user loing
         const registerToken = async () => {
@@ -70,7 +70,10 @@ const LogIn = () => {
 
     const onSubmit = async (data) => {
         try {
-            await handleLogin(data).unwrap();
+            const res = await handleLogin(data).unwrap();
+            if (res?.data) {
+                toast.success("Login successful!");
+            }
         } catch (error) {
             const message = error?.data?.message || "Login failed!";
             toast.error(message);
@@ -88,20 +91,20 @@ const LogIn = () => {
                 <div className="w-full max-w-117.5 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100">
                     <div className="text-center mb-8">
                         <h1 className="text-2xl font-bold text-[#262626]">
-                            Welcome Back, Yapp
+                            Welcome Back
                         </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Let's get you back to your business
                         </p>
                     </div>
 
-                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w-68.5 mx-auto">
+                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w- mx-auto">
                         <div className="w-full p-1.5 flex">
                             <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-base font-medium cursor-pointer">
-                                Log In
+                                Business Log In
                             </Link>
                             <Link to='/register' className="text-center w-full py-2 px-4 rounded-full text-[#262626] text-base font-medium cursor-pointer">
-                                Sign up
+                                Business Sign Up
                             </Link>
                         </div>
                     </div>
@@ -112,7 +115,7 @@ const LogIn = () => {
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('email', { required: 'Email is required' })}
                             />
                         </div>
@@ -125,7 +128,7 @@ const LogIn = () => {
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="Password"
-                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="w-full pl-12 pr-12 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('password', { required: 'Password is required' })}
                             />
                             <button

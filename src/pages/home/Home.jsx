@@ -1,25 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Banner from "../../components/home/Banner";
 import Deals from "./deals/Deals";
 import SearchDeals from "./deals/search/SearchDeals";
 
 const Home = () => {
     const [searchText, setSearchText] = useState({});
-
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-
-                const location = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-
-                localStorage.setItem("userLocation", JSON.stringify(location));
-            });
-        }
-    }, []);
-
 
     const handleSearch = (value) => {
         setSearchText(value);

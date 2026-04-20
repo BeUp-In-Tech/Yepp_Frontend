@@ -13,15 +13,11 @@ const OTPSending = () => {
     const [otp, setOtp] = useState("");
     const [timeLeft, setTimeLeft] = useState(OTP_TIME);
     const inputRef = useRef(null);
-
-    const [handleSendOTPVerification, { data, isLoading, error, isSuccess }] =
-        useHandleSendOTPVerificationMutation();
-
     const { user } = useSelector((state) => state?.auth);
     const navigate = useNavigate();
-
+    const [handleSendOTPVerification, { data, isLoading, error, isSuccess }] =
+        useHandleSendOTPVerificationMutation();
     useHandleCurrentLoggedInUserQuery();
-
     useEffect(() => {
         if (timeLeft <= 0) return;
 
@@ -33,7 +29,7 @@ const OTPSending = () => {
     }, [timeLeft]);
 
     useEffect(() => {
-        if (isSuccess && data) {
+        if (isSuccess) {
             toast.success(data.message);
             navigate('/verdor-created-shop');
         }
@@ -42,7 +38,6 @@ const OTPSending = () => {
             toast.error(error?.data?.message || "Verification failed");
         }
     }, [isSuccess, error, data, navigate]);
-
     const handleChange = (e) => {
         const value = e.target.value.slice(0, OTP_LENGTH);
         setOtp(value);
@@ -54,16 +49,17 @@ const OTPSending = () => {
         setOtp(pasted);
     };
 
-    const handleSubmitOTP = () => {
+    const handleSubmitOTP = async () => {
         if (timeLeft <= 0) {
             return toast.error("OTP expired. Please request a new one.");
         }
 
         if (otp.length === 6) {
-            handleSendOTPVerification({
+            const res = await handleSendOTPVerification({
                 otp: Number(otp),
                 email: user?.email
             });
+            console.log(res);
         } else {
             toast.error('Please fill up verification code');
         }
@@ -76,7 +72,6 @@ const OTPSending = () => {
             .toString()
             .padStart(2, "0")}`;
     };
-
     return (
         <div className="flex flex-col lg:flex-row min-h-screen">
             <div
@@ -110,7 +105,7 @@ const OTPSending = () => {
                             <div
                                 key={index}
                                 className={`w-14 h-14 flex items-center justify-center text-2xl font-semibold border-2 rounded-md transition-colors 
-                                ${index === otp.length ? "border-[#4FC3D4] bg-[#f0fafd]" : "border-gray-300"}`}
+                                ${index === otp.length ? "border-(--primary-color) bg-[color-mix(in_srgb,var(--primary-color)_10%,white)]" : "border-gray-300"}`}
                             >
                                 {otp[index] || ""}
                             </div>
