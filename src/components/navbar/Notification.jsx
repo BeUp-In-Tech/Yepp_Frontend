@@ -1,5 +1,4 @@
 import { Bell, X } from "lucide-react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetAllNotificaitonQuery, useLazyGetSingleNotificationQuery } from "../../features/notification/notificaitonApi";
 import { useSelector } from "react-redux";
@@ -12,62 +11,20 @@ const Notification = ({ setIsOpen }) => {
         skip: !user?._id
     });
     const [getSingleNotification] = useLazyGetSingleNotificationQuery();
-    const [readingNotificationId, setReadingNotificationId] = useState(null);
     const notifications = getAllNotificaiton?.data?.notifications ?? getAllNotificaiton?.notifications ?? [];
 
     const getNotificationDetailPath = (notificationId) => `/notification/${notificationId}`;
 
-    const navigateToNotificationUrl = (webUrl, notificationId) => {
-        if (!webUrl) {
-            navigate(getNotificationDetailPath(notificationId));
-            return;
-        }
+    const handleNotificationClick = (note) => {
+        if (!note?._id) return;
 
-        try {
-            const url = new URL(webUrl, window.location.origin);
-            const normalizedPath = url.pathname.replace(/\/$/, "");
-            const isCurrentAppUrl = url.origin === window.location.origin;
-            const isLocalDevUrl = ["localhost", "127.0.0.1"].includes(url.hostname);
+        getSingleNotification({
+            id: note._id,
+            listArgs: notificationQueryArgs,
+        }).unwrap().catch(() => {});
 
-            if ((isCurrentAppUrl || isLocalDevUrl) && normalizedPath === "/notification") {
-                navigate(`${getNotificationDetailPath(notificationId)}${url.search}${url.hash}`);
-                return;
-            }
-
-            if (isCurrentAppUrl || isLocalDevUrl) {
-                navigate(`${url.pathname}${url.search}${url.hash}`);
-                return;
-            }
-
-            window.location.assign(url.href);
-        } catch {
-            if (webUrl.replace(/\/$/, "") === "/notification") {
-                navigate(getNotificationDetailPath(notificationId));
-                return;
-            }
-
-            navigate(webUrl);
-        }
-    };
-
-    const handleNotificationClick = async (note) => {
-        if (!note?._id || readingNotificationId) return;
-
-        setReadingNotificationId(note._id);
-
-        try {
-            await getSingleNotification({
-                id: note._id,
-                listArgs: notificationQueryArgs,
-            }).unwrap();
-
-            navigateToNotificationUrl(note?.webUrl, note._id);
-            setIsOpen(false);
-        } catch {
-            return;
-        } finally {
-            setReadingNotificationId(null);
-        }
+        navigate(getNotificationDetailPath(note._id));
+        setIsOpen(false);
     };
 
     if (isLoading) {
@@ -75,8 +32,6 @@ const Notification = ({ setIsOpen }) => {
             <Bell className="text-gray-300" size={20} aria-hidden="true" />
         </div>
     }
-
-    console.log(getAllNotificaiton?.data)
 
     return (
         <div className="absolute top-17.5 right-0 w-full max-w-md bg-white rounded-lg shadow-2xl z-20 overflow-hidden border border-slate-100" role="dialog" aria-labelledby="notification-heading">
@@ -92,13 +47,16 @@ const Notification = ({ setIsOpen }) => {
                 </button>
             </div>
             <div className="max-h-125 overflow-y-auto px-2 py-4 space-y-3 custom-scrollbar" aria-live="polite">
-                {getAllNotificaiton?.data?.notifications?.length === 0 ? (
+                {notifications.length === 0 ? (
                     <div className="px-2 text-lg text-center text-gray-500">No notifications available</div>
                 ) : (
-                    getAllNotificaiton?.data?.notifications?.map((note) => (
-                        <div
-                            key={note._id}
-                            className="group flex gap-4 p-4 bg-white/40 backdrop-blur-md border border-white/20 rounded-xl shadow-sm hover:shadow-md hover:bg-white/60 transition-all duration-300 ease-in-out"
+                    notifications.map((note, index) => (
+                        <button
+                            type="button"
+                            key={note?._id ?? index}
+                            onClick={() => handleNotificationClick(note)}
+                            disabled={!note?._id}
+                            className="group flex w-full gap-4 p-4 text-left bg-white/40 backdrop-blur-md border border-white/20 rounded-xl shadow-sm hover:shadow-md hover:bg-white/60 transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
                         >
                             <div className="shrink-0">
                                 <div className="w-6 h-6 bg-linear-to-br from-yellow-300 to-yellow-500 rounded-md flex items-center justify-center shadow-inner group-hover:rotate-6 transition-transform">
@@ -113,7 +71,7 @@ const Notification = ({ setIsOpen }) => {
                                     {note?.body?.split(" ").slice(0, 5).join(" ")}......
                                 </p>
                             </div>
-                        </div>
+                        </button>
                     ))
                 )}
             </div>
