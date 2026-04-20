@@ -34,6 +34,7 @@ export const dashboardHome = apiSlice.injectEndpoints({
                     credentials: "include",
                 };
             },
+            providesTags: ["Shops"],
         }),
         getDealStat: builder.query({
             query: () => ({

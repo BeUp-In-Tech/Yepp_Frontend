@@ -11,7 +11,7 @@ export const notificationAPI = apiSlice.injectEndpoints({
             invalidatesTags: ["Notifications"],
         }),
 
-        saveFcmToken: builder.mutation({
+        notificaitonPost: builder.mutation({
             query: (data) => ({
                 url: "/dashboard/send_notification_and_email",
                 method: "POST",
@@ -32,5 +32,5 @@ export const notificationAPI = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useSaveFcmTokenMutation, useUserRegisterFcmTokenMutation, useGetAllNotificaitonQuery } = notificationAPI;
+export const { useNotificaitonPostMutation, useUserRegisterFcmTokenMutation, useGetAllNotificaitonQuery } = notificationAPI;
 

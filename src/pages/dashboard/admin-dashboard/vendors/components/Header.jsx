@@ -22,7 +22,7 @@ const Header = ({
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input
                         type="text"
-                        placeholder="Search vendors"
+                        placeholder="Search shop"
                         className="pl-10 pr-4 py-2.5 border border-[#A3A3A3] rounded-lg outline-none w-64 text-sm"
                         onChange={(e) => {
                             setSearchTerm(e.target.value);

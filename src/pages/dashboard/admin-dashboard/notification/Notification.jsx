@@ -2,7 +2,6 @@ import { Bell, History as HistoryIcon, Mail, Plus, Send, Smartphone } from "luci
 import HeadingTitle from "../components/HeadingTitle";
 import StatsCard from "../vendors/components/StatsCard";
 import SendMessage from "./components/SendMessage";
-import History from "./components/History";
 
 const Notification = () => {
     return (

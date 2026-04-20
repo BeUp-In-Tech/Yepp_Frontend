@@ -70,7 +70,7 @@ export default function ShowoutletMap({ outlets = [] }) {
             <div className="flex flex-col md:flex-row border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white min-h-110">
                 <div className="md:w-5/12 flex flex-col p-3 sm:p-6 border-b md:border-b-0 md:border-r border-gray-200">
                     <p className="text-[26px] font-bold text-primary mb-5">
-                        Our outlets
+                        Available Locations
                     </p>
 
                     <div className="space-y-5">

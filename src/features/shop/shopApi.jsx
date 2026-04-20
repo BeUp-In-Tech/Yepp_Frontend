@@ -87,10 +87,9 @@ export const shopApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["Shops"],
     }),
-
   }),
-  overrideExisting: false,
 });
 
 export const {

@@ -60,11 +60,11 @@ const Register = () => {
                                 Home
                             </Link>
                             <h1 className="text-2xl font-bold text-[#262626]">
-                                Welcome Back
+                                Welcome To Yapp
                             </h1>
                         </div>
                         <p className="text-[#737373] text-base mt-1">
-                            Expand your reach and boost your sales.
+                            $109/Deal Monthly Subscription
                         </p>
                     </div>
 

@@ -33,20 +33,7 @@ const Navbar = () => {
     const { user } = useSelector((state) => state?.auth);
     const location = useLocation();
     const shouldShowCategoryHeader = location.pathname !== "/categories";
-    const { data: notificationData } = useGetAllNotificaitonQuery(
-        { id: user?._id },
-        { skip: !user?._id || user?.role !== 'VENDOR' }
-    );
-    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
-    const notificationLabel = openNotificationModal
-        ? "Close notifications"
-        : unreadCount > 0
-            ? `Open notifications, ${unreadCount} unread`
-            : "Open notifications";
-    const savedDealsLabel = savedDealsCount > 0
-        ? `View saved deals, ${savedDealsCount} saved`
-        : "View saved deals";
-
+    const { data: notificationData, isLoading } = useGetAllNotificaitonQuery();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -77,6 +64,23 @@ const Navbar = () => {
             window.removeEventListener("savedDealsUpdated", updateSavedDealsCount);
         };
     }, []);
+
+    if (isLoading) {
+        return <p>Loading.......</p>
+    }
+
+    console.log(notificationData)
+    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    console.log(unreadCount);
+
+    const notificationLabel = openNotificationModal
+        ? "Close notifications"
+        : unreadCount > 0
+            ? `Open notifications, ${unreadCount} unread`
+            : "Open notifications";
+    const savedDealsLabel = savedDealsCount > 0
+        ? `View saved deals, ${savedDealsCount} saved`
+        : "View saved deals";
 
     const hanldeLogOut = async () => {
         dispatch(userLoggedOut());
@@ -148,13 +152,14 @@ const Navbar = () => {
                                     </span>
                                 )}
                             </NavLink>
-                            {
-                                user?.role === 'VENDOR' && <button
+                            {user?.role !== 'ADMIN' && (
+                                <button
                                     type="button"
                                     aria-label={notificationLabel}
                                     aria-expanded={openNotificationModal}
                                     onClick={() => setOpenNotificationModal(!openNotificationModal)}
-                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}>
+                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}
+                                >
                                     <Bell size={22} aria-hidden="true" />
                                     {unreadCount > 0 && (
                                         <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
@@ -162,7 +167,7 @@ const Navbar = () => {
                                         </span>
                                     )}
                                 </button>
-                            }
+                            )}
                         </div>
                     </div>
                     {

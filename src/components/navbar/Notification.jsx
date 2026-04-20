@@ -13,8 +13,6 @@ const Notification = ({ setIsOpen }) => {
         </div>
     }
 
-    console.log(getAllNotificaiton?.data)
-
     return (
         <div className="absolute top-17.5 right-0 w-full max-w-md bg-white rounded-lg shadow-2xl z-20 overflow-hidden border border-slate-100" role="dialog" aria-labelledby="notification-heading">
             <div className="py-4 px-2 text-center border-b border-slate-50 relative">

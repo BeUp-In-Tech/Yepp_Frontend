@@ -70,7 +70,7 @@ export default function OutletLocation({ outlets = [] }) {
         {/* LEFT */}
         <div className="md:w-5/12 flex flex-col p-3 sm:p-6 border-b md:border-b-0 md:border-r border-gray-200">
           <p className="text-[26px] font-bold text-primary mb-5">
-            Our outlets
+            Available Locations
           </p>
           <div className="space-y-5">
             {outlets.map((outlet) => {

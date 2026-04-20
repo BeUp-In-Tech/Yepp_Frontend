@@ -1,16 +1,49 @@
 import { useForm } from 'react-hook-form';
 import PriviewPage from './PriviewPage';
 import { Send } from 'lucide-react';
+import { useNotificaitonPostMutation } from '../../../../../features/notification/notificaitonApi';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const SendMessage = () => {
     const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data);
-   
+    const navigate = useNavigate();
+    const [notificaitonPost, { isLoading, error, isSuccess }] = useNotificaitonPostMutation();
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Notification send successfully!");
+        }
+        if (error) {
+            const message = error?.data?.message || "Notification send failed!";
+            toast.error(message);
+        }
+
+    }, [navigate, isSuccess, error,]);
+
+    const onSubmit = (data) => {
+        console.log(data);
+        const notificationData = {
+            title: data?.title,
+            message: data?.message,
+            channel: {
+                push: data?.type === "Both" ? true : data?.type === 'Push' ? true : false,
+                email: data?.type === "Both" ? true : data?.type === 'Email' ? true : false,
+            },
+            to: {
+                all_users: data?.recipents === "All Users",
+                active_vendors: data?.recipents === "All Vendors",
+            },
+        };
+        notificaitonPost(notificationData);
+    };
+
     return (
         <div className="flex justify-between mt-5">
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
                 <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-lg shadow-sm">
-                    <h2 className="text-xl font-bold text-[#262626]">Static Pages</h2>
+                    <h2 className="text-xl font-bold text-[#262626]">Notification Pages</h2>
                     <p className="text-sm text-[#737373] font-medium mb-6">Manage information pages on your platform</p>
                     <div className="space-y-4">
                         <div>
@@ -53,24 +86,18 @@ const SendMessage = () => {
                                 ))}
                             </div>
                         </div>
-                        <label className="flex items-center justify-between cursor-pointer w-full group">
-                            <span className="block font-semibold mb-2">
-                                Schedule for Later
-                            </span>
-                            <div className="relative">
-                                <input
-                                    type="checkbox"
-                                    {...register("scheduleLater")}
-                                    className="sr-only peer"
-                                />
-                                <div className="w-14 h-8 bg-gray-300 rounded-full peer-checked:bg-[var(--primary-color)] transition-colors duration-200"></div>
-                                <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-6"></div>
-                            </div>
-                        </label>
-
-                        <button type="submit" className="w-full bg-primary text-white py-3 rounded-lg font-semibold flex justify-center items-center gap-2 hover:bg-secondary transition-colors mt-6 cursor-pointer">
-                            <span><Send /></span> Sent Notification
-                        </button>
+                        <div className="text-center pt-2">
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="bg-primary hover:bg-secondary text-white font-bold py-2 sm:px-20 rounded-md shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl w-full flex items-center justify-center">
+                                {isLoading ? (
+                                    <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
+                                ) : (
+                                    <span className="font-medium text-lg text-[#FFFFFF]">Send Notification</span>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </form>
                 <PriviewPage />

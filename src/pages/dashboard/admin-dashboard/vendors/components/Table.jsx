@@ -1,23 +1,21 @@
 import { MoreHorizontal, Store } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useShopApprovedEditMutation } from "../../../../../features/shop/shopApi";
 import toast from "react-hot-toast";
 
 const Table = ({ vednorData }) => {
     const [openDropdownId, setOpenDropdownId] = useState(null);
+    const [statusOverrides, setStatusOverrides] = useState({});
     const dropdownRef = useRef(null);
-    const [shopApprovedEdit, { error, isSuccess }] = useShopApprovedEditMutation();
-
-    useEffect(() => {
-        if (isSuccess) {
-            toast.success("Status update successfully!");
-        }
-        if (error) {
-            const message = error?.data?.message || "Status update failed!";
-            toast.error(message);
-        }
-
-    }, [isSuccess, error]);
+    const [shopApprovedEdit, { isLoading }] = useShopApprovedEditMutation();
+    const vendors = useMemo(
+        () =>
+            (vednorData ?? []).map((vendor) => ({
+                ...vendor,
+                shop_approval: statusOverrides[vendor?._id] || vendor?.shop_approval,
+            })),
+        [statusOverrides, vednorData]
+    );
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -30,13 +28,29 @@ const Table = ({ vednorData }) => {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const handleStatusChange = (id, status) => {
+    const handleStatusChange = async (id, status) => {
         setOpenDropdownId(null);
-        shopApprovedEdit({
-            id: id,
-            data: { shop_approval: status },
-        });
-        window.location.reload();
+        const previousStatus = vendors.find((vendor) => vendor?._id === id)?.shop_approval;
+
+        setStatusOverrides((currentStatuses) => ({
+            ...currentStatuses,
+            [id]: status,
+        }));
+
+        try {
+            await shopApprovedEdit({
+                id: id,
+                data: { shop_approval: status },
+            }).unwrap();
+            toast.success("Status update successfully!");
+        } catch (error) {
+            setStatusOverrides((currentStatuses) => ({
+                ...currentStatuses,
+                [id]: previousStatus,
+            }));
+            const message = error?.data?.message || "Status update failed!";
+            toast.error(message);
+        }
     };
 
     return (
@@ -54,8 +68,8 @@ const Table = ({ vednorData }) => {
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                    {vednorData?.length > 0 ? (
-                        vednorData.map((item) => (
+                    {vendors?.length > 0 ? (
+                        vendors.map((item) => (
                             <tr key={item?._id} className="hover:bg-gray-50/80 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3">
@@ -115,12 +129,14 @@ const Table = ({ vednorData }) => {
                                             <div className="absolute right-0 -top-22 mt-2 w-40 pb-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 overflow-hidden">
                                                 <button
                                                     onClick={() => handleStatusChange(item?._id, "APPROVED")}
+                                                    disabled={isLoading}
                                                     className="w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50 font-medium"
                                                 >
                                                     Approved
                                                 </button>
                                                 <button
                                                     onClick={() => handleStatusChange(item?._id, "REJECTED")}
+                                                    disabled={isLoading}
                                                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium"
                                                 >
                                                     Reject
