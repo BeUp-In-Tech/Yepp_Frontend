@@ -179,103 +179,6 @@ const Navbar = () => {
                                     aria-expanded={openNotificationModal}
                                     onClick={handleNotificationToggle}
                                     className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}>
-<<<<<<< HEAD
-                                    <Bell size={22} aria-hidden="true" />
-                                    {unreadCount > 0 && (
-                                        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
-                                            {unreadCount > 99 ? "99+" : unreadCount}
-                                        </span>
-                                    )}
-                                </button>
-                            }
-                        </div>
-                    </div>
-                    {
-                        openNotificationModal && <Notification
-                            isOpen={openNotificationModal}
-                            setIsOpen={setOpenNotificationModal} />
-                    }
-
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden absolute z-50 right-3">
-                        <button
-                            type="button"
-                            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-                            aria-expanded={isOpen}
-                            aria-controls="main-mobile-menu"
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="focus:outline-none border bg-white font-extrabold text-primary rounded-full p-1 cursor-pointer">
-                            {isOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
-                        </button>
-                    </div>
-                </div>
-                
-                {/* Mobile Menu Overlay */}
-                <div
-                    id="main-mobile-menu"
-                    className={`md:hidden absolute left-4 right-4 top-full z-20 overflow-hidden rounded-lg border border-slate-100 bg-white/95 text-black shadow-xl backdrop-blur transition-all duration-300 ease-out
-                   ${isOpen ? "mt-3 max-h-96 opacity-100 translate-y-0" : "mt-0 max-h-0 opacity-0 -translate-y-2 pointer-events-none"}`}
-                    ref={menuRef}>
-                    <div className="flex flex-col gap-2 p-3">
-                        <NavLink
-                            to="/saved_deals"
-                            className={({ isActive }) =>
-                                `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
-                            }
-                        >
-                            Saved Deals
-                        </NavLink>
-                        {
-                            user?.role === 'ADMIN' && <NavLink
-                                to="/dashboard/admin-dashboard"
-                                className={({ isActive }) =>
-                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
-                                }
-                            >
-                                Dashboard
-                            </NavLink>
-                        }
-                        {
-                            user?.role === 'VENDOR' && <NavLink
-                                to="/shop-overview"
-                                className={({ isActive }) =>
-                                    `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
-                                }
-                            >
-                                Dashboard
-                            </NavLink>
-                        }
-                        {
-                            isAuthenticated ?
-                                <button
-                                    type="button"
-                                    onClick={hanldeLogOut}
-                                    className="rounded-lg px-4 py-3 text-left text-base font-semibold tracking-wider text-[#262626] transition-colors hover:bg-[#F0F9FF] hover:text-secondary cursor-pointer"
-                                >
-                                    LogOut
-                                </button>
-                                :
-                                <NavLink
-                                    to="/login"
-                                    className={({ isActive }) =>
-                                        `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
-                                    }
-                                >
-                                    Sign In
-                                </NavLink>
-                        }
-                    </div>
-                </div>
-            </nav>
-
-            {/* CATEGORY SUB-HEADER  */}
-            {shouldShowCategoryHeader && <CategoryHeader />}
-        </div>
-    );
-};
-
-export default Navbar;
-=======
                                     <Bell size={22} aria-hidden="true" />
                                     {unreadCount > 0 && (
                                         <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
@@ -371,4 +274,3 @@ export default Navbar;
 };
 
 export default Navbar;
->>>>>>> ahasan
