@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import CategoryLink from "../../components/categories/CategoryLink";
 import { useGetAllCategoriesQuery } from "../../features/categories/CategoriesApi";
 
 const Categories = () => {
     const { data: categories, isLoading } = useGetAllCategoriesQuery();
     const categoryList = categories?.data ?? [];
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     if (isLoading) {
         return (
-            <div className="bg-gray-50 min-h-[65vh] px-4 pb-12 pt-28" role="status" aria-label="Loading categories">
+            <div className="bg-gray-50 min-h-[calc(100vh-200px)] px-4 pb-12 pt-28" role="status" aria-label="Loading categories">
                 <span className="sr-only">Loading categories</span>
                 <div className="max-w-305 mx-auto">
                     <div className="mb-6 h-8 w-52 rounded bg-slate-300"></div>
@@ -25,7 +29,7 @@ const Categories = () => {
     }
 
     return (
-        <main className="bg-gray-50 min-h-[65vh] px-4 pb-12 pt-28">
+        <main className="bg-gray-50 min-h-[calc(100vh-230px)] px-4 pb-12 pt-28">
             <div className="max-w-305 mx-auto">
                 <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
@@ -34,7 +38,7 @@ const Categories = () => {
                             Browse deals by category
                         </h1>
                     </div>
-                    <p className="text-sm font-medium text-[#737373]">
+                    <p className="text-sm font-medium text-primary">
                         {categoryList.length} categories
                     </p>
                 </div>

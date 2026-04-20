@@ -109,7 +109,7 @@ const Menu = () => {
                                     {...register("description", { maxLength: 50 })}
                                     placeholder="Business Description"
                                     rows="5"
-                                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#2B9DAE] outline-none resize-none"
+                                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary outline-none resize-none"
                                 />
                                 <span className={`absolute bottom-3 right-4 text-xs ${descriptionValue.length > 50 ? 'text-red-500 font-bold' : 'text-gray-400'}`}>
                                     {descriptionValue.length}/50
@@ -133,7 +133,7 @@ const Menu = () => {
                                             pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
                                         })}
                                         placeholder="Business email"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#2B9DAE] outline-none"
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary outline-none"
                                     />
                                 </div>
                                 {errors.email && <p className="text-red-500 text-xs mt-1 ml-4">{errors.email.message}</p>}
@@ -146,7 +146,7 @@ const Menu = () => {
                                     <input
                                         {...register("phone", { required: "Phone number is required" })}
                                         placeholder="Business phone number"
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#2B9DAE] outline-none"
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary outline-none"
                                     />
                                 </div>
                             </div>
@@ -158,14 +158,14 @@ const Menu = () => {
                                 <label className="block text-base font-medium text-[#262626]">Location</label>
                                 <div className="relative">
                                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                    <input {...register("location")} placeholder="Business location" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#2B9DAE] outline-none" />
+                                    <input {...register("location")} placeholder="Business location" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary outline-none" />
                                 </div>
                             </div>
                             <div className="space-y-1">
                                 <label className="block text-base font-medium text-[#262626]">Zip Code</label>
                                 <div className="relative">
                                     <GitCommitVertical className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                    <input {...register("zip")} placeholder="Zip code" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#2B9DAE] outline-none" />
+                                    <input {...register("zip")} placeholder="Zip code" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary outline-none" />
                                 </div>
                             </div>
 
@@ -173,7 +173,7 @@ const Menu = () => {
                                 <label className="block text-base font-medium text-[#262626]">Website Link (Optional)</label>
                                 <div className="relative">
                                     <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                    <input {...register("website")} placeholder="Website link" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-[#2B9DAE] outline-none" />
+                                    <input {...register("website")} placeholder="Website link" className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-primary outline-none" />
                                 </div>
                             </div>
                         </div>

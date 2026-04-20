@@ -89,7 +89,7 @@ const EditVoucherModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="text"
                                 placeholder="Voucher Code"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_code', { required: 'Voucher code required' })}
                             />
                         </div>
@@ -101,7 +101,7 @@ const EditVoucherModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="number"
                                 placeholder="Discount Value"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_discount', { required: 'Discount value required' })}
                             />
                         </div>
@@ -113,7 +113,7 @@ const EditVoucherModal = ({ isOpen, toggleModal, editId }) => {
                             <input
                                 type="number"
                                 placeholder="Limit Per User"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_limit', { required: 'Limit required' })}
                             />
                         </div>
@@ -124,7 +124,7 @@ const EditVoucherModal = ({ isOpen, toggleModal, editId }) => {
                             <label className="text-left text-gray-800">Voucher validity date</label>
                             <input
                                 type="date"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_validity', { required: 'Valid until required' })}
                             />
                         </div>

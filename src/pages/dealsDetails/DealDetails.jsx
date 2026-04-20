@@ -53,14 +53,14 @@ const DealDetails = () => {
     const finalPrice = price - (price * disc) / 100;
     const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
 
-    
+
 
     return (
         <div className='bg-white px-4 pt-56 pb-8'>
             <div className="max-w-305 mx-auto">
                 <div className="flex flex-col gap-6 md:flex-row lg:gap-8">
                     {/* left side */}
-                    <div className="w-full space-y-4 md:w-6/12 sm:space-y-6">
+                    <div className="w-full space-y-6 md:w-6/12 sm:space-y-6">
                         <div className="relative group rounded-lg overflow-hidden">
                             <img
                                 src={images[currentImageIndex]}
@@ -87,7 +87,7 @@ const DealDetails = () => {
                             </h1>
 
                             <div className="flex items-center gap-1">
-                                <Store className='h-4 w-4 shrink-0 text-[#525252] sm:h-[18px] sm:w-[18px]' />
+                                <Store className='h-4 w-4 shrink-0 text-[#525252] sm:h-4.5 sm:w-4.5' />
                                 <Link to={`/vendor-details/${shop?._id}`} className="flex items-center gap-1 group cursor-pointer">
                                     <span className="text-sm font-semibold text-[#525252] transition-transform duration-300 group-hover:translate-x-1 sm:text-lg">
                                         {shop?.business_name}
@@ -98,7 +98,7 @@ const DealDetails = () => {
                             </div>
 
                             <div className="flex items-start justify-between gap-3">
-                                <div className="min-w-0 break-words text-base font-medium leading-relaxed text-[#007E8E] sm:text-lg">
+                                <div className="min-w-0 wrap-break-word text-base font-medium leading-relaxed text-[#007E8E] sm:text-lg">
                                     <span>{deal?.data.available_outlet[0]?.address}</span>
                                     <span className="mx-1 text-xl sm:mx-2 sm:text-3xl">•</span>
                                     <span> {outletDistanceMiles.toFixed(2)} miles away</span>
@@ -117,7 +117,7 @@ const DealDetails = () => {
                                     <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
                                         ${price.toFixed(2)}
                                     </span>
-                                    <span className="rounded-md bg-cyan-100 px-2 py-1 text-sm font-bold text-primary sm:text-base">{discount}% off</span>
+                                    <span className="rounded-md bg-primary px-2 py-1 text-sm font-bold text-white sm:text-base">{discount}% off</span>
                                 </div>
                                 <div className='mt-0 sm:mt-2'>
                                     <Countdown countdown={promotedUntil} />
@@ -126,7 +126,7 @@ const DealDetails = () => {
 
                             <div className="grid grid-cols-2 gap-3 pt-4 sm:gap-4">
                                 <button onClick={() => handleSaveForLater(_id)} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-transparent bg-primary px-3 py-3 text-sm font-bold text-white transition-colors hover:bg-secondary cursor-pointer sm:text-base">
-                                    Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-[22px] sm:w-[22px]" />
+                                    Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-5.5 sm:w-5.5" />
                                 </button>
                                 <button onClick={() => setIsOpen(true)} className="min-h-12 w-full rounded-full bg-primary px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-secondary cursor-pointer sm:text-base">
                                     Show Coupon
@@ -138,21 +138,12 @@ const DealDetails = () => {
                                 setIsOpen={setIsOpen}
                                 deal={deal}
                             />
-                            <div className="pb-8 pt-2">
-                                <h3 className="mb-3 text-xl font-bold text-[#262626] sm:text-2xl">Location</h3>
-                                <div className="rounded-xl overflow-hidden border border-gray-400 h-70">
-                                    <OutLetshowMap locations={available_outlet} />
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 
                     {/* right side */}
                     <div className="w-full md:w-5/12">
-                        <section>
-                            <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">How to Redeem</h3>
-                            <Redeem />
-                        </section>
                         <section>
                             <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">Highlight</h3>
                             <ul className="space-y-2">
@@ -165,7 +156,7 @@ const DealDetails = () => {
                         </section>
 
                         <section>
-                            <h3 className="mb-2 mt-4 text-lg font-bold text-[#262626] sm:text-xl">Tags</h3>
+                            <h3 className="mb-2 mt-2 text-lg font-bold text-[#262626] sm:text-xl">Tags</h3>
                             <ul className="space-y-2">
                                 {tags.map((text, i) => (
                                     <li key={i} className="flex items-center gap-2 text-sm text-[#262626] sm:text-base">
@@ -175,12 +166,18 @@ const DealDetails = () => {
                             </ul>
                         </section>
                         {/* Description & Included */}
-                        <section className="space-y-4 mt-4">
+                        <section className="space-y-2 mt-2">
                             <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">Description</h3>
                             <p className="text-sm leading-relaxed text-[#262626] sm:text-base">
                                 {description}
                             </p>
                         </section>
+                        <div className="pb-8">
+                            <h3 className="mb-3 text-xl font-bold text-[#262626] sm:text-2xl">Location</h3>
+                            <div className="rounded-xl overflow-hidden border border-gray-400 h-66">
+                                <OutLetshowMap locations={available_outlet} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

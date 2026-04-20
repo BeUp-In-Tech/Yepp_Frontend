@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-import toast from "react-hot-toast";
 import { baseQuery } from "./apiSlice";
 
 export const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
@@ -35,7 +34,7 @@ export const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
                 });
 
             } else {
-                toast.error("Refresh token failed. Please login again.");
+                console("");
             }
         }
     }

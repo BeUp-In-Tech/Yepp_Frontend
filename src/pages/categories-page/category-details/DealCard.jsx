@@ -22,7 +22,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                         alt={title}
                         className="h-full w-full object-cover"
                     />
-                    <div className="absolute left-2 top-2 rounded bg-[#A8EBF7] px-2 py-1 text-xs font-bold text-primary">
+                    <div className="absolute left-2 top-2 rounded bg-primary px-2 py-1 text-xs font-bold text-white">
                         {discount}% off
                     </div>
                     <div className="absolute bottom-2 left-2 flex items-center gap-1 text-xs font-medium text-white">
@@ -70,7 +70,7 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     alt={title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-[#A8EBF7] text-primary text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
                     {discount}% off
                 </div>
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">

@@ -1,11 +1,10 @@
 import { useJsApiLoader } from "@react-google-maps/api";
+import { googleMapsLoaderOptions } from "../../../../lib/googleMapsLoader";
 import VendorAccountForm from "./VendorAccountForm";
 
 const VendorAccountFormWrapper = () => {
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY
-  });
+  const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
 
   if (!isLoaded) return <div className="text-center p-10">Loading Map...</div>;
 

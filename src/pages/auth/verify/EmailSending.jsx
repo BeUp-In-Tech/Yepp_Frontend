@@ -1,20 +1,35 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHandleSendEmailMutation } from "../../../features/verify/verifyApi";
 import { Mail, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
+import { userLoggedIn } from "../../../features/auth/authSlice";
+import EmailVerifySkeleton from "../../../components/skeleton/EmailVerifySkeleton";
 
 const EmailSending = () => {
     const [handleSendOTPVerification, { isLoading, isSuccess, error }] = useHandleSendEmailMutation();
+    const { data: currentUser, isLoading: userLoading } = useHandleCurrentLoggedInUserQuery();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state?.auth);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             email: user?.email || "",
         }
     });
+
+    useEffect(() => {
+        if (currentUser) {
+            dispatch(userLoggedIn(currentUser?.data));
+            if (currentUser?.data?.isVerified === true) {
+                navigate('/verdor-created-shop');
+            }
+        }
+
+    }, [currentUser, dispatch, navigate])
 
     useEffect(() => {
         if (isSuccess) {
@@ -26,6 +41,10 @@ const EmailSending = () => {
             toast.error(message);
         }
     }, [isSuccess, error, navigate]);
+
+    if (userLoading) {
+        return <EmailVerifySkeleton />
+    }
 
     const onSubmit = (data) => {
         handleSendOTPVerification({ email: data.email });
@@ -50,6 +69,7 @@ const EmailSending = () => {
                     <input
                         type="email"
                         placeholder="Enter your email....."
+                        defaultValue={user?.email}
                         {...register("email", {
                             required: "Email is required!",
                             pattern: {
@@ -59,7 +79,7 @@ const EmailSending = () => {
                         })}
                         className={`w-full pl-10 pr-5 py-3 rounded-full border-2 outline-none text-gray-700 text-base transition-colors ${errors.email
                             ? "border-gray-300"
-                            : "focus:border-[#3ab0c2] border-gray-300"
+                            : "focus:border-primary border-gray-300"
                             }`}
                     />
                 </div>

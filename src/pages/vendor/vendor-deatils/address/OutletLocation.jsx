@@ -3,14 +3,13 @@ import { MapPin, Store, ChevronRight, Mailbox, GitCommitVertical } from "lucide-
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import useUserLocation from "../../../../hooks/useUserLocation";
 import outletMapIcon from "../../../../assets/images/outletMap.png";
+import { googleMapsLoaderOptions } from "../../../../lib/googleMapsLoader";
 
 export default function OutletLocation({ outlets = [] }) {
   const { latitude, longitude } = useUserLocation();
   const [selectedOutlet, setSelectedOutlet] = useState(outlets?.[0] || null);
   const GOOGLE_MAP_API_KEY = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: GOOGLE_MAP_API_KEY,
-  });
+  const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
 
   useEffect(() => {
     const func = () => {
@@ -95,7 +94,7 @@ export default function OutletLocation({ outlets = [] }) {
                   onClick={() => setSelectedOutlet(outlet)}
                   className={`w-full flex items-center justify-between rounded-lg px-3 py-3 sm:px-5 sm:py-4 text-left transition-all duration-200 border
                     ${isActive
-                      ? "bg-cyan-50 border-cyan-400 shadow-sm"
+                      ? "bg-[color-mix(in_srgb,var(--primary-color)_8%,white)] border-(--primary-color) shadow-sm"
                       : "bg-slate-100 border-transparent hover:bg-slate-200"
                     }`}
                 >

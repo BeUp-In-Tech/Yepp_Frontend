@@ -59,7 +59,7 @@ const CreateVoucherModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="text"
                                 placeholder="Voucher Code"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_code', {
                                     required: 'Voucher code required',
                                 })}
@@ -75,7 +75,7 @@ const CreateVoucherModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="number"
                                 placeholder="Discount Value"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_discount', {
                                     required: 'Discount value required',
                                 })}
@@ -91,7 +91,7 @@ const CreateVoucherModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="number"
                                 placeholder="Limit Per User"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_limit', {
                                     required: 'Limit required',
                                 })}
@@ -107,7 +107,7 @@ const CreateVoucherModal = ({ isOpen, toggleModal }) => {
                             <input
                                 type="date"
                                 placeholder="Valid Until"
-                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                                className="mt-2 w-full px-6 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"
                                 {...register('voucher_validity', {
                                     required: 'Valid until required',
                                 })}

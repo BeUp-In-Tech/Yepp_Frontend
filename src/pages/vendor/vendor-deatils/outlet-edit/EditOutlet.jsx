@@ -24,6 +24,7 @@ const EditOutlet = ({ outletNumber }) => {
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
     } = useForm({
         defaultValues: {
             outlet_name: "",
@@ -32,6 +33,7 @@ const EditOutlet = ({ outletNumber }) => {
             coordinates: null,
         },
     });
+    const addressValue = watch("address");
 
     useEffect(() => {
         if (isSuccess) {
@@ -101,13 +103,13 @@ const EditOutlet = ({ outletNumber }) => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div>
                         <label className="block text-lg text-gray-700 font-medium">
-                            Outlet Name
+                            Name
                         </label>
                         <div className="relative mt-1">
                             <Store className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                                 placeholder="Enter outlet name"
                                 {...register("outlet_name", {
                                     required: "Outlet name is required",
@@ -123,13 +125,13 @@ const EditOutlet = ({ outletNumber }) => {
 
                     <div>
                         <label className="block text-lg text-gray-700 font-medium">
-                            Outlet-{outletNumber} Address
+                            Address
                         </label>
                         <div className="relative mt-2">
                             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="text"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                                 placeholder="Shop name, street, city"
                                 {...register("address", {
                                     required: "Address is required",
@@ -158,6 +160,7 @@ const EditOutlet = ({ outletNumber }) => {
                                 <>
                                     <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden border border-gray-300 mt-2">
                                         <GoogleMapComponent
+                                            address={addressValue}
                                             selectedLocation={field.value}
                                             onMarkerSelect={(coords) => field.onChange(coords)}
                                         />
@@ -178,7 +181,7 @@ const EditOutlet = ({ outletNumber }) => {
                         </label>
                         <input
                             type="text"
-                            className="w-full mt-2 px-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-[#4BBDCF]"
+                            className="w-full mt-2 px-4 py-3 border border-gray-400 rounded-full outline-0 focus:ring-2 focus:ring-primary"
                             placeholder="Zip code"
                             {...register("zip_code", {
                                 required: "Zip code is required",
@@ -201,7 +204,7 @@ const EditOutlet = ({ outletNumber }) => {
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full" />
                             ) : (
                                 <span className="font-medium text-lg text-white">
-                                    Update Shop
+                                    Update Outlet
                                 </span>
                             )}
                         </button>

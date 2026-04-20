@@ -103,7 +103,7 @@ function ActualProfile() {
       <div className="rounded-2xl border bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-5 md:flex-row md:items-center">
           <div className="relative">
-            <div className="h-24 w-24 rounded-full bg-teal-500 flex items-center justify-center text-white text-2xl font-bold">
+            <div className="h-24 w-24 rounded-full bg-primary flex items-center justify-center text-white text-2xl font-bold">
               NA
             </div>
             <div className="absolute bottom-1 right-1 h-5 w-5 rounded-full border-2 border-white bg-green-500" />
@@ -112,7 +112,7 @@ function ActualProfile() {
           <div className="flex-1 space-y-2">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-semibold">Nayem Ahmed</h2>
-              <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-primary">
+              <span className="px-2 py-1 text-xs rounded-full bg-[color-mix(in_srgb,var(--primary-color)_15%,white)] text-primary">
                 VERIFIED
               </span>
             </div>
@@ -140,7 +140,7 @@ function ActualProfile() {
         <button className="h-12 rounded-xl bg-gray-100">
           Edit Profile Details
         </button>
-        <button className="h-12 rounded-xl bg-teal-500 text-white">
+        <button className="h-12 rounded-xl bg-primary text-white">
           Change Password
         </button>
       </div>

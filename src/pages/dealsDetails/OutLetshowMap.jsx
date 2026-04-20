@@ -1,11 +1,10 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useMemo } from "react";
 import outletMapIcon from "../../assets/images/outletMap.png";
+import { googleMapsLoaderOptions } from "../../lib/googleMapsLoader";
 
 const OutLetshowMap = ({ locations = [] }) => {
-    const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY
-    });
+    const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
 
     const containerStyle = {
         width: "100%",

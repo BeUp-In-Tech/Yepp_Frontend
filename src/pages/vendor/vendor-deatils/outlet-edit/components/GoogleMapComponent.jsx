@@ -1,4 +1,8 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { useEffect, useRef } from "react";
+import { googleMapsLoaderOptions } from "../../../../../lib/googleMapsLoader";
+import outletMapIcon from "../../../../../assets/images/outletMap.png";
+
 const containerStyle = {
     width: "100%",
     height: "100%",
@@ -9,14 +13,47 @@ const defaultCenter = {
     lng: 90.4125,
 };
 
-const GoogleMapComponent = ({ selectedLocation, onMarkerSelect }) => {
-    const { isLoaded } = useJsApiLoader({
-        id: "google-map-script",
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
-        libraries: ["maps"],
-    });
+const GoogleMapComponent = ({ address, selectedLocation, onMarkerSelect }) => {
+    const { isLoaded } = useJsApiLoader(googleMapsLoaderOptions);
+    const initialAddressRef = useRef("");
+    const lastGeocodedAddressRef = useRef("");
 
     const center = selectedLocation || defaultCenter;
+
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        const searchAddress = address?.trim();
+
+        if (!searchAddress) return;
+
+        if (!initialAddressRef.current && selectedLocation) {
+            initialAddressRef.current = searchAddress;
+            lastGeocodedAddressRef.current = searchAddress;
+            return;
+        }
+
+        if (searchAddress === lastGeocodedAddressRef.current) return;
+
+        lastGeocodedAddressRef.current = searchAddress;
+
+        const timer = setTimeout(() => {
+            const geocoder = new window.google.maps.Geocoder();
+
+            geocoder.geocode({ address: searchAddress }, (results, status) => {
+                const location = results?.[0]?.geometry?.location;
+
+                if (status !== "OK" || !location) return;
+
+                onMarkerSelect({
+                    lat: location.lat(),
+                    lng: location.lng(),
+                });
+            });
+        }, 600);
+
+        return () => clearTimeout(timer);
+    }, [address, isLoaded, onMarkerSelect, selectedLocation]);
 
     const handleMapClick = (event) => {
         const lat = event.latLng.lat();
@@ -43,7 +80,13 @@ const GoogleMapComponent = ({ selectedLocation, onMarkerSelect }) => {
                 gestureHandling: "greedy",
             }}
         >
-            {selectedLocation && <Marker position={selectedLocation} />}
+            {selectedLocation && <Marker
+                position={selectedLocation}
+                icon={{
+                    url: outletMapIcon,
+                    scaledSize: new window.google.maps.Size(40, 40),
+                }}
+            />}
         </GoogleMap>
     );
 };

@@ -3,9 +3,23 @@ import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/Footer';
 import VendorNavbar from '../components/navbar/VendorNavbar';
 import BothNavbar from '../components/navbar/BothNavbar';
+import { useEffect } from 'react';
 
 const MainLayout = () => {
     const location = useLocation();
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                const location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+
+                localStorage.setItem("userLocation", JSON.stringify(location));
+            });
+        }
+    }, []);
 
     const hideNavbarRoutes = [
         "/login",

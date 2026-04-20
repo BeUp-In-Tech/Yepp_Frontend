@@ -1,4 +1,3 @@
-
 const useUserLocation = () => {
     const location = JSON.parse(localStorage.getItem("userLocation"));
     const latitude = location?.latitude;
