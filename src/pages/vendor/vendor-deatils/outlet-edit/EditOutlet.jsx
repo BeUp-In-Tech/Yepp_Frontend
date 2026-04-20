@@ -103,7 +103,7 @@ const EditOutlet = ({ outletNumber }) => {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div>
                         <label className="block text-lg text-gray-700 font-medium">
-                            Outlet Name
+                            Name
                         </label>
                         <div className="relative mt-1">
                             <Store className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -125,7 +125,7 @@ const EditOutlet = ({ outletNumber }) => {
 
                     <div>
                         <label className="block text-lg text-gray-700 font-medium">
-                            Outlet-{outletNumber} Address
+                            Address
                         </label>
                         <div className="relative mt-2">
                             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
