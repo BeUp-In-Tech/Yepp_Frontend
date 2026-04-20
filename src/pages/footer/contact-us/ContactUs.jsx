@@ -22,21 +22,13 @@ const ContactUs = () => {
 
                 <section>
                     <h2 className="mb-3 text-xl font-bold leading-snug text-[#1F2937]">How to Reach Us</h2>
-                    <ul className="mb-8 grid gap-4 md:grid-cols-2">
+                    <ul className="mb-8 grid gap-4 md:grid-cols-1">
                         <li className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4">
                             <span className="mb-2 block font-semibold text-[#111827]">Email</span>
                             <PeragraphContent>
                                 For general inquiries or support, feel free to email us at
                                 <span className="font-semibold text-primary"> support@yeppads.com</span>.
                                 We aim to respond within 24 hours.
-                            </PeragraphContent>
-                        </li>
-                        <li className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4">
-                            <span className="mb-2 block font-semibold text-[#111827]">Phone</span>
-                            <PeragraphContent>
-                                Prefer speaking to someone? Call us at <span className="font-semibold text-primary">[phone number]</span> during our business hours:
-                                <br />
-                                Monday to Friday: 9:00 AM - 6:00 PM (GMT).
                             </PeragraphContent>
                         </li>
                     </ul>
@@ -51,27 +43,6 @@ const ContactUs = () => {
                         <p>support@yeppads.com</p>
                         <p>[City, State, ZIP Code]</p>
                     </div>
-                </section>
-
-                <section>
-                    <h2 className="mb-3 text-xl font-bold leading-snug text-[#1F2937]">Social Media</h2>
-                    <PeragraphContent>
-                        Connect with us on social media for updates, promotions, and exciting deals:
-                    </PeragraphContent>
-                    <ul className="grid gap-3 text-base font-semibold text-primary sm:grid-cols-2">
-                        <li>
-                            <Link to="#" className="block rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 transition-colors hover:bg-[#E8F7FB]">Facebook</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className="block rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 transition-colors hover:bg-[#E8F7FB]">Twitter</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className="block rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 transition-colors hover:bg-[#E8F7FB]">Instagram</Link>
-                        </li>
-                        <li>
-                            <Link to="#" className="block rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 transition-colors hover:bg-[#E8F7FB]">LinkedIn</Link>
-                        </li>
-                    </ul>
                 </section>
             </div>
         </main>

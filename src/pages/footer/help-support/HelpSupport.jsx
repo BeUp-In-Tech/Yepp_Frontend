@@ -24,22 +24,13 @@ const HelpSupport = () => {
                         <PeragraphContent>
                             If you have any questions or need support, you can reach us through the following:
                         </PeragraphContent>
-                        <ul className="grid gap-4 md:grid-cols-2">
+                        <ul className="grid gap-4 md:grid-cols-1">
                             <li className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4">
                                 <span className="mb-2 block font-semibold text-[#111827]">Email Support</span>
                                 <PeragraphContent>
                                     For detailed inquiries or assistance, email us at{' '}
                                     <a href="mailto:support@yeppads.com" className="font-semibold text-primary hover:underline">support@yeppads.com</a>.
                                     We strive to respond to all emails within 24 hours.
-                                </PeragraphContent>
-                            </li>
-                            <li className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4">
-                                <span className="mb-2 block font-semibold text-[#111827]">Phone Support</span>
-                                <PeragraphContent>
-                                    If you prefer speaking to a customer service representative, give us a call at{' '}
-                                    <span className="font-semibold text-primary">[phone number]</span>. Our hours of operation are:
-                                    <br />
-                                    Monday - Friday: 9:00 AM - 6:00 PM (GMT).
                                 </PeragraphContent>
                             </li>
                         </ul>

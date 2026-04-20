@@ -10,7 +10,7 @@ import { userLoggedOut } from '../../features/auth/authSlice';
 import Cookies from "js-cookie";
 import { persistor } from '../../app/store';
 import toast from 'react-hot-toast';
-import { useGetAllNotificaitonQuery, useOpenNotificationPanelMutation } from '../../features/notification/notificaitonApi';
+import { useGetAllNotificaitonQuery } from '../../features/notification/notificaitonApi';
 
 const getSavedDealsCount = () => {
     try {
@@ -28,28 +28,12 @@ const Navbar = () => {
     const [openNotificationModal, setOpenNotificationModal] = useState(false);
     const [savedDealsCount, setSavedDealsCount] = useState(getSavedDealsCount);
     const menuRef = useRef(null);
-    const openingNotificationPanelRef = useRef(false);
     const isAuthenticated = useAuth();
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state?.auth);
     const location = useLocation();
     const shouldShowCategoryHeader = location.pathname !== "/categories";
-    const notificationQueryArgs = { id: user?._id };
-    const { data: notificationData, refetch: refetchNotifications } = useGetAllNotificaitonQuery(
-        notificationQueryArgs,
-        { skip: !user?._id || user?.role !== 'VENDOR' }
-    );
-    const [openNotificationPanel] = useOpenNotificationPanelMutation();
-    const unreadCount = Number(notificationData?.data?.unreadCount ?? notificationData?.unreadCount) || 0;
-    const notificationLabel = openNotificationModal
-        ? "Close notifications"
-        : unreadCount > 0
-            ? `Open notifications, ${unreadCount} unread`
-            : "Open notifications";
-    const savedDealsLabel = savedDealsCount > 0
-        ? `View saved deals, ${savedDealsCount} saved`
-        : "View saved deals";
-
+    const { data: notificationData, isLoading } = useGetAllNotificaitonQuery();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -81,6 +65,23 @@ const Navbar = () => {
         };
     }, []);
 
+    if (isLoading) {
+        return <p>Loading.......</p>
+    }
+
+    console.log(notificationData)
+    const unreadCount = Number(notificationData?.data?.unreadCount) || 0;
+    console.log(unreadCount);
+
+    const notificationLabel = openNotificationModal
+        ? "Close notifications"
+        : unreadCount > 0
+            ? `Open notifications, ${unreadCount} unread`
+            : "Open notifications";
+    const savedDealsLabel = savedDealsCount > 0
+        ? `View saved deals, ${savedDealsCount} saved`
+        : "View saved deals";
+
     const hanldeLogOut = async () => {
         dispatch(userLoggedOut());
 
@@ -101,27 +102,6 @@ const Navbar = () => {
         await persistor.flush();
         await persistor.purge();
     }
-
-    const handleNotificationToggle = async () => {
-        if (openNotificationModal) {
-            setOpenNotificationModal(false);
-            return;
-        }
-
-        setOpenNotificationModal(true);
-
-        if (!user?._id || openingNotificationPanelRef.current) return;
-
-        openingNotificationPanelRef.current = true;
-
-        try {
-            await openNotificationPanel({ listArgs: notificationQueryArgs }).unwrap();
-        } catch {
-            refetchNotifications();
-        } finally {
-            openingNotificationPanelRef.current = false;
-        }
-    };
 
     return (
         <div>
@@ -172,13 +152,14 @@ const Navbar = () => {
                                     </span>
                                 )}
                             </NavLink>
-                            {
-                                user?.role === 'VENDOR' && <button
+                            {user?.role !== 'ADMIN' && (
+                                <button
                                     type="button"
                                     aria-label={notificationLabel}
                                     aria-expanded={openNotificationModal}
-                                    onClick={handleNotificationToggle}
-                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}>
+                                    onClick={() => setOpenNotificationModal(!openNotificationModal)}
+                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}
+                                >
                                     <Bell size={22} aria-hidden="true" />
                                     {unreadCount > 0 && (
                                         <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
@@ -186,7 +167,7 @@ const Navbar = () => {
                                         </span>
                                     )}
                                 </button>
-                            }
+                            )}
                         </div>
                     </div>
                     {

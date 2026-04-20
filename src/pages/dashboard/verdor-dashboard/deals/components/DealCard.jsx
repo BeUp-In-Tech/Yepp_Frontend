@@ -88,7 +88,7 @@ const DealCard = ({ deal }) => {
                                 </div>
                             }
                             {
-                                newDeal && <div className={statusBadgeClasses}>
+                                newDeal && <div className="inline-block bg-[#4CAF50] text-white text-xs font-semibold px-2 py-1 rounded-full">
                                     Not Promoted Deal Yet
                                 </div>
                             }

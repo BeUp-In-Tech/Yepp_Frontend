@@ -9,9 +9,12 @@ import { DealCardSkeleton } from '../../../components/skeleton/DealCardSkeleton'
 
 const CreatedShop = () => {
   const { user } = useSelector((state) => state.auth);
-  const { data: shopDetails, isLoading } = useGetVendorDetailsQuery(user?._id);
+  const { data: shopDetails, isLoading } = useGetVendorDetailsQuery(user?._id, {
+    skip: !user?._id,
+    refetchOnMountOrArgChange: true,
+  });
 
-  if (isLoading) {
+  if (!user?._id || isLoading) {
     return <DealCardSkeleton />;
   }
 

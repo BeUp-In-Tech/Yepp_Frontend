@@ -2,6 +2,7 @@ import apiSlice from "../api/apiSlice";
 
 export const shopApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+
     createShop: builder.mutation({
       query: (data) => ({
         url: "/shop/create_shop",
@@ -9,7 +10,6 @@ export const shopApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: [{ type: "Shop", id: "LIST" }],
     }),
 
     getShopAnalyticsStat: builder.query({
@@ -18,7 +18,8 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: [{ type: "Shop", id: "LIST" }],
+      keepUnusedDataFor: 0,
+      refetchOnMountOrArgChange: true,
     }),
 
     getShopChats: builder.query({
@@ -27,7 +28,8 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: [{ type: "Shop", id: "LIST" }],
+      keepUnusedDataFor: 0,
+      refetchOnMountOrArgChange: true,
     }),
 
     getTopViewDeals: builder.query({
@@ -36,7 +38,8 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: [{ type: "Shop", id: "LIST" }],
+      keepUnusedDataFor: 0,
+      refetchOnMountOrArgChange: true,
     }),
 
     getShopDetails: builder.query({
@@ -45,16 +48,8 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: (result) => {
-        const shop = result?.data || result;
-
-        return shop?._id
-          ? [
-            { type: "Shop", id: shop._id },
-            { type: "Shop", id: "LIST" },
-          ]
-          : [{ type: "Shop", id: "LIST" }];
-      },
+      keepUnusedDataFor: 0,
+      refetchOnMountOrArgChange: true,
     }),
 
     getVendorDetails: builder.query({
@@ -63,16 +58,8 @@ export const shopApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: (result) => {
-        const shop = result?.data || result;
-
-        return shop?._id
-          ? [
-            { type: "Shop", id: shop._id },
-            { type: "Shop", id: "LIST" },
-          ]
-          : [{ type: "Shop", id: "LIST" }];
-      },
+      keepUnusedDataFor: 0,
+      refetchOnMountOrArgChange: true,
     }),
 
     editshop: builder.mutation({
@@ -82,30 +69,6 @@ export const shopApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "Shop", id: arg.id },
-        { type: "Shop", id: "LIST" },
-      ],
-      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
-        try {
-          const { data: response } = await queryFulfilled;
-          const updatedShop = response?.data || response;
-
-          if (updatedShop?._id) {
-            dispatch(
-              shopApi.util.updateQueryData("getShopDetails", id, (draft) => {
-                if (draft?.data) {
-                  Object.assign(draft.data, updatedShop);
-                } else {
-                  Object.assign(draft, updatedShop);
-                }
-              })
-            );
-          }
-        } catch (error) {
-          console.error("Failed to update shop cache:", error);
-        }
-      },
     }),
 
     editShopOutlet: builder.mutation({
@@ -115,10 +78,6 @@ export const shopApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "Shop", id: arg.shopId },
-        { type: "Shop", id: "LIST" },
-      ],
     }),
 
     shopApprovedEdit: builder.mutation({
@@ -128,9 +87,9 @@ export const shopApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-    })
+      invalidatesTags: ["Shops"],
+    }),
   }),
-  overrideExisting: false,
 });
 
 export const {
