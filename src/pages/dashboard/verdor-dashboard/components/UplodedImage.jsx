@@ -60,7 +60,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
         You can upload up to 3 images to showcase your deal.
       </p>
 
-      <div className="relative bg-linear-to-b from-gray-100 to-gray-300 rounded-xl aspect-video flex items-center justify-center overflow-hidden mt-4 h-70">
+      <div className="relative cursor-pointer bg-linear-to-b from-gray-100 to-gray-300 rounded-xl aspect-video flex items-center justify-center overflow-hidden mt-4 h-70">
         {images.length > 0 ? (
           <>
             <img

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/incompatible-library */
 import { useForm } from "react-hook-form";
 import UplodedImage from "../components/UplodedImage";
 import { useEffect, useState } from "react";
@@ -351,7 +352,7 @@ const VendorEditDeal = () => {
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (
-                                <span className="font-medium text-lg text-[#FFFFFF]">Update Deal</span>
+                                <span className="font-medium text-lg cursor-pointer text-[#FFFFFF]">Update Deal</span>
                             )}
                         </button>
                     </div>

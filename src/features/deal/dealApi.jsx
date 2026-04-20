@@ -15,8 +15,8 @@ export const dealApi = apiSlice.injectEndpoints({
             invalidatesTags: ["Deals"],
         }),
         getAllDeal: builder.query({
-            query: ({ longitude, latitude }) => ({
-                url: `/service/deals/${longitude}/${latitude}`,
+            query: ({ longitude, latitude, page = 1, limit = 10 }) => ({
+                url: `/service/deals/${longitude}/${latitude}?page=${page}&limit=${limit}`,
                 method: "GET",
                 credentials: "include",
             }),
@@ -82,4 +82,4 @@ export const dealApi = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetAllDealQuery, useGetDealDetailsQuery, useGetDealAllDealsQuery, useGetAllSaveDealsQuery, useGetMyDealsQuery, useCreateNewDealMutation, useEditDealMutation, useHandleDeleteDealMutation } = dealApi;
+export const { useGetAllDealQuery, useLazyGetAllDealQuery, useGetDealDetailsQuery, useGetDealAllDealsQuery, useGetAllSaveDealsQuery, useGetMyDealsQuery, useCreateNewDealMutation, useEditDealMutation, useHandleDeleteDealMutation } = dealApi;
