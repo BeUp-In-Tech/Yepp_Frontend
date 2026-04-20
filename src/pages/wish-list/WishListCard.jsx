@@ -35,7 +35,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
 
     return (
         <div
-            className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md cursor-pointer"
+            className="flex h-full flex-col bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md cursor-pointer"
             onClick={handleCardClick}
             onKeyDown={handleCardKeyDown}
             role="link"
@@ -56,7 +56,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                 </div>
             </div>
 
-            <div className="p-4">
+            <div className="flex flex-1 flex-col p-4">
                 <div className="flex items-center justify-between">
                     <h3 className="text-base font-semibold text-[#262626] line-clamp-2 leading-tight">
                         {deal.title}
@@ -78,8 +78,8 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                 </div>
 
                 <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-[#262626]">
+                    <div className="flex items-baseline gap-0.5">
+                        <span className="text-lg font-bold text-[#262626]">
                             ${finalPrice.toFixed(2)}
                         </span>
 
@@ -98,8 +98,8 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                 </div>
 
                 {/* Action Button */}
-                <Link to={dealDetailsPath} onClick={(event) => event.stopPropagation()}>
-                    <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <Link to={dealDetailsPath} onClick={(event) => event.stopPropagation()} className="mt-auto block pt-4">
+                    <span className="block w-full bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                         Redeem Now
                     </span>
                 </Link>

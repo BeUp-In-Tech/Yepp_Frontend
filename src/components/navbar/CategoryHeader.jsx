@@ -13,12 +13,11 @@ const CategoryHeader = () => {
     const categoryList = categories?.data ?? [];
 
     return (
-        <div className='fixed w-full bg-[#F0F9FF] px-3 pt-22 pb-3 sm:pb-2 shadow-sm sm:px-4 z-40'>
+        <div className='fixed w-full bg-[#F0F9FF] px-3 pt-22 pb-2 shadow-sm sm:px-4 z-40'>
             <div className="max-w-305 mx-auto flex items-center gap-3 py-2.5 sm:gap-4 sm:py-3">
                 <nav
                     aria-label="Deal categories"
-                    className="grid max-h-15.5 min-w-0 flex-1 items-start gap-x-2 gap-y-3 overflow-hidden sm:max-h-17 sm:gap-x-3 lg:gap-x-4"
-                    style={{ gridTemplateColumns: "repeat(auto-fit, minmax(clamp(56px, 16vw, 86px), 1fr))" }}>
+                    className="flex max-h-15.5 min-w-0 flex-1 justify-start gap-x-2 gap-y-3 overflow-hidden sm:max-h-17 sm:gap-x-3 lg:gap-x-4 *:shrink-0">
                     {categoryList.map((cat) => (
                         <CategoryLink key={cat._id} category={cat} />
                     ))}

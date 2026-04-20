@@ -33,8 +33,7 @@ const WishList = () => {
         return <DealCardSkeleton />
     }
 
-
-    const allDeals = totalDeals?.data ?? [];
+    const allDeals = saveIds.length > 0 ? totalDeals?.data ?? [] : [];
     const expiredDeals = allDeals.filter(deal => new Date(deal?.promotedUntil) < now);
     const availableDeals = allDeals.filter(deal => new Date(deal?.promotedUntil) >= now);
     const totalPages = Math.ceil(allDeals?.length / ROWS_PER_PAGE);
@@ -43,7 +42,7 @@ const WishList = () => {
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
 
     return (
-        <div className="min-h-[80vh] bg-white px-4 pt-56 pb-12.5">
+        <div className="min-h-[80vh] bg-white px-4 pt-52 pb-12.5">
             <TabSection
                 activeTab={activeTab}
                 setActiveTab={setActiveTab} />

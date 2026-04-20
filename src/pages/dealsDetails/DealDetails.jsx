@@ -13,6 +13,7 @@ import OutLetshowMap from './OutLetshowMap';
 
 const DealDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [selectId, setSelectId] = useState();
     const { id } = useParams();
     const { latitude, longitude } = useUserLocation();
     const { data: deal, isLoading } = useGetDealDetailsQuery({ id, longitude, latitude });
@@ -21,6 +22,15 @@ const DealDetails = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        const func = () => {
+            const savedIds = JSON.parse(localStorage.getItem("saveForLater")) || [];
+            const selectId = savedIds.find(saveId => saveId === id);
+            setSelectId(selectId);
+        }
+        func();
+    }, [id])
 
     if (isLoading) {
         return <DealDetailsSkeleton />
@@ -40,9 +50,11 @@ const DealDetails = () => {
         if (!savedIds.includes(id)) {
             savedIds.push(id);
             localStorage.setItem("saveForLater", JSON.stringify(savedIds));
+            setSelectId(id);
             window.dispatchEvent(new Event("savedDealsUpdated"));
             toast.success("Successfully Added!");
         } else {
+            setSelectId(id);
             toast.error("Already Added!");
         }
     };
@@ -52,8 +64,6 @@ const DealDetails = () => {
 
     const finalPrice = price - (price * disc) / 100;
     const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
-
-
 
     return (
         <div className='bg-white px-4 pt-56 pb-8'>
@@ -126,7 +136,9 @@ const DealDetails = () => {
 
                             <div className="grid grid-cols-2 gap-3 pt-4 sm:gap-4">
                                 <button onClick={() => handleSaveForLater(_id)} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-transparent bg-primary px-3 py-3 text-sm font-bold text-white transition-colors hover:bg-secondary cursor-pointer sm:text-base">
-                                    Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-5.5 sm:w-5.5" />
+                                    {
+                                        selectId ? <div className='flex items-center gap-2'>Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-5.5 sm:w-5.5 fill-white" /></div> : <div className='flex items-center gap-2'>Save For Later <Heart className="h-5 w-5 shrink-0 sm:h-5.5 sm:w-5.5" /></div>
+                                    }
                                 </button>
                                 <button onClick={() => setIsOpen(true)} className="min-h-12 w-full rounded-full bg-primary px-3 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-secondary cursor-pointer sm:text-base">
                                     Show Coupon
@@ -140,10 +152,20 @@ const DealDetails = () => {
                             />
 
                         </div>
+                        <div className="pb-8">
+                            <h3 className="mb-3 text-xl font-bold text-[#262626] sm:text-2xl">Location</h3>
+                            <div className="rounded-xl overflow-hidden border border-gray-400 h-66">
+                                <OutLetshowMap locations={available_outlet} />
+                            </div>
+                        </div>
                     </div>
 
                     {/* right side */}
-                    <div className="w-full md:w-5/12">
+                    <div className="w-full md:w-5/12 space-y-5">
+                        <section>
+                            <h3 className="font-bold text-xl text-[#262626] mb-2">How to Redeem</h3>
+                            <Redeem />
+                        </section>
                         <section>
                             <h3 className="mb-2 text-lg font-bold text-[#262626] sm:text-xl">Highlight</h3>
                             <ul className="space-y-2">
@@ -172,12 +194,6 @@ const DealDetails = () => {
                                 {description}
                             </p>
                         </section>
-                        <div className="pb-8">
-                            <h3 className="mb-3 text-xl font-bold text-[#262626] sm:text-2xl">Location</h3>
-                            <div className="rounded-xl overflow-hidden border border-gray-400 h-66">
-                                <OutLetshowMap locations={available_outlet} />
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
