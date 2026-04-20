@@ -26,19 +26,19 @@ const Countdown = ({ countdown, compact = false }) => {
     const secs = timeLeft.seconds()
 
     return (
-        <div className="flex justify-center items-center gap-0.5">
-            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+        <div className="flex justify-center items-center">
+            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-0.5">
                 {days < 10 ? `0${days}` : days}d
             </div>
-            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+            <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1">
                 {hours < 10 ? `0${hours}` : hours}h
             </div>
             {!compact && (
                 <>
-                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-0.5">
                         {mins < 10 ? `0${mins}` : mins}m
                     </div>
-                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-1 rounded">
+                    <div className="text-sm font-bold text-[#FF8D28] bg-orange-50 px-0.5">
                         {secs < 10 ? `0${secs}` : secs}s
                     </div>
                 </>

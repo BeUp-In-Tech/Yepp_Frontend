@@ -8,14 +8,26 @@ import toast from "react-hot-toast";
 import { useCreateShopMutation } from "../../../features/shop/shopApi";
 import OutletModal from "./components/OutletModal";
 import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "../../../features/auth/authSlice";
 
 const VendorCreateShop = () => {
   const [logoPreview, setLogoPreview] = useState(null);
   const [outlets, setOutlets] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [createShop, { isLoading, error, isSuccess }] = useCreateShopMutation();
-  const { data: currentUser, isLoading: currentUserLoading } = useHandleCurrentLoggedInUserQuery();
+  const { data: currentUser, isLoading: currentUserLoading, refetch: refetchCurrentUser } = useHandleCurrentLoggedInUserQuery();
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(userLoggedIn(currentUser?.data));
+      if (currentUser?.data?.isShopCreated === true) {
+        navigate('/shop-overview');
+      }
+    }
+  }, [currentUser, dispatch, navigate])
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,8 +69,6 @@ const VendorCreateShop = () => {
     return <p>Loading....</p>
   }
 
-  console.log(currentUser?.data);
-
   const removeLogo = () => {
     setLogoPreview(null);
     setValue("businessLogo", null);
@@ -88,12 +98,26 @@ const VendorCreateShop = () => {
     formData.append("data", JSON.stringify(shopData));
     formData.append("file", data.businessLogo);
 
-    const res = await createShop(formData);
-    console.log(res?.data?.statusCode)
-    if (res?.data?.statusCode === 201) {
-      navigate('/shop-overview');
+    try {
+      await createShop(formData).unwrap();
+
+      try {
+        const refreshedUser = await refetchCurrentUser().unwrap();
+
+        if (refreshedUser?.data) {
+          dispatch(userLoggedIn(refreshedUser.data));
+        }
+      } catch {
+        // The mutation already invalidates the user cache; navigation can continue.
+      }
+    } catch (error) {
+      const message = error?.data?.message || "Shop created failed!";
+      toast.error(message);
     }
   };
+
+  console.log(currentUser?.data)
+
   return (
     <div className="bg-white min-h-screen px-4 pt-32 pb-12">
       <div className="max-w-300 mx-auto">

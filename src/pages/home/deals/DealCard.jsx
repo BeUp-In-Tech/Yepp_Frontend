@@ -91,8 +91,8 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                 </div>
 
                 <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-[#262626]">
+                    <div className="flex items-baseline gap-1">
+                        <span className="text-lg font-bold text-[#262626]">
                             ${finalPrice.toFixed(2)}
                         </span>
 

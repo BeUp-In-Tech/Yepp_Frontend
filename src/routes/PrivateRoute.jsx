@@ -25,9 +25,9 @@ const PrivateRoute = ({ children }) => {
   console.log(user);
   console.log(currentUser?.data);
 
-  // if (!isLoggedIn || currentUser?.role !== "VENDOR" || user?.isShopCreated !== true) {
-  //   return <Navigate to="/verdor-created-shop" replace />;
-  // }
+  if (!isLoggedIn || currentUser?.data?.role !== "VENDOR" || currentUser?.data?.isShopCreated !== true) {
+    return <Navigate to="/verdor-created-shop" replace />;
+  }
 
   return children ?? <Outlet />;
 };
