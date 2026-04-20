@@ -77,6 +77,16 @@ export const notificationAPI = apiSlice.injectEndpoints({
             },
         }),
 
+        notificaitonPost: builder.mutation({
+            query: (data) => ({
+                url: "/dashboard/send_notification_and_email",
+                method: "POST",
+                body: data,
+                credentials: "include",
+            }),
+            invalidatesTags: ["Notifications"],
+        }),
+
         getSingleNotification: builder.query({
             serializeQueryArgs: ({ queryArgs }) => {
                 return typeof queryArgs === "object" ? queryArgs?.id : queryArgs;
@@ -121,4 +131,5 @@ export const {
     useGetSingleNotificationQuery,
     useOpenNotificationPanelMutation,
     useLazyGetSingleNotificationQuery,
+    useNotificaitonPostMutation
 } = notificationAPI;

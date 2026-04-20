@@ -60,7 +60,7 @@ const Register = () => {
                                 Home
                             </Link>
                             <h1 className="text-2xl font-bold text-[#262626]">
-                                Welcome To Yapp
+                                Welcome To Yepp
                             </h1>
                         </div>
                         <p className="text-[#737373] text-base mt-1">

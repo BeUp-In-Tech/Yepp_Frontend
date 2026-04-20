@@ -23,7 +23,6 @@ const SendMessage = () => {
     }, [navigate, isSuccess, error,]);
 
     const onSubmit = (data) => {
-        console.log(data);
         const notificationData = {
             title: data?.title,
             message: data?.message,

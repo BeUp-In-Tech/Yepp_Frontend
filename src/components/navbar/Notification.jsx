@@ -50,29 +50,42 @@ const Notification = ({ setIsOpen }) => {
                 {notifications.length === 0 ? (
                     <div className="px-2 text-lg text-center text-gray-500">No notifications available</div>
                 ) : (
-                    notifications.map((note, index) => (
-                        <button
-                            type="button"
-                            key={note?._id ?? index}
-                            onClick={() => handleNotificationClick(note)}
-                            disabled={!note?._id}
-                            className="group flex w-full gap-4 p-4 text-left bg-white/40 backdrop-blur-md border border-white/20 rounded-xl shadow-sm hover:shadow-md hover:bg-white/60 transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
-                        >
-                            <div className="shrink-0">
-                                <div className="w-6 h-6 bg-linear-to-br from-yellow-300 to-yellow-500 rounded-md flex items-center justify-center shadow-inner group-hover:rotate-6 transition-transform">
-                                    <span className="text-yellow-900 font-serif font-black text-lg italic" aria-hidden="true">i</span>
+                    notifications.map((note, index) => {
+                        const isUnread = note?.isRead === false;
+
+                        return (
+                            <button
+                                type="button"
+                                key={note?._id ?? index}
+                                onClick={() => handleNotificationClick(note)}
+                                disabled={!note?._id}
+                                className={`group relative flex w-full gap-4 rounded-lg border p-4 text-left shadow-sm transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer ${isUnread
+                                    ? "border-primary/25 bg-[#E0F2FE] hover:bg-[#D7EEFE]"
+                                    : "border-slate-100 bg-white hover:bg-slate-50"
+                                    }`}
+                            >
+                                <div className="shrink-0">
+                                    <div className={`flex h-6 w-6 items-center justify-center rounded-md shadow-inner transition-transform group-hover:rotate-6 ${isUnread
+                                        ? "bg-linear-to-br from-primary to-secondary"
+                                        : "bg-linear-to-br from-slate-200 to-slate-300"
+                                        }`}>
+                                        <span className={`font-serif text-lg font-black italic ${isUnread ? "text-white" : "text-slate-600"}`} aria-hidden="true">i</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex-1 space-y-1">
-                                <h3 className="text-sm font-bold text-slate-900 tracking-tight">
-                                    {note?.title}
-                                </h3>
-                                <p className="text-sm text-slate-600 leading-snug">
-                                    {note?.body?.split(" ").slice(0, 5).join(" ")}......
-                                </p>
-                            </div>
-                        </button>
-                    ))
+                                <div className="flex-1 space-y-1 pr-4">
+                                    <h3 className={`text-sm tracking-tight ${isUnread ? "font-bold text-slate-950" : "font-semibold text-slate-800"}`}>
+                                        {note?.title}
+                                    </h3>
+                                    <p className={`text-sm leading-snug ${isUnread ? "font-medium text-slate-700" : "text-slate-500"}`}>
+                                        {note?.body?.split(" ").slice(0, 5).join(" ")}......
+                                    </p>
+                                </div>
+                                {isUnread && (
+                                    <span className="absolute right-3 top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-primary" aria-label="Unread notification" />
+                                )}
+                            </button>
+                        );
+                    })
                 )}
             </div>
         </div>
