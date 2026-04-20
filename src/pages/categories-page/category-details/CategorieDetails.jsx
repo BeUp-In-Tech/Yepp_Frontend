@@ -7,6 +7,7 @@ import { MapPin } from "lucide-react";
 import { useState } from "react";
 import Pagination from "../../vendor/created-shop/components/Pagination";
 import DynamicLocation from "../../../components/location/DynamicLocation";
+import { useGsapAnimations } from "../../../hooks/useGsapAnimations";
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const CategorieDetails = () => {
@@ -15,12 +16,13 @@ const CategorieDetails = () => {
     const { latitude, longitude } = useUserLocation();
     const { data: categoriess, isLoading: categoriesLoading } = useGetAllCategoriesQuery();
     const { data: categories, isLoading } = useGetCategoryDetailsQuery({ id, longitude, latitude });
+    const allDeals = categories?.data?.deals ?? [];
+    const animationScopeRef = useGsapAnimations(`category-deals-${id}-${currentPage}-${allDeals.length}`);
 
     if (categoriesLoading || isLoading) {
         return <DealCardSkeleton />
     }
 
-    const allDeals = categories?.data?.deals ?? [];
     const totalPages = Math.ceil(allDeals?.length / ROWS_PER_PAGE);
     const indexOfFirst = (currentPage - 1) * ROWS_PER_PAGE;
     const indexOfLast = Math.min(currentPage * ROWS_PER_PAGE, allDeals?.length);
@@ -36,8 +38,8 @@ const CategorieDetails = () => {
     );
 
     return (
-        <div className="bg-gray-50 min-h-[65vh] py-36">
-            <div className="fixed left-0 right-0 top-40.5 z-30 bg-gray-50 sm:top-43">
+        <div ref={animationScopeRef} className="bg-gray-50 min-h-[65vh] py-36">
+            <div className="fixed left-0 right-0 top-40.5 z-30 bg-gray-50 sm:top-43" data-animate="fade-up">
                 <div className="max-w-305 mx-auto px-2 sm:px-4 md:px-8 flex items-center justify-between py-3 mt-5">
                     <h2 className="text-md md:text-2xl font-bold text-[#262626]">{categoryName?.category_name}</h2>
                     <DynamicLocation
@@ -63,6 +65,7 @@ const CategorieDetails = () => {
                                 <div
                                     key={columnIndex}
                                     className={`flex flex-col gap-3 sm:gap-5 ${columnIndex === 1 ? "max-[500px]:pt-5" : ""}`}
+                                    data-animate="stagger"
                                 >
                                     {column.map(({ deal, index }) => (
                                         <DealCard
@@ -76,7 +79,7 @@ const CategorieDetails = () => {
                             ))}
                         </div>
 
-                        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-6" data-animate="stagger">
                             {currentDeals.map((deal, index) => (
                                 <DealCard key={deal?.deal?._id || index} deal={deal} />
                             ))}

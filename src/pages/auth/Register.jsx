@@ -39,16 +39,17 @@ const Register = () => {
     };
 
     return (
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full" data-animate="hero">
             <div
                 className="hidden lg:block lg:w-1/2 bg-cover bg-center"
+                data-animate-item
                 style={{ backgroundImage: `url(${bgImage})` }}
             >
                 <div className="w-full h-full bg-black/10"></div>
             </div>
 
             <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#F6F7FD] py-2">
-                <div className="w-full max-w-120 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative">
+                <div className="w-full max-w-120 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative" data-animate-item>
                     <div className="text-center mb-8 mx-auto">
                         <div className=''>
                             <Link

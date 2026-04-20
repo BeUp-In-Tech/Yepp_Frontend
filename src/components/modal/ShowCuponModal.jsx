@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Copy, X, Check } from 'lucide-react';
 
 const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   const [activeTab, setActiveTab] = useState('coupon');
   const [copied, setCopied] = useState(false);
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === 'undefined') return null;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(deal.couponCode);
@@ -18,10 +19,10 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   const price_saved = reguler_price - (reguler_price - ((reguler_price / 100) * discount));
   
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex min-h-dvh items-center justify-center overflow-y-auto p-4 sm:p-6">
       <div
-        className="absolute inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity cursor-pointer"
+        className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity cursor-pointer"
         onClick={() => setIsOpen(false)}
       />
       <div className="relative bg-white w-full max-w-2xl rounded-xl overflow-hidden transform transition-all animate-in fade-in zoom-in duration-300">
@@ -128,7 +129,8 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

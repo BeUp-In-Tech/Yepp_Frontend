@@ -5,18 +5,20 @@ import DealCard from './DealCard';
 import Pagination from '../../vendor/created-shop/components/Pagination';
 import useUserLocation from '../../../hooks/useUserLocation';
 import DynamicLocation from '../../../components/location/DynamicLocation';
+import { useGsapAnimations } from '../../../hooks/useGsapAnimations';
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const Deals = () => {
     const { latitude, longitude } = useUserLocation();
     const { data: totalDeals, isLoading } = useGetAllDealQuery({ latitude, longitude });
     const [currentPage, setCurrentPage] = useState(1);
+    const allDeals = totalDeals?.data?.deals ?? [];
+    const animationScopeRef = useGsapAnimations(`deals-${currentPage}-${allDeals.length}`);
     
     if (isLoading) {
         return <DealCardSkeleton />
     }
 
-    const allDeals = totalDeals?.data?.deals ?? [];
     const totalPages = Math.ceil(allDeals?.length / ROWS_PER_PAGE);
     const indexOfFirst = (currentPage - 1) * ROWS_PER_PAGE;
     const indexOfLast = Math.min(currentPage * ROWS_PER_PAGE, allDeals?.length);
@@ -30,9 +32,9 @@ const Deals = () => {
     );
 
     return (
-        <div className="bg-gray-50 min-h-[10vh] px-4 py-12.5">
+        <div ref={animationScopeRef} className="bg-gray-50 min-h-[10vh] px-4 py-12.5" data-animate="fade-up">
             <div className="max-w-305 mx-auto">
-                <div className="flex items-start justify-between gap-2 mb-6">
+                <div className="flex items-start justify-between gap-2 mb-6" data-animate="fade-up">
                     <h2 className="text-base font-bold leading-tight text-[#262626] sm:text-2xl md:text-[28px]">Explore nearby</h2>
                     <DynamicLocation
                         latitude={latitude}
@@ -44,7 +46,7 @@ const Deals = () => {
 
                 {totalDeals?.data?.deals?.length > 0 ? (
                     <>
-                        <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3 sm:gap-5 lg:hidden">
+                        <div className="mx-auto grid max-w-3xl grid-cols-2 gap-3 sm:gap-5 lg:hidden" data-animate="stagger">
                             {dealColumns.map((column, columnIndex) => (
                                 <div
                                     key={columnIndex}
@@ -62,7 +64,7 @@ const Deals = () => {
                             ))}
                         </div>
 
-                        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-3" data-animate="stagger">
                             {currentDeals?.map((deal) => (
                                 <DealCard key={deal?._id} deal={deal} />
                             ))}

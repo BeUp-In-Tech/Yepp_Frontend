@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import CategoryLink from "../../components/categories/CategoryLink";
 import { useGetAllCategoriesQuery } from "../../features/categories/CategoriesApi";
+import { useGsapAnimations } from "../../hooks/useGsapAnimations";
 
 const Categories = () => {
     const { data: categories, isLoading } = useGetAllCategoriesQuery();
     const categoryList = categories?.data ?? [];
+    const animationScopeRef = useGsapAnimations(`categories-${categoryList.length}`);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -29,9 +32,9 @@ const Categories = () => {
     }
 
     return (
-        <main className="bg-gray-50 min-h-[calc(100vh-230px)] px-4 pb-12 pt-28">
+        <main ref={animationScopeRef} className="bg-gray-50 min-h-[calc(100vh-230px)] px-4 pb-12 pt-28" data-animate="fade-up">
             <div className="max-w-305 mx-auto">
-                <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between" data-animate="fade-up">
                     <div>
                         <p className="text-base font-semibold text-primary">Categories</p>
                         <h1 className="text-2xl font-bold text-[#262626] sm:text-[32px]">
@@ -44,7 +47,7 @@ const Categories = () => {
                 </div>
 
                 {categoryList.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+                    <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8" data-animate="stagger">
                         {categoryList.map((category) => (
                             <CategoryLink key={category._id} category={category} variant="card" />
                         ))}

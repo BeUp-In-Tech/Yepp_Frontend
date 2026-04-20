@@ -10,10 +10,12 @@ import RevenueTrendChart from './components/RevenueTrendChart';
 import VendorManagementSkeleton from '../../../../components/skeleton/dashboard/VendorManagementSkeleton';
 import RecentDealCard from './components/RecentDealCard';
 import AdminPorfile from '../../../../components/dashboard/AdminPorfile';
+import { useGsapAnimations } from '../../../../hooks/useGsapAnimations';
 
 const Dashboard = () => {
     const { data: totalAnalytics, isLoading: analyticsLoading } = useGetAnalyticsQuery();
     const { data: reacentDeals, isLoading: recentdealDetailLoading } = useGetRecentDealsListQuery();
+    const animationScopeRef = useGsapAnimations(`admin-dashboard-${totalAnalytics?.data?.active_deals ?? 0}-${reacentDeals?.data?.vendors?.length ?? 0}`);
 
     if (analyticsLoading) {
         return <DashboardCardsSkeleton />
@@ -24,7 +26,7 @@ const Dashboard = () => {
 
     const { active_vendors, active_deals, total_revenue, last30Days_Revenue } = totalAnalytics?.data || {};
     return (
-        <div className="min-h-screen pt-3 pb-5">
+        <div ref={animationScopeRef} className="min-h-screen pt-3 pb-5" data-animate="dashboard">
             <div className='flex justify-between items-center'>
                 <HeadingTitle
                     title='Admin Dashboard Overview'
@@ -32,18 +34,18 @@ const Dashboard = () => {
                 />
                 <AdminPorfile />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8" data-animate="stagger">
                 <StatCardOne total_revenue={total_revenue} />
                 <StatCardTwo lastMonthRevenue={last30Days_Revenue} />
                 <StatCardThree active_vendors={active_vendors} />
                 <StatCardFour active_deals={active_deals} />
             </div>
-            <div className="flex flex-col gap-5 lg:flex-row">
+            <div className="flex flex-col gap-5 lg:flex-row" data-animate="fade-up">
                 <RevenueTrendChart />
                 <PieChartSection />
             </div>
 
-            <div className="flex flex-col md:flex-row gap-6 justify-center mt-5">
+            <div className="flex flex-col md:flex-row gap-6 justify-center mt-5" data-animate="stagger">
                 <ListCard
                     title="Recent Vendors"
                     subtitle="Latest vendor applications"

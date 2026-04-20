@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import useUserLocation from '../../hooks/useUserLocation';
 import CopiedLink from './components/CopiedLink';
 import OutLetshowMap from './OutLetshowMap';
+import { useGsapAnimations } from '../../hooks/useGsapAnimations';
 
 const DealDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,7 @@ const DealDetails = () => {
     const { latitude, longitude } = useUserLocation();
     const { data: deal, isLoading } = useGetDealDetailsQuery({ id, longitude, latitude });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const animationScopeRef = useGsapAnimations(`deal-details-${id}-${deal?.data?._id ?? ""}`);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -66,11 +68,11 @@ const DealDetails = () => {
     const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
 
     return (
-        <div className='bg-white px-4 pt-56 pb-8'>
+        <div ref={animationScopeRef} className='bg-white px-4 pt-56 pb-8' data-animate="fade-up">
             <div className="max-w-305 mx-auto">
                 <div className="flex flex-col gap-6 md:flex-row lg:gap-8">
                     {/* left side */}
-                    <div className="w-full space-y-6 md:w-6/12 sm:space-y-6">
+                    <div className="w-full space-y-6 md:w-6/12 sm:space-y-6" data-animate="stagger">
                         <div className="relative group rounded-lg overflow-hidden">
                             <img
                                 src={images[currentImageIndex]}
@@ -161,7 +163,7 @@ const DealDetails = () => {
                     </div>
 
                     {/* right side */}
-                    <div className="w-full md:w-5/12 space-y-5">
+                    <div className="w-full md:w-5/12 space-y-5" data-animate="stagger">
                         <section>
                             <h3 className="font-bold text-xl text-[#262626] mb-2">How to Redeem</h3>
                             <Redeem />
