@@ -32,7 +32,7 @@ const VendorCreateShop = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Shop created successfully!");
-      navigate('/shop-overview')
+      navigate('/shop-overview');
     }
     if (error) {
       const message = error?.data?.message || "Shop created failed!";
@@ -83,16 +83,18 @@ const VendorCreateShop = () => {
     const shopData = {
       shop: {
         business_name: data.businessName,
-        business_email: data.email,
         business_phone: {
           country_code: data.countryCode,
           phone_number: data.phoneNumber,
         },
         description: data.description,
-        website: data.website,
       },
       outlet: data.outlets
     };
+
+    if (data?.website) {
+      shopData.shop.website = data.website
+    }
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(shopData));
@@ -116,8 +118,6 @@ const VendorCreateShop = () => {
     }
   };
 
-  console.log(currentUser?.data)
-
   return (
     <div className="bg-white min-h-screen px-4 pt-32 pb-12">
       <div className="max-w-300 mx-auto">
@@ -130,8 +130,7 @@ const VendorCreateShop = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-primary">Business Details</h2>
+          <div className="space-y-4">
             <div className="space-y-2">
               <label className="block text-lg font-medium text-[#262626]">Business Name</label>
               <div className="relative">
@@ -189,23 +188,8 @@ const VendorCreateShop = () => {
             </div>
           </div>
           <div className="space-y-5">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-primary">Contact Information</h2>
-              <div className="space-y-2">
-                <label className="block text-lg font-medium text-[#262626]">Business Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: { value: /^\S+@\S+$/i, message: "Invalid email address" }
-                    })}
-                    placeholder="Business email"
-                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-primary outline-none transition-all"
-                  />
-                </div>
-                {errors.email && <p className="text-red-500 text-xs mt-1 ml-4">{errors.email.message}</p>}
-              </div>
+            <div className="space-y-5">
+              <h2 className="block text-lg font-medium text-[#262626]">Contact Information</h2>
               <Controller
                 name="phone"
                 control={control}
@@ -231,17 +215,15 @@ const VendorCreateShop = () => {
                 )}
               />
             </div>
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-primary">Location Details</h2>
-              <p className="text-[#737373] text-base leading-relaxed">
+            <div className="space-y-4 mt-2">
+              <h2 className="block text-lg font-medium text-[#262626]">Location Details</h2>
+              <p className="text-[#737373] text-base leading-relaxed pb-2">
                 If you operate a single outlet, click "Single Outlet" and enter its address and location details to continue.
               </p>
-
               <div className="border border-gray-200 rounded-xl p-4 space-y-4">
                 {outlets.length === 0 && (
-                  <p className="text-center text-gray-400 py-2 italic">No outlets added yet.</p>
+                  <p className="text-center text-gray-400 py-2 italic">No Location added yet.</p>
                 )}
-
                 {outlets.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between p-5 bg-[#F8FAFC] rounded-2xl group hover:bg-[#F1F5F9] transition-colors cursor-pointer border border-transparent hover:border-[#4BBDCF]/20">
                     <div className="flex items-center gap-4">
@@ -261,10 +243,10 @@ const VendorCreateShop = () => {
                   type="button"
                   onClick={() => setShowModal(true)}
                   className="w-full py-3 bg-primary hover:bg-secondary text-white rounded-xl flex items-center justify-center gap-2 text-lg font-bold transition-all shadow-md active:scale-[0.99]">
-                  <Plus size={24} /> Add Outlet
+                  <Plus size={24} /> Add Location
                 </button>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-4 mt-6">
                 <label className="block text-lg font-medium text-[#262626]">Website Link (Optional)</label>
                 <div className="relative">
                   <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />

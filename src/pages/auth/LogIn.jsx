@@ -91,7 +91,7 @@ const LogIn = () => {
             <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#F6F7FD]">
                 <div className="w-full max-w-117.5 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative" data-animate-item>
                     <div className="text-center mb-8">
-                        <div className=' mb-10 sm:mb-5'>
+                        <div className='mt-12 sm:mt-2'>
                             <Link
                                 to="/"
                                 aria-label="Back to home"
@@ -110,11 +110,11 @@ const LogIn = () => {
                     </div>
 
                     <div className="flex bg-[#F0F9FF] rounded-full mb-8  mx-auto">
-                        <div className="w-full py-1.5 px-1 sm:px-1.5 flex">
-                            <Link to='/register' className="text-center w-full py-2 sm:px-4 rounded-full text-[#262626] text-sm sm:text-base font-medium cursor-pointer">
+                        <div className="w-full sm:px-1.5 py-1.5 flex">
+                            <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626]  text-sm sm:text-base font-medium cursor-pointer">
                                 Business Sign Up
                             </Link>
-                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
+                            <Link to='/login' className="text-center w-full py-2 px-1 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
                                 Business Log In
                             </Link>
                         </div>
@@ -180,7 +180,7 @@ const LogIn = () => {
                     <div className="text-center mt-8 text-base">
                         <span className="text-[#000000]">Don't have an account? </span>
                         <Link to="/register" className="text-primary font-semibold hover:underline">
-                            Sign Up
+                            Business Sign up
                         </Link>
                     </div>
                 </div>

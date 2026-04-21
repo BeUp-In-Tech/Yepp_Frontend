@@ -1,14 +1,18 @@
 import { Store } from "lucide-react";
-import Countdown from "./Countdown";
+import Countdown from "../../../home/deals/Countdown";
 import { Link } from "react-router-dom";
 
 const DealCard = ({ deal }) => {
     const {
         _id, title, reguler_price, discount, distance, promotedUntil, shop } = deal || {};
     const image = deal?.images?.[0];
+    const price = Number(reguler_price) || 0;
+    const discountAmount = (price * (Number(discount) || 0)) / 100;
+    const finalPrice = price - discountAmount;
     const distanceMiles = (Number(distance) || 0) / 1609.344;
+
     return (
-        <Link to={`/deal-details/${_id}`} className="block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
+        <Link to={`/deal-details/${_id}`} className="flex h-full flex-col bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
                 <img
                    src={image || "/no-image.png"}
@@ -23,25 +27,25 @@ const DealCard = ({ deal }) => {
                 </div>
             </div>
 
-            <div className="p-4">
+            <div className="flex flex-1 flex-col p-4">
                 <h3 className="text-base font-semibold text-[#262626] line-clamp-2 min-h-10 leading-tight">
                     {deal.title}
                 </h3>
 
-                <div className="flex items-center gap-1 mt-2 text-[#A3A3A3] text-sm">
-                    <span className="opacity-70"><Store size={17} className="text-[#A3A3A3]" /></span>
-                    <span>{shop?.business_name}</span>
+                <div className="mt-2 flex min-w-0 items-center gap-1 text-sm text-[#A3A3A3]">
+                    <span className="shrink-0 opacity-70"><Store size={17} className="text-[#A3A3A3]" /></span>
+                    <span className="min-w-0 truncate">{shop?.business_name}</span>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-[#262626]">${reguler_price - ((reguler_price / 100) * discount)}</span>
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">${reguler_price}</span>
+                <div className="mt-3 flex min-w-0 flex-wrap items-start justify-between gap-2">
+                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                        <span className="text-xl font-bold text-[#262626]">${finalPrice.toFixed(2)}</span>
+                        <span className="text-sm text-[#A3A3A3] font-medium line-through">${price.toFixed(1)}</span>
                     </div>
                     <Countdown countdown={promotedUntil} />
                 </div>
 
-                <span className="block w-full mt-4 bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <span className="mt-auto block w-full bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now
                 </span>
             </div>

@@ -72,13 +72,13 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     </button>
                 </div>
 
-                <div className="flex items-center gap-1 mt-2 text-[#A3A3A3] text-sm">
-                    <span className="opacity-70"><Store size={17} className="text-[#A3A3A3]" /></span>
-                    <span>{shop?.business_name}</span>
+                <div className="mt-2 flex min-w-0 items-center gap-1 text-sm text-[#A3A3A3]">
+                    <span className="shrink-0 opacity-70"><Store size={17} className="text-[#A3A3A3]" /></span>
+                    <span className="min-w-0 truncate">{shop?.business_name}</span>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-baseline gap-0.5">
+                <div className="mt-3 flex min-w-0 flex-wrap items-start justify-between gap-2">
+                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-0.5">
                         <span className="text-lg font-bold text-[#262626]">
                             ${finalPrice.toFixed(2)}
                         </span>
@@ -91,7 +91,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                         activeDeal && <Countdown countdown={promotedUntil} />
                     }
                     {
-                        expiredDeal && <div className="bg-gray-300 py-0.5 px-2 rounded-sm ml-2 text-sm font-semibold text-gray-600">
+                        expiredDeal && <div className="rounded-full border border-[#BEE6C2] bg-[#F0F9FF] px-2.5 py-1 text-xs font-bold text-primary">
                             Expired
                         </div>
                     }
