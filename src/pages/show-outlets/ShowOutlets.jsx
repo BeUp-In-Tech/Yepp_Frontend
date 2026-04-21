@@ -11,11 +11,12 @@ const ShowOutlets = () => {
     if (isLoading) {
         return <ShopOutletSkeleton />
     }
+
     return (
         <div className="bg-white pt-32 px-4">
             <div className="max-w-305 mx-auto">
                 <div className="flex flex-col md:flex-row gap-3">
-                    <div className="w-40 h-40 rounded-full p-1.5 border-2 border-[#4BBDCF]  overflow-hidden">
+                    <div className="w-40 h-40 rounded-full p-1.5 border-2 border-green-500  overflow-hidden">
                         <img
                             src={shopDetails?.data?.business_logo || images?.profilePic}
                             alt="vendor-image"

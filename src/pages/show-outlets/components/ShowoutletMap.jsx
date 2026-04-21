@@ -31,7 +31,7 @@ export default function ShowoutletMap({ outlets = [] }) {
             ? { lat: outletLat, lng: outletLng }
             : latitude != null && longitude != null
                 ? { lat: latitude, lng: longitude }
-                : { lat: 23.8103, lng: 90.4125 };
+                : { lat: latitude, lng: longitude };
 
     function getDistanceInMiles(userLat, userLng, shopLat, shopLng) {
         const toRad = (value) => (value * Math.PI) / 180;
@@ -93,7 +93,7 @@ export default function ShowoutletMap({ outlets = [] }) {
                                 <div
                                     key={outlet?._id}
                                     className={`w-full flex items-center justify-between rounded-lg px-3 py-3 sm:px-5 sm:py-4 transition-all duration-200 border ${isActive
-                                            ? "bg-cyan-50 border-cyan-400 shadow-sm"
+                                            ? "bg-cyan-50 border-green-400 shadow-sm"
                                             : "bg-slate-100 border-transparent hover:bg-slate-200"
                                         }`}
                                 >

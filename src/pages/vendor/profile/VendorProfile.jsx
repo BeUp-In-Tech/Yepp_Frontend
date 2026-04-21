@@ -46,7 +46,7 @@ const VendorProfile = () => {
                                     </div>
                                 </div>
                                 <div className="w-full md:hidden mt-5 flex flex-col items-center">
-                                    <Link to='/show-outlet' className="w-full">
+                                    <Link to={`/show-outlet/${_id}`} className="w-full">
                                         <button className="mt-1 flex gap-1 items-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
                                             <Eye size={20} /> Show outlets
                                         </button>

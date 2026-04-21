@@ -91,30 +91,30 @@ const LogIn = () => {
             <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#F6F7FD]">
                 <div className="w-full max-w-117.5 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative" data-animate-item>
                     <div className="text-center mb-8">
-                        <div className=''>
+                        <div className=' mb-10 sm:mb-5'>
                             <Link
                                 to="/"
                                 aria-label="Back to home"
-                                className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
+                                className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
                             >
                                 <ArrowLeft size={18} aria-hidden="true" />
                                 Home
                             </Link>
-                            <h1 className="text-2xl font-bold text-[#262626]">
-                                Welcome Back
-                            </h1>
                         </div>
+                        <h1 className="text-2xl font-bold text-[#262626]">
+                            Welcome Back
+                        </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Let's get you back to your business
                         </p>
                     </div>
 
-                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w- mx-auto">
-                        <div className="w-full p-1.5 flex">
-                            <Link to='/register' className="text-center w-full py-2 px-4 rounded-full text-[#262626] text-base font-medium cursor-pointer">
+                    <div className="flex bg-[#F0F9FF] rounded-full mb-8  mx-auto">
+                        <div className="w-full py-1.5 px-1 sm:px-1.5 flex">
+                            <Link to='/register' className="text-center w-full py-2 sm:px-4 rounded-full text-[#262626] text-sm sm:text-base font-medium cursor-pointer">
                                 Business Sign Up
                             </Link>
-                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-base font-medium cursor-pointer">
+                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
                                 Business Log In
                             </Link>
                         </div>
@@ -166,7 +166,7 @@ const LogIn = () => {
                             {isLoading ? (
                                 <div className="animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (
-                                <span className="font-medium text-lg text-[#FFFFFF]">Log In</span>
+                                <span className="font-medium text-lg text-[#FFFFFF]">Sign In</span>
                             )}
                         </button>
                     </form>
@@ -180,7 +180,7 @@ const LogIn = () => {
                     <div className="text-center mt-8 text-base">
                         <span className="text-[#000000]">Don't have an account? </span>
                         <Link to="/register" className="text-primary font-semibold hover:underline">
-                            Sign up
+                            Sign Up
                         </Link>
                     </div>
                 </div>
