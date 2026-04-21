@@ -124,7 +124,7 @@ const VendorCreateDeal = () => {
                             {/* Regular Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Regular Price
+                                    Regular Price<span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <span className="absolute left-6 top-1/2 -translate-y-1/2 text-[#262626]">
@@ -150,7 +150,7 @@ const VendorCreateDeal = () => {
                             {/* Discount */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    What is the discount percentage for this deal?
+                                    What is the discount percentage for this deal?<span className="text-red-500">*</span>
                                 </label>
 
                                 <div className="relative">
@@ -181,7 +181,7 @@ const VendorCreateDeal = () => {
                             {/* Final Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Final price after the discount
+                                    Final price after the discount<span className="text-slate-400 text-[10px">(read only)</span>
                                 </label>
 
                                 <div className="relative">
@@ -204,7 +204,7 @@ const VendorCreateDeal = () => {
                             {/* Title */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Deal Title
+                                    Deal Title<span className="text-red-500">*</span>
                                 </label>
 
                                 <input
@@ -250,7 +250,7 @@ const VendorCreateDeal = () => {
                             {/* outlets */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Available Outlet
+                                    Available Location
                                 </label>
 
                                 <div className="flex gap-3 flex-wrap">
@@ -270,7 +270,7 @@ const VendorCreateDeal = () => {
 
                                             <span className="text-gray-700 text-sm flex items-center gap-1">
                                                 <MapPin size={18} />
-                                                {out?.outlet_name || "Outlet Name"}
+                                                {out?.outlet_name || "Location Name"}
                                             </span>
                                         </label>
                                     ))}
@@ -287,7 +287,7 @@ const VendorCreateDeal = () => {
                             {/* Deal Category */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Deal Category
+                                    Deal Category<span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <select
@@ -334,7 +334,7 @@ const VendorCreateDeal = () => {
                             <div className="flex gap-2">
                                 <div>
                                     <label className="block text-base text-[#262626] font-medium mb-2">
-                                        QR Code
+                                        QR Code<span className="text-red-500">*</span>  <span className="text-[12px] pl-2 text-slate-400">(QR file must be 500 * 500)</span>
                                     </label>
                                     <input
                                         type="file"
@@ -353,7 +353,7 @@ const VendorCreateDeal = () => {
                                 </div>
                                 <div>
                                     <label className="block text-base text-[#262626] font-medium mb-2">
-                                        UPC Code
+                                        UPC Code<span className="text-red-500">*</span> <span className="text-[12px] pl-2 text-slate-400">(UPC file must be 800 * 400)</span>
                                     </label>
                                     <input
                                         type="file"

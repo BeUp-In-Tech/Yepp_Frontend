@@ -218,7 +218,7 @@ const VendorCreateShop = () => {
             <div className="space-y-4 mt-2">
               <h2 className="block text-lg font-medium text-[#262626]">Location Details</h2>
               <p className="text-[#737373] text-base leading-relaxed pb-2">
-                If you operate a single outlet, click "Single Outlet" and enter its address and location details to continue.
+                If you operate a single Location, click "Single Location" and enter its address and location details to continue.
               </p>
               <div className="border border-gray-200 rounded-xl p-4 space-y-4">
                 {outlets.length === 0 && (

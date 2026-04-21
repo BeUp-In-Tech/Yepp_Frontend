@@ -48,7 +48,7 @@ const VendorProfile = () => {
                                 <div className="w-full md:hidden mt-5 flex flex-col items-center">
                                     <Link to={`/show-outlet/${_id}`} className="w-full ">
                                         <button className="mt-1 flex gap-1 items-center justify-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
-                                            <Eye size={20} /> Show outlets
+                                            <Eye size={20} /> Show Location
                                         </button>
                                     </Link>
                                     <Link to={`/verdor-edit-shop/${_id}`} className="w-full flex">
@@ -62,7 +62,7 @@ const VendorProfile = () => {
                         <div className="hidden md:block">
                             <Link to={`/show-outlet/${_id}`}>
                                 <button className="mt-1 flex items-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base gap-1 font-medium hover:bg-secondary transition cursor-pointer">
-                                    <Eye size={20} /> Show outlets
+                                    <Eye size={20} /> Show Location
                                 </button>
                             </Link>
                             <Link to={`/verdor-edit-shop/${_id}`}>
