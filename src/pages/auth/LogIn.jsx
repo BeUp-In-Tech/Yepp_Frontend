@@ -91,7 +91,7 @@ const LogIn = () => {
             <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#F6F7FD]">
                 <div className="w-full max-w-117.5 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative" data-animate-item>
                     <div className="text-center mb-8">
-                        <div className=''>
+                        <div className='mt-12 sm:mt-2'>
                             <Link
                                 to="/"
                                 aria-label="Back to home"
@@ -100,21 +100,21 @@ const LogIn = () => {
                                 <ArrowLeft size={18} aria-hidden="true" />
                                 Home
                             </Link>
-                            <h1 className="text-2xl font-bold text-[#262626]">
-                                Welcome Back
-                            </h1>
                         </div>
+                        <h1 className="text-2xl font-bold text-[#262626]">
+                            Welcome Back
+                        </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Let's get you back to your business
                         </p>
                     </div>
 
-                    <div className="flex bg-[#F0F9FF] rounded-full mb-8 max-w- mx-auto">
-                        <div className="w-full p-1.5 flex">
-                            <Link to='/register' className="text-center w-full py-2 px-4 rounded-full text-[#262626] text-base font-medium cursor-pointer">
+                    <div className="flex bg-[#F0F9FF] rounded-full mb-8  mx-auto">
+                        <div className="w-full sm:px-1.5 py-1.5 flex">
+                            <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626]  text-sm sm:text-base font-medium cursor-pointer">
                                 Business Sign Up
                             </Link>
-                            <Link to='/login' className="text-center w-full py-2 px-4 rounded-full bg-primary hover:bg-secondary text-white text-base font-medium cursor-pointer">
+                            <Link to='/login' className="text-center w-full py-2 px-1 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
                                 Business Log In
                             </Link>
                         </div>
@@ -180,7 +180,7 @@ const LogIn = () => {
                     <div className="text-center mt-8 text-base">
                         <span className="text-[#000000]">Don't have an account? </span>
                         <Link to="/register" className="text-primary font-semibold hover:underline">
-                            Sign up
+                            Business Sign up
                         </Link>
                     </div>
                 </div>
