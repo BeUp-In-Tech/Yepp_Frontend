@@ -45,7 +45,7 @@ const DealCard = ({ deal }) => {
 
     const actionsWrapperClasses = "flex w-full flex-wrap items-center gap-2 md:w-auto md:shrink-0 md:justify-end";
     const actionButtonClasses = "group relative flex min-h-10 flex-1 basis-[6.5rem] items-center justify-center overflow-hidden rounded-md border border-gray-300 px-3 py-2 font-semibold text-gray-600 transition-all duration-400 cursor-pointer disabled:opacity-50 md:min-h-0 md:flex-none md:basis-auto md:px-4 md:py-1.5";
-    const statusBadgeClasses = "rounded-sm bg-gray-300 px-2 py-0.5 text-xs font-semibold text-gray-600 sm:text-sm";
+    const statusBadgeClasses = "rounded-full border border-[#BEE6C2] bg-[#F0F9FF] px-2.5 py-1 text-xs font-bold text-primary";
 
     return (
         <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col lg:flex-row gap-4 lg:items-center mt-5 overflow-hidden">
@@ -69,7 +69,7 @@ const DealCard = ({ deal }) => {
                             <Store size={17} className="shrink-0" />
                             <span className="min-w-0 truncate">{deal?.shop?.business_name}</span>
                         </div>
-                        <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2">
                             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                                 <span className="text-xl font-bold text-[#262626]">
                                     ${(reguler_price - ((reguler_price / 100) * discount)).toFixed(2)}
@@ -88,7 +88,7 @@ const DealCard = ({ deal }) => {
                                 </div>
                             }
                             {
-                                newDeal && <div className="inline-block bg-[#4CAF50] text-white text-xs font-semibold px-2 py-1 rounded-full">
+                                newDeal && <div className="inline-flex max-w-full rounded-full bg-primary px-2.5 py-1 text-xs font-bold text-white">
                                     Not Promoted Deal Yet
                                 </div>
                             }

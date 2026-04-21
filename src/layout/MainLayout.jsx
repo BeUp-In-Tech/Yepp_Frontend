@@ -93,8 +93,8 @@ const MainLayout = () => {
             }
             <div ref={animationScopeRef}>
                 <Outlet />
-                <Footer />
             </div>
+            <Footer />
         </div>
     );
 };

@@ -38,7 +38,6 @@ const AdminDeals = lazy(() => import("../pages/dashboard/admin-dashboard/deals/A
 const Payments = lazy(() => import("../pages/dashboard/admin-dashboard/payments/Payments"));
 const Content = lazy(() => import("../pages/dashboard/admin-dashboard/content/Content"));
 const Notification = lazy(() => import("../pages/dashboard/admin-dashboard/notification/Notification"));
-const Settings = lazy(() => import("../pages/dashboard/admin-dashboard/settings/Settings"));
 const Vouchers = lazy(() => import("../pages/dashboard/admin-dashboard/voucher/Vouchers"));
 const Plans = lazy(() => import("../pages/dashboard/admin-dashboard/plans/Plans"));
 
@@ -120,7 +119,6 @@ function AppRoutes() {
               <Route path="/dashboard/admin-payments" element={<Payments />} />
               <Route path="/dashboard/admin-content" element={<Content />} />
               <Route path="/dashboard/admin-notification" element={<Notification />} />
-              <Route path="/dashboard/admin-settings" element={<Settings />} />
               <Route path="/dashboard/admin-voucher" element={<Vouchers />} />
               <Route path="/dashboard/admin-plan" element={<Plans />} />
 
@@ -130,7 +128,6 @@ function AppRoutes() {
               <Route path="/admin/payments" element={<Payments />} />
               <Route path="/admin/content" element={<Content />} />
               <Route path="/admin/notification" element={<Notification />} />
-              <Route path="/admin/settings" element={<Settings />} />
               <Route path="/admin/vouchers" element={<Vouchers />} />
               <Route path="/admin/plans" element={<Plans />} />
             </Route>

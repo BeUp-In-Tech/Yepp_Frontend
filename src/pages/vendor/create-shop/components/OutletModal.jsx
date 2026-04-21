@@ -21,7 +21,7 @@ const OutletModal = ({ onClose, onSave }) => {
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white h-auto rounded-2xl w-full max-w-xl p-8 shadow-2xl">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-primary">Add Outlet</h3>
+          <h3 className="text-2xl font-bold text-primary">Add Location</h3>
 
           <button
             onClick={onClose}
@@ -113,7 +113,7 @@ const OutletModal = ({ onClose, onSave }) => {
               onClick={handleSave}
               className={`flex-1 py-3 rounded-full cursor-pointer ${coordinates === null ? 'bg-gray-300 text-gray-800' : 'bg-primary text-white'}`}
             >
-              Save Outlet
+              Save Location
             </button>
 
           </div>

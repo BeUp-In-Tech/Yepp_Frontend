@@ -33,16 +33,6 @@ const ContactUs = () => {
                         </li>
                     </ul>
                 </section>
-
-                <section className="mb-8">
-                    <h2 className="mb-3 text-xl font-bold leading-snug text-[#1F2937]">Mailing Address</h2>
-                    <PeragraphContent>
-                        If you prefer to send us a letter, you can reach us at:
-                    </PeragraphContent>
-                    <div className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-4 text-base leading-7 text-[#4B5563] sm:text-lg sm:leading-8">
-                        <a href="mailto:support@yeppads.com" className="font-semibold text-primary">support@yeppads.com</a>
-                    </div>
-                </section>
             </div>
         </main>
     );
