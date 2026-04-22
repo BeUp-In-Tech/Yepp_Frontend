@@ -18,13 +18,17 @@ const dealFormDefaultValues = {
     discountPercentage: 0,
 };
 
+const hasCouponCodeValue = (data) => {
+    return Boolean(data?.couponCode?.trim() || data?.qr_code?.[0] || data?.upc_code?.[0]);
+};
+
 const VendorCreateDeal = () => {
     const [openDropdown, setOpenDropdown] = useState(false);
     const [activeField, setActiveField] = useState(null);
     const [imageFiles, setImagesFiles] = useState([]);
     const [imageError, setImageError] = useState("");
     const { user } = useSelector((state => state?.auth));
-    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset, setError, clearErrors, getValues } = useForm({
         defaultValues: dealFormDefaultValues,
     });
     const navigate = useNavigate();
@@ -32,10 +36,31 @@ const VendorCreateDeal = () => {
     const { data: shopDetails, isLoading: shopLoading } = useGetVendorDetailsQuery(user?._id);
     const [createNewDeal, { isLoading, error, isSuccess }] = useCreateNewDealMutation();
 
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const watchRegularPrice = watch("regularPrice");
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const watchDiscount = watch("discountPercentage");
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const watchCouponCode = watch("couponCode");
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const watchQrCode = watch("qr_code");
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const watchUpcCode = watch("upc_code");
+
     useEffect(() => {
         window.scrollTo(0, 0)
         reset(dealFormDefaultValues);
     }, [reset]);
+
+    useEffect(() => {
+        if (hasCouponCodeValue({
+            couponCode: watchCouponCode,
+            qr_code: watchQrCode,
+            upc_code: watchUpcCode,
+        })) {
+            clearErrors("couponCodes");
+        }
+    }, [watchCouponCode, watchQrCode, watchUpcCode, clearErrors]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -53,10 +78,6 @@ const VendorCreateDeal = () => {
         return <AddDealSkeleton />
     }
 
-    // eslint-disable-next-line react-hooks/incompatible-library
-    const watchRegularPrice = watch("regularPrice");
-    const watchDiscount = watch("discountPercentage");
-
     // Math logic for the final price
     const regularPrice = Number(watchRegularPrice) || 0;
     const discountPercentage = Number(watchDiscount) || 0;
@@ -72,8 +93,31 @@ const VendorCreateDeal = () => {
         return true;
     };
 
+    const validateCouponCodes = (data) => {
+        if (hasCouponCodeValue(data)) {
+            clearErrors("couponCodes");
+            return true;
+        }
+
+        setOpenDropdown(true);
+        setActiveField((currentField) => currentField || "coupon");
+        setError("couponCodes", {
+            type: "manual",
+            message: "Enter a coupon code, upload a QR image, or upload a UPC image",
+        });
+
+        return false;
+    };
+
     const onSubmit = (data) => {
-        if (!validateImages()) return;
+        const isImagesValid = validateImages();
+        const isCouponCodesValid = validateCouponCodes(data);
+
+        if (!isImagesValid || !isCouponCodesValid) return;
+
+        const couponCode = data?.couponCode?.trim();
+        const qrCodeFile = data?.qr_code?.[0];
+        const upcCodeFile = data?.upc_code?.[0];
 
         const createDeal = {
             category: data?.category,
@@ -86,7 +130,7 @@ const VendorCreateDeal = () => {
             available_in_outlet: Array.isArray(data?.outlets)
                 ? data.outlets
                 : [data?.outlets],
-            coupon: data?.couponCode,
+            coupon: couponCode || undefined,
         };
         const formData = new FormData();
         formData.append("data", JSON.stringify(createDeal));
@@ -100,16 +144,21 @@ const VendorCreateDeal = () => {
             formData.append("files", file);
         });
 
-        formData.append("qr", data?.qr_code?.[0]);
-        formData.append("upc", data?.upc_code?.[0]);
+        if (qrCodeFile) {
+            formData.append("qr", qrCodeFile);
+        }
+
+        if (upcCodeFile) {
+            formData.append("upc", upcCodeFile);
+        }
+
         createNewDeal(formData);
     };
 
     const onInvalid = () => {
         validateImages();
+        validateCouponCodes(getValues());
     };
-
-    console.log(error);
 
     return (
         <div className="bg-white min-h-screen px-4 pt-28 pb-12">
@@ -318,14 +367,21 @@ const VendorCreateDeal = () => {
                                 )}
                             </div>
                             {/* Coupon, QR Code, UPC Code - Accordion */}
-                            <div className="border border-gray-400 rounded-xl overflow-hidden">
+                            <div className={`border rounded-xl overflow-hidden border-gray-400`}>
                                 <button
                                     type="button"
                                     onClick={() => setOpenDropdown(prev => !prev)}
                                     className="w-full flex items-center justify-between px-6 py-4 text-[#262626] font-medium text-base bg-white"
                                 >
-                                    <div className="flex items-center gap-1">
-                                        <span>Coupon & Codes</span><span className="text-red-500">*</span>
+                                    <div className="flex flex-col">
+                                        <div className="flex items-center gap-1">
+                                            <span>Coupon & Codes</span><span className="text-red-500">*</span>
+                                        </div>
+                                        {errors.couponCodes && (
+                                            <p className="text-red-500 text-sm mt-1 font-normal">
+                                                At least one field is required
+                                            </p>
+                                        )}
                                     </div>
                                     <span className="text-gray-500 text-sm">
                                         <ChevronDown className="cursor-pointer" />
