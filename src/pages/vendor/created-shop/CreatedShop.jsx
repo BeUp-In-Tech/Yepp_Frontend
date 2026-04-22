@@ -6,6 +6,7 @@ import TopviewShop from './components/TopviewShop';
 import Charts from './chart/Charts';
 import { useGetVendorDetailsQuery } from '../../../features/shop/shopApi';
 import { DealCardSkeleton } from '../../../components/skeleton/DealCardSkeleton';
+import { useGsapAnimations } from '../../../hooks/useGsapAnimations';
 
 const CreatedShop = () => {
   const { user } = useSelector((state) => state.auth);
@@ -13,15 +14,16 @@ const CreatedShop = () => {
     skip: !user?._id,
     refetchOnMountOrArgChange: true,
   });
+  const animationScopeRef = useGsapAnimations(`created-shop-${shopDetails?.data?._id ?? user?._id ?? ""}`);
 
   if (!user?._id || isLoading) {
     return <DealCardSkeleton />;
   }
 
   return (
-    <div className="bg-white min-h-screen px-4 pt-32 pb-12">
+    <div ref={animationScopeRef} className="bg-white min-h-screen px-4 pt-32 pb-12" data-animate="dashboard">
       <div className='max-w-305 mx-auto'>
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8" data-animate="fade-up">
           <div className="flex gap-4">
             <div className="w-25 sm:w-32.5 h-25 sm:h-32.5 rounded-full border-2 border-[#4CAF50] overflow-hidden bg-white">
               <img src={shopDetails?.data?.business_logo} alt="Salon" className="object-fill p-1.5 w-25 sm:w-32 h-25 sm:h-32 rounded-full aspect-auto" />
@@ -37,11 +39,17 @@ const CreatedShop = () => {
             </div>
           </div>
         </div>
-        <Stats />
+        <div data-animate="stagger">
+          <Stats />
+        </div>
         {/* Chart Section */}
-        <Charts />
+        <div data-animate="fade-up">
+          <Charts />
+        </div>
         {/* Deals Section */}
-        <TopviewShop />
+        <div data-animate="fade-up">
+          <TopviewShop />
+        </div>
       </div>
     </div>
   );

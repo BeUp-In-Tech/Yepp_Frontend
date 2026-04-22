@@ -1,10 +1,10 @@
 import { Bell } from "lucide-react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useGetSingleNotificationQuery } from "../../features/notification/notificaitonApi";
+import { useEffect } from "react";
 
 const getNotificationFromResponse = (response) => {
     const payload = response?.data ?? response;
-
     return payload?.notification ?? payload;
 };
 
@@ -35,6 +35,10 @@ const ShowNotification = () => {
         skip: !notificationId,
     });
     const notification = getNotificationFromResponse(data);
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []);
 
     if (!notificationId) {
         return (

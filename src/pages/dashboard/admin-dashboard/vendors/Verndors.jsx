@@ -7,6 +7,7 @@ import Table from "./components/Table";
 import VendorManagementSkeleton from "../../../../components/skeleton/dashboard/VendorManagementSkeleton";
 import Pagination from "./components/Pagination";
 import { AlertCircle, CheckCircle2, Store } from "lucide-react";
+import { useGsapAnimations } from "../../../../hooks/useGsapAnimations";
 
 const Verndors = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,6 +23,7 @@ const Verndors = () => {
         page: page,
         limit: limit,
     });
+    const animationScopeRef = useGsapAnimations(`vendors-${page}-${vendorDetails?.data?.vendors?.length ?? 0}`);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -45,13 +47,13 @@ const Verndors = () => {
     const totalPages = Math.ceil(totalVendors / limit);
 
     return (
-        <div className="min-h-screen pt-3 pb-5">
+        <div ref={animationScopeRef} className="min-h-screen pt-3 pb-5" data-animate="dashboard">
             <HeadingTitle
                 title="Shop Management"
                 description="Manage Shop accounts and applications"
             />
 
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5" data-animate="stagger">
                 <StatsCard
                     bgColor="bg-[#FFFFFF]"
                     color="text-[#262626]"
@@ -84,7 +86,7 @@ const Verndors = () => {
                 />
             </div>
 
-            <div className="text-slate-700 pt-10">
+            <div className="text-slate-700 pt-10" data-animate="fade-up">
                 <div className="bg-white rounded-lg overflow-hidden">
                     <Header
                         setSearchTerm={setSearchTerm}

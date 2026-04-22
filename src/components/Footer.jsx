@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="w-full bg-[#F0F9FF]">
+        <footer className="w-full bg-[#F0F9FF]" data-animate="fade-up">
             <div className='px-4 sm:px-6 lg:px-8'>
                 <div className="max-w-305 mx-auto pt-8 sm:pt-9">
                     <div className="grid gap-8 pb-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-start">

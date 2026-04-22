@@ -7,6 +7,7 @@ import Table from "./components/Table";
 import Pagination from "./components/Pagination";
 import { useGetDealsStatQuery } from "../../../../features/dashboard/dashboardHome";
 import DealManagementSekelton from "../../../../components/skeleton/dashboard/DealManagementSekelton";
+import { useGsapAnimations } from "../../../../hooks/useGsapAnimations";
 
 const AdminDeals = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,6 +23,7 @@ const AdminDeals = () => {
         page: page,
         limit: limit,
     });
+    const animationScopeRef = useGsapAnimations(`admin-deals-${page}-${DealStats?.data?.data?.length ?? 0}`);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -45,12 +47,12 @@ const AdminDeals = () => {
     const totalPages = Math.ceil(totalDeals / limit);
 
     return (
-        <div className="min-h-screen pt-3 pb-5">
+        <div ref={animationScopeRef} className="min-h-screen pt-3 pb-5" data-animate="dashboard">
             <HeadingTitle
                 title='Deal Management'
                 description='Manage deals and track performance.'
             />
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5" data-animate="stagger">
                 <StatsCard
                     bgColor='bg-[#FFFFFF]'
                     color='text-[#262626]'
@@ -88,7 +90,7 @@ const AdminDeals = () => {
                     Icon={ChartLine}
                 />
             </div>
-            <div className="text-slate-700 pt-10">
+            <div className="text-slate-700 pt-10" data-animate="fade-up">
                 <div className=" bg-white rounded-lg overflow-hidden">
                     <Header
                         setSearchTerm={setSearchTerm}

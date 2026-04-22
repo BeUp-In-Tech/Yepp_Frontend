@@ -4,9 +4,12 @@ import Footer from '../components/Footer';
 import VendorNavbar from '../components/navbar/VendorNavbar';
 import BothNavbar from '../components/navbar/BothNavbar';
 import { useEffect } from 'react';
+import { useGsapAnimations } from '../hooks/useGsapAnimations';
 
 const MainLayout = () => {
     const location = useLocation();
+    const animationScopeRef = useGsapAnimations(location.pathname);
+
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -88,7 +91,7 @@ const MainLayout = () => {
                 !shouldShowVendorNavbar &&
                 shouldShowBothNavbar && <BothNavbar />
             }
-            <div>
+            <div ref={animationScopeRef}>
                 <Outlet />
             </div>
             <Footer />

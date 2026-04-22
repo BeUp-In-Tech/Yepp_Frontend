@@ -22,7 +22,6 @@ const VendorEditShop = () => {
             businessName: "",
             businessLogo: "",
             description: "",
-            email: "",
             countryCode: "",
             phoneNumber: "",
             phone: "",
@@ -46,7 +45,7 @@ const VendorEditShop = () => {
 
     useEffect(() => {
         if (shopDetails?.data) {
-            const { business_name, business_logo, business_email, business_phone, website, description } = shopDetails.data;
+            const { business_name, business_logo, business_phone, website, description } = shopDetails.data;
 
             const dialCode = business_phone?.country_code?.replace("+", "") || "";
             const phoneNumber = business_phone?.phone_number || "";
@@ -55,7 +54,6 @@ const VendorEditShop = () => {
                 businessName: business_name || "",
                 businessLogo: business_logo || "",
                 description: description || "",
-                email: business_email || "",
                 countryCode: business_phone?.country_code || "",
                 phoneNumber: phoneNumber,
                 phone: dialCode + phoneNumber,
@@ -98,7 +96,6 @@ const VendorEditShop = () => {
     const onSubmit = (data) => {
         const shopData = {
             business_name: data?.businessName,
-            business_email: data?.email,
             business_phone: {
                 country_code: data?.countryCode,
                 phone_number: data?.phoneNumber,
@@ -209,7 +206,7 @@ const VendorEditShop = () => {
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold text-primary">Contact Information</h2>
 
-                            <div className="space-y-2">
+                            {/* <div className="space-y-2">
                                 <label className="block text-lg font-medium text-[#262626]">Business Email</label>
                                 <div className="relative">
                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -229,7 +226,7 @@ const VendorEditShop = () => {
                                 {errors.email && (
                                     <p className="text-red-500 text-xs mt-1 ml-4">{errors.email.message}</p>
                                 )}
-                            </div>
+                            </div> */}
                         </div>
                         <div className="space-y-2">
                             <label className="block text-lg font-medium text-[#262626]">

@@ -13,7 +13,7 @@ const Stats = () => {
         ? ((totalViews / totalImpressions) * 100).toFixed(2)
         : 0;
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-8" data-animate="stagger">
             <StatCard icon={images.activeIcon} label="Active Deals" value={activeDeals} />
             <StatCard icon={images.totalView} label="Total Views" value={totalViews} />
             <div className="bg-[#F6F7FD] py-4 sm:py-6 px-3 sm:px-4 rounded-lg shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center gap-2 sm:gap-4">

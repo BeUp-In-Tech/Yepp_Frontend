@@ -11,7 +11,6 @@ const ShowOutlets = () => {
     if (isLoading) {
         return <ShopOutletSkeleton />
     }
-
     return (
         <div className="bg-white pt-32 px-4">
             <div className="max-w-305 mx-auto">

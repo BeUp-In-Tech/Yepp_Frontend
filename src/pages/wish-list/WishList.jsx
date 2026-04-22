@@ -5,6 +5,7 @@ import { useGetAllSaveDealsQuery } from "../../features/deal/dealApi";
 import { DealCardSkeleton } from "../../components/skeleton/DealCardSkeleton";
 import Pagination from "../vendor/created-shop/components/Pagination";
 import toast from "react-hot-toast";
+import { useGsapAnimations } from "../../hooks/useGsapAnimations";
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const WishList = () => {
@@ -17,6 +18,8 @@ const WishList = () => {
         skip: saveIds.length === 0,
     });
     const now = new Date();
+    const animationScopeRef = useGsapAnimations(`wishlist-${activeTab}-${saveIds.length}-${totalDeals?.data?.length ?? 0}`);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, []);
@@ -42,14 +45,16 @@ const WishList = () => {
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
 
     return (
-        <div className="min-h-[80vh] bg-white px-4 pt-52 pb-12.5">
-            <TabSection
-                activeTab={activeTab}
-                setActiveTab={setActiveTab} />
+        <div ref={animationScopeRef} className="min-h-[80vh] bg-white px-4 pt-52 pb-12.5" data-animate="fade-up">
+            <div data-animate="fade-up">
+                <TabSection
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab} />
+            </div>
             {
                 activeTab === 'All' && (
                     <div className="max-w-305 mx-auto pt-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-animate="stagger">
                             {currentDeals?.map((deal, index) => (
                                 <WishListCard key={index} deal={deal} handleDeleteWistListId={handleDeleteWistListId} />
                             ))}
@@ -75,7 +80,7 @@ const WishList = () => {
             {
                 activeTab === 'Available' && (
                     <div className="max-w-305 mx-auto pt-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-animate="stagger">
                             {availableDeals?.map((deal, index) => (
                                 <WishListCard key={index} deal={deal} handleDeleteWistListId={handleDeleteWistListId} />
                             ))}
@@ -92,7 +97,7 @@ const WishList = () => {
             {
                 activeTab === 'Expired' && (
                     <div className="max-w-305 mx-auto pt-5">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-animate="stagger">
                             {expiredDeals?.map((deal, index) => (
                                 <WishListCard key={index} deal={deal} handleDeleteWistListId={handleDeleteWistListId} />
                             ))}

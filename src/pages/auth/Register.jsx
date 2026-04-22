@@ -39,29 +39,30 @@ const Register = () => {
     };
 
     return (
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full" data-animate="hero">
             <div
                 className="hidden lg:block lg:w-1/2 bg-cover bg-center"
+                data-animate-item
                 style={{ backgroundImage: `url(${bgImage})` }}
             >
                 <div className="w-full h-full bg-black/10"></div>
             </div>
 
             <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#F6F7FD] py-2">
-                <div className="w-full max-w-120 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative">
+                <div className="w-full max-w-120 bg-white rounded-xl shadow-sm p-4 sm:p-10 border-slate-100 relative" data-animate-item>
                     <div className="text-center mb-8 mx-auto">
-                        <div className=' mb-10 sm:mb-5'>
+                        <div className='mt-12 sm:mt-2'>
                             <Link
                                 to="/"
                                 aria-label="Back to home"
-                                className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
+                                className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
                             >
                                 <ArrowLeft size={18} aria-hidden="true" />
                                 Home
                             </Link>
                         </div>
                         <h1 className="text-2xl font-bold text-[#262626]">
-                            Welcome To Yapp
+                            Welcome To Yepp
                         </h1>
                         <p className="text-[#737373] text-base mt-1">
                             Market your Ad for $109/mth
@@ -69,11 +70,11 @@ const Register = () => {
                     </div>
 
                     <div className="flex bg-[#F0F9FF] rounded-full mb-8 mx-auto">
-                        <div className="w-full py-1.5 px-1 sm:px-1.5 flex">
-                            <Link to='/register' className="text-center w-full py-2 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
+                        <div className="w-full p-1.5 flex">
+                            <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
                                 Business Sign Up
                             </Link>
-                            <Link to='/login' className="text-center w-full py-2 sm:px-4 rounded-full text-[#262626] text-sm sm:text-base font-medium cursor-pointer">
+                            <Link to='/login' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626] text-sm sm:text-base font-medium cursor-pointer">
                                 Business Log In
                             </Link>
                         </div>
@@ -176,7 +177,7 @@ const Register = () => {
                     <div className="text-center mt-8 text-base">
                         <span className="text-[#000000]">Already have an account? </span>
                         <Link to="/login" className="text-primary font-semibold hover:underline">
-                            Sign In
+                            Business Sign In
                         </Link>
                     </div>
                 </div>

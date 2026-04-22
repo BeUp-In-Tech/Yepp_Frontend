@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 // import useAuth from "../hooks/useAuth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHandleCurrentLoggedInUserQuery } from "../features/auth/authApi";
 import EmailVerifySkeleton from "../components/skeleton/EmailVerifySkeleton";
 import { useEffect } from "react";
@@ -8,7 +8,6 @@ import { userLoggedIn } from "../features/auth/authSlice";
 import useAuth from './../hooks/useAuth';
 
 const PrivateRoute = ({ children }) => {
-  const { user } = useSelector((state) => state?.auth);
   const isLoggedIn = useAuth();
   const { data: currentUser, isLoading } = useHandleCurrentLoggedInUserQuery();
   const dispatch = useDispatch();
@@ -22,9 +21,6 @@ const PrivateRoute = ({ children }) => {
   if (isLoading) {
     return <EmailVerifySkeleton />;
   }
-
-  console.log(user);
-  console.log(currentUser?.data);
 
   if (!isLoggedIn || currentUser?.data?.role !== "VENDOR" || currentUser?.data?.isShopCreated !== true) {
     return <Navigate to="/verdor-created-shop" replace />;

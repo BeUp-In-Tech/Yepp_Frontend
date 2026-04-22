@@ -46,13 +46,13 @@ const VendorProfile = () => {
                                     </div>
                                 </div>
                                 <div className="w-full md:hidden mt-5 flex flex-col items-center">
-                                    <Link to={`/show-outlet/${_id}`} className="w-full">
-                                        <button className="mt-1 flex gap-1 items-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
-                                            <Eye size={20} /> Show outlets
+                                    <Link to={`/show-outlet/${_id}`} className="w-full ">
+                                        <button className="mt-1 flex gap-1 items-center justify-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
+                                            <Eye size={20} /> Show Location
                                         </button>
                                     </Link>
-                                    <Link to={`/verdor-edit-shop/${_id}`} className="w-full">
-                                        <button className="mt-2 flex items-center gap-1 bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
+                                    <Link to={`/verdor-edit-shop/${_id}`} className="w-full flex">
+                                        <button className="mt-2 flex items-center justify-center gap-1 bg-primary text-white w-full px-10 py-2.5 rounded-full text-base font-medium hover:bg-secondary transition cursor-pointer">
                                             <SquarePen size={20} /> Update Shop
                                         </button>
                                     </Link>
@@ -62,7 +62,7 @@ const VendorProfile = () => {
                         <div className="hidden md:block">
                             <Link to={`/show-outlet/${_id}`}>
                                 <button className="mt-1 flex items-center bg-primary text-white w-full px-10 py-2.5 rounded-full text-base gap-1 font-medium hover:bg-secondary transition cursor-pointer">
-                                    <Eye size={20} /> Show outlets
+                                    <Eye size={20} /> Show Location
                                 </button>
                             </Link>
                             <Link to={`/verdor-edit-shop/${_id}`}>
@@ -74,10 +74,10 @@ const VendorProfile = () => {
                     </div>
                 </div>
                 <div className="flex p-1 rounded-xl border border-slate-200 shadow-sm overflow-hidden gap-2">
-                    <button className={`flex-1 py-3.5 px-6 rounded-lg text-base font-bold transition-all cursor-pointer ${activeTab == 'profile-details' ? 'bg-primary text-white hover:bg-secondary' : 'bg-slate-50 text-slate-500'}`} onClick={() => setActiveTab('profile-details')}>
+                    <button className={`flex-1 py-3.5 sm:px-6 rounded-lg text-sm sm:text-base font-bold transition-all cursor-pointer ${activeTab == 'profile-details' ? 'bg-primary text-white hover:bg-secondary' : 'bg-slate-50 text-slate-500'}`} onClick={() => setActiveTab('profile-details')}>
                         Edit Profile Details
                     </button>
-                    <button className={`flex-1 py-3.5 px-6 rounded-lg text-base font-bold transition-all cursor-pointer ${activeTab == 'password-change' ? 'bg-primary text-white hover:bg-secondary' : 'bg-slate-50 text-slate-500'}`} onClick={() => setActiveTab('password-change')}>
+                    <button className={`flex-1 py-3.5 sm:px-6 rounded-lg text-sm sm:text-base font-bold transition-all cursor-pointer ${activeTab == 'password-change' ? 'bg-primary text-white hover:bg-secondary' : 'bg-slate-50 text-slate-500'}`} onClick={() => setActiveTab('password-change')}>
                         Change Password
                     </button>
                 </div>

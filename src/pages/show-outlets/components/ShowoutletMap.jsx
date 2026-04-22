@@ -69,7 +69,7 @@ export default function ShowoutletMap({ outlets = [] }) {
         <div className="w-full max-w-305 mx-auto pb-10">
             <div className="flex flex-col md:flex-row border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white min-h-110">
                 <div className="md:w-5/12 flex flex-col p-3 sm:p-6 border-b md:border-b-0 md:border-r border-gray-200">
-                    <p className="text-[26px] font-bold text-primary mb-5">
+                    <p className=" text-xl sm:text-[26px] font-bold text-primary mb-5">
                         Available Locations
                     </p>
 
@@ -93,7 +93,7 @@ export default function ShowoutletMap({ outlets = [] }) {
                                 <div
                                     key={outlet?._id}
                                     className={`w-full flex items-center justify-between rounded-lg px-3 py-3 sm:px-5 sm:py-4 transition-all duration-200 border ${isActive
-                                            ? "bg-cyan-50 border-green-400 shadow-sm"
+                                            ? "bg-cyan-50 border-green-500 shadow-sm"
                                             : "bg-slate-100 border-transparent hover:bg-slate-200"
                                         }`}
                                 >
