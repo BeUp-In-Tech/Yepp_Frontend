@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useCreateNewCategoryMutation } from "../../features/categories/CategoriesApi";
 
 const AddCategoriesModal = ({ isOpen, toggleModal }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [createNewCategory, { isLoading, error, isSuccess }] = useCreateNewCategoryMutation();
 
     useEffect(() => {
@@ -31,6 +31,7 @@ const AddCategoriesModal = ({ isOpen, toggleModal }) => {
         const res = await createNewCategory(formData);
         if (res?.data?.success) {
             toggleModal();
+            reset();
         }
     }
 

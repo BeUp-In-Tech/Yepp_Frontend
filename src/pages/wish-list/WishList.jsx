@@ -6,6 +6,7 @@ import { DealCardSkeleton } from "../../components/skeleton/DealCardSkeleton";
 import Pagination from "../vendor/created-shop/components/Pagination";
 import toast from "react-hot-toast";
 import { useGsapAnimations } from "../../hooks/useGsapAnimations";
+import { useGetAllCategoriesQuery } from "../../features/categories/CategoriesApi";
 const ROWS_PER_PAGE = import.meta.env.VITE_ROWS_PER_PAGE;
 
 const WishList = () => {
@@ -14,6 +15,7 @@ const WishList = () => {
     );
     const [activeTab, setActiveTab] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
+    const { data: categories, isLoading: categoryLoading } = useGetAllCategoriesQuery();
     const { data: totalDeals, isLoading } = useGetAllSaveDealsQuery(saveIds, {
         skip: saveIds.length === 0,
     });
@@ -32,7 +34,7 @@ const WishList = () => {
         toast.success("Removed successfully!");
     };
 
-    if (isLoading) {
+    if (isLoading || categoryLoading) {
         return <DealCardSkeleton />
     }
 
@@ -43,9 +45,10 @@ const WishList = () => {
     const indexOfFirst = (currentPage - 1) * ROWS_PER_PAGE;
     const indexOfLast = Math.min(currentPage * ROWS_PER_PAGE, allDeals?.length);
     const currentDeals = allDeals.slice(indexOfFirst, indexOfLast);
+    const categoryLength = categories?.data?.length;
 
     return (
-        <div ref={animationScopeRef} className="min-h-[80vh] bg-white px-4 pt-52 pb-12.5" data-animate="fade-up">
+        <div ref={animationScopeRef} className={`min-h-[80vh] bg-white px-4 ${categoryLength > 10 ? 'pt-62 sm:pt-70 pb-12.5 ' : 'pt-48 sm:pt-52 pb-12.5'}`} data-animate="fade-up">
             <div data-animate="fade-up">
                 <TabSection
                     activeTab={activeTab}

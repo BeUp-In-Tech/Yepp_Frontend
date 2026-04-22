@@ -19,12 +19,12 @@ const Categories = () => {
                 <div className="max-w-305 mx-auto">
                     <div className="mb-6 h-8 w-52 rounded bg-slate-300"></div>
                     <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
-                        {Array.from({ length: 10 }, (_, index) => (
-                            <div key={index} className="flex flex-col items-center gap-2">
-                                <div className="h-20 w-20 rounded-full bg-slate-300 sm:h-24 sm:w-24"></div>
-                                <div className="h-4 w-20 rounded bg-slate-300"></div>
-                            </div>
-                        ))}
+                        {Array.from({ length: 20 }, (_, index) => (
+    <div key={index} className="flex flex-col items-center gap-2">
+        <div className="h-20 w-20 rounded-full bg-slate-300 sm:h-24 sm:w-24"></div>
+        <div className="h-4 w-20 rounded bg-slate-300"></div>
+    </div>
+))}
                     </div>
                 </div>
             </div>

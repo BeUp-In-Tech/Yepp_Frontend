@@ -11,12 +11,14 @@ import useUserLocation from '../../hooks/useUserLocation';
 import CopiedLink from './components/CopiedLink';
 import OutLetshowMap from './OutLetshowMap';
 import { useGsapAnimations } from '../../hooks/useGsapAnimations';
+import { useGetAllCategoriesQuery } from '../../features/categories/CategoriesApi';
 
 const DealDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectId, setSelectId] = useState();
     const { id } = useParams();
     const { latitude, longitude } = useUserLocation();
+    const { data: categories, isLoading: categoryLoading } = useGetAllCategoriesQuery();
     const { data: deal, isLoading } = useGetDealDetailsQuery({ id, longitude, latitude });
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const animationScopeRef = useGsapAnimations(`deal-details-${id}-${deal?.data?._id ?? ""}`);
@@ -34,7 +36,7 @@ const DealDetails = () => {
         func();
     }, [id])
 
-    if (isLoading) {
+    if (isLoading || categoryLoading) {
         return <DealDetailsSkeleton />
     }
 
@@ -66,9 +68,10 @@ const DealDetails = () => {
 
     const finalPrice = price - (price * disc) / 100;
     const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
+    const categoryLength = categories?.data?.length;
 
     return (
-        <div ref={animationScopeRef} className='bg-white px-4 pt-56 pb-8' data-animate="fade-up">
+        <div ref={animationScopeRef} className={`bg-white px-4 pb-8 ${categoryLength > 10 ? 'pt-62 sm:pt-70' : 'pt-52 md:pt-56'}`} data-animate="fade-up">
             <div className="max-w-305 mx-auto">
                 <div className="flex flex-col gap-6 md:flex-row lg:gap-8">
                     {/* left side */}

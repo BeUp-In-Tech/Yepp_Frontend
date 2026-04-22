@@ -29,16 +29,16 @@ const CategoryLink = ({ category, variant = "header" }) => {
         <NavLink
             to={to}
             className={({ isActive }) =>
-                `flex min-w-0 flex-col items-center gap-1 text-center transition-colors ${isActive
+                `flex w-full min-w-0 flex-col items-center gap-1 text-center transition-colors ${isActive
                     ? "text-primary"
                     : "text-[#262626] hover:text-secondary"
                 }`
             }
         >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#E0F2FE] transition-colors sm:h-10 sm:w-10 md:h-11 md:w-11">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-[#E0F2FE] transition-colors sm:h-10 sm:w-10 md:h-11 md:w-11">
                 <img className="h-5 w-5 object-contain sm:h-6 sm:w-6 md:h-7 md:w-7" src={categoryImage} alt={`${categoryName} category`} />
             </div>
-            <div className="line-clamp-2 max-w-full text-[11px] font-semibold leading-3 sm:text-xs">
+            <div className="w-full max-w-full truncate whitespace-nowrap text-[10px] font-semibold leading-3 sm:text-xs">
                 {categoryName}
             </div>
         </NavLink>
