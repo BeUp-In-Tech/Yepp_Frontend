@@ -11,6 +11,7 @@ import AdminRoute from "./AdminRoute";
 import ShopcreateRoute from "./ShopcreateRoute";
 import InitialPageLoader from "../components/skeleton/InitialPageLoader";
 import PaymentSuccess from "../pages/dashboard/verdor-dashboard/payment/PaymentSuccess";
+import Testing from "../pages/Testing";
 
 // Lazy loaded pages
 const Home = lazy(() => import("../pages/home/Home"));
@@ -170,6 +171,7 @@ function AppRoutes() {
 
           {/* 404 */}
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/testing" element={<Testing />} />
 
         </Routes>
       </Suspense>

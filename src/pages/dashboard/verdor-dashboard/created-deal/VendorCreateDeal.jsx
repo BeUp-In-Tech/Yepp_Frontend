@@ -10,7 +10,8 @@ import Tags from "./components/Tags";
 import Highlights from "./components/Highlights";
 import { useSelector } from "react-redux";
 import { useGetVendorDetailsQuery } from "../../../../features/shop/shopApi";
-import { MapPin } from "lucide-react";
+import { ChevronDown, ChevronUp, MapPin } from "lucide-react";
+import CategoriesSkeleton from "../../../../components/skeleton/CategoriesSkeleton";
 
 const dealFormDefaultValues = {
     regularPrice: 0,
@@ -18,6 +19,8 @@ const dealFormDefaultValues = {
 };
 
 const VendorCreateDeal = () => {
+    const [openDropdown, setOpenDropdown] = useState(false);
+    const [activeField, setActiveField] = useState(null);
     const [imageFiles, setImagesFiles] = useState([]);
     const [imageError, setImageError] = useState("");
     const { user } = useSelector((state => state?.auth));
@@ -46,7 +49,7 @@ const VendorCreateDeal = () => {
 
     }, [navigate, isSuccess, error,]);
 
-    if (categoryLoading || shopLoading) {
+    if (shopLoading || categoryLoading) {
         return <AddDealSkeleton />
     }
 
@@ -88,7 +91,7 @@ const VendorCreateDeal = () => {
         const formData = new FormData();
         formData.append("data", JSON.stringify(createDeal));
 
-        if (imageFiles.length <=0) {
+        if (imageFiles.length <= 0) {
             toast.error("Image is required");
             return;
         }
@@ -106,6 +109,8 @@ const VendorCreateDeal = () => {
         validateImages();
     };
 
+    console.log(error);
+
     return (
         <div className="bg-white min-h-screen px-4 pt-28 pb-12">
             <div className="max-w-305 mx-auto">
@@ -119,7 +124,7 @@ const VendorCreateDeal = () => {
                             imageError={imageError}
                             setImageError={setImageError}
                         />
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-6">
+                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
                             <h2 className="text-primary text-xl font-bold mb-3">Deal Pricing:</h2>
                             {/* Regular Price */}
                             <div>
@@ -223,25 +228,7 @@ const VendorCreateDeal = () => {
                             {/* Highlights */}
                             <Highlights setValue={setValue} />
 
-                            {/* Coupon */}
-                            <div>
-                                <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Coupon Code
-                                </label>
-                                <input
-                                    {...register("couponCode", {
-                                        required: "Coupon code is required",
-                                    })}
-                                    placeholder="ABCD456"
-                                    className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
-                                />
 
-                                {errors.couponCode && (
-                                    <p className="text-red-500 text-sm mt-1">
-                                        {errors.couponCode.message}
-                                    </p>
-                                )}
-                            </div>
 
                             {/* tags */}
                             <Tags
@@ -285,7 +272,7 @@ const VendorCreateDeal = () => {
                         </div>
                         <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
                             {/* Deal Category */}
-                            <div>
+                            <div className="-mt-5 md:-mt-10">
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     Deal Category<span className="text-red-500">*</span>
                                 </label>
@@ -302,15 +289,15 @@ const VendorCreateDeal = () => {
                                             </option>
                                         ))}
                                     </select>
-                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                                        ▼
+                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500 cursor-pointer">
+                                        <ChevronDown className="cursor-pointer" />
                                     </div>
                                 </div>
                             </div>
                             {/* Description */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Description
+                                    Description<span className="text-red-500">*</span>
                                 </label>
 
                                 <div className="relative">
@@ -320,7 +307,7 @@ const VendorCreateDeal = () => {
                                         })}
                                         placeholder="Enter Product Description"
                                         rows={4}
-                                        className="w-full p-4 border rounded-2xl bg-white outline-0 border-gray-400"
+                                        className="w-full p-4 border rounded-xl bg-white outline-0 border-gray-400"
                                     />
                                 </div>
 
@@ -330,46 +317,89 @@ const VendorCreateDeal = () => {
                                     </p>
                                 )}
                             </div>
-                            {/* QR code upload */}
-                            <div className="flex gap-2">
-                                <div>
-                                    <label className="block text-base text-[#262626] font-medium mb-2">
-                                        QR Code<span className="text-red-500">*</span>  <span className="text-[12px] pl-2 text-slate-400">(QR file must be 500 * 500)</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        {...register("qr_code", {
-                                            required: "QR code image is required",
-                                        })}
-                                        className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
-                                    />
+                            {/* Coupon, QR Code, UPC Code - Accordion */}
+                            <div className="border border-gray-400 rounded-xl overflow-hidden">
+                                <button
+                                    type="button"
+                                    onClick={() => setOpenDropdown(prev => !prev)}
+                                    className="w-full flex items-center justify-between px-6 py-4 text-[#262626] font-medium text-base bg-white"
+                                >
+                                    <div className="flex items-center gap-1">
+                                        <span>Coupon & Codes</span><span className="text-red-500">*</span>
+                                    </div>
+                                    <span className="text-gray-500 text-sm">
+                                        <ChevronDown className="cursor-pointer" />
+                                    </span>
+                                </button>
+                                {openDropdown && (
+                                    <div className="border-t border-gray-200">
+                                        <div className="flex gap-3 px-6 py-3 bg-gray-50">
+                                            {[
+                                                { key: "coupon", label: "Coupon Code" },
+                                                { key: "qr", label: "QR Code" },
+                                                { key: "upc", label: "UPC Code" },
+                                            ].map((item) => (
+                                                <button
+                                                    key={item.key}
+                                                    type="button"
+                                                    onClick={() => setActiveField(prev => prev === item.key ? null : item.key)}
+                                                    className={`px-4 py-2 rounded-md text-sm font-medium border transition-all ${activeField === item.key
+                                                        ? "bg-primary text-white border-primary"
+                                                        : "bg-white text-[#262626] border-gray-400"
+                                                        }`}
+                                                >
+                                                    {item.label}
+                                                </button>
+                                            ))}
+                                        </div>
 
-                                    {errors.qr_code && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.qr_code.message}
-                                        </p>
-                                    )}
-                                </div>
-                                <div>
-                                    <label className="block text-base text-[#262626] font-medium mb-2">
-                                        UPC Code<span className="text-red-500">*</span> <span className="text-[12px] pl-2 text-slate-400">(UPC file must be 800 * 400)</span>
-                                    </label>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        {...register("upc_code", {
-                                            required: "UPC code image is required",
-                                        })}
-                                        className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
-                                    />
+                                        {/* Coupon Code Field */}
+                                        {activeField === "coupon" && (
+                                            <div className="px-6 py-4 border-t border-gray-100">
+                                                <label className="block text-base text-[#262626] font-medium mb-2">
+                                                    Coupon Code
+                                                </label>
+                                                <input
+                                                    {...register("couponCode")}
+                                                    placeholder="ABCD456"
+                                                    className="w-full px-6 py-4 border border-gray-400 rounded-xl text-[#262626] outline-0"
+                                                />
+                                            </div>
+                                        )}
 
-                                    {errors.upc_code && (
-                                        <p className="text-red-500 text-sm mt-1">
-                                            {errors.upc_code.message}
-                                        </p>
-                                    )}
-                                </div>
+                                        {/* QR Code Field */}
+                                        {activeField === "qr" && (
+                                            <div className="px-6 py-4 border-t border-gray-100">
+                                                <label className="block text-base text-[#262626] font-medium mb-2">
+                                                    QR Code
+                                                    <span className="text-[12px] pl-2 text-slate-400">(QR file must be 500 × 500)</span>
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("qr_code")}
+                                                    className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
+                                                />
+                                            </div>
+                                        )}
+
+                                        {/* UPC Code Field */}
+                                        {activeField === "upc" && (
+                                            <div className="px-6 py-4 border-t border-gray-100">
+                                                <label className="block text-base text-[#262626] font-medium mb-2">
+                                                    UPC Code
+                                                    <span className="text-[12px] pl-2 text-slate-400">(UPC file must be 800 × 400)</span>
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    {...register("upc_code")}
+                                                    className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
