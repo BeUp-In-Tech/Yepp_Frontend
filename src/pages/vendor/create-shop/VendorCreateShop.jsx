@@ -231,7 +231,7 @@ const VendorCreateShop = () => {
                         <Store size={22} />
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-1">
-                        <span className="font-bold text-primary text-lg whitespace-nowrap">Outlet {idx + 1}:</span>
+                        <span className="font-bold text-primary text-lg whitespace-nowrap">Location {idx + 1}:</span>
                         <span className="text-[#737373] text-base truncate max-w-50 sm:max-w-xs">{item.address}</span>
                       </div>
                     </div>

@@ -15,10 +15,8 @@ import PaymentSuccess from "../pages/dashboard/verdor-dashboard/payment/PaymentS
 // Lazy loaded pages
 const Home = lazy(() => import("../pages/home/Home"));
 const LogIn = lazy(() => import("../pages/auth/LogIn"));
-const Register = lazy(() => import("../pages/auth/Register"));
-const Testing = lazy(() => import("../pages/Testing"));
+const Register = lazy(() => import("../pages/auth/Register"))
 const WishList = lazy(() => import("../pages/wish-list/WishList"));
-
 const AboutUs = lazy(() => import("../pages/footer/about-us/AboutUs"));
 const ContactUs = lazy(() => import("../pages/footer/contact-us/ContactUs"));
 const HelpSupport = lazy(() => import("../pages/footer/help-support/HelpSupport"));
@@ -48,7 +46,6 @@ const CreateDealPlan = lazy(() => import("../pages/dashboard/verdor-dashboard/cr
 // const PaymentSuccess = lazy(() => import("../pages/dashboard/verdor-dashboard/payment/PaymentSuccess"));
 const PaymentCancel = lazy(() => import("../pages/dashboard/verdor-dashboard/payment/PaymentCancel"));
 const VendorEditDeal = lazy(() => import("../pages/dashboard/verdor-dashboard/edit-deal/VendorEditDeal"));
-const Menu = lazy(() => import("../pages/dashboard/verdor-dashboard/menu/Menu"));
 
 // Vendor & Other Pages
 const VendorDeails = lazy(() => import("../pages/vendor/vendor-deatils/VendorDeails"));
@@ -79,14 +76,12 @@ function AppRoutes() {
             <Route path="/login" element={<LogIn />} />
             <Route path="/register" element={<Register />} />
             <Route path="/saved_deals" element={<WishList />} />
-
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/help-support" element={<HelpSupport />} />
             <Route path="/terms-and-conditions" element={<TermCondition />} />
             <Route path="/term-condition" element={<TermCondition />} />
             <Route path="/privacy-policy" element={<PrivecyAndPolicy />} />
-
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/otp-code-sending" element={<OTPSending />} />
@@ -107,7 +102,6 @@ function AppRoutes() {
             <Route path="/notification" element={<ShowNotification />} />
             <Route path="/notification/:id" element={<ShowNotification />} />
             <Route path="/show-notification" element={<ShowNotification />} />
-            <Route path="/testing" element={<Testing />} />
           </Route>
 
           {/* Admin Dashboard */}
@@ -140,7 +134,6 @@ function AppRoutes() {
               <Route path="/vendor/created-shop" element={<CreatedShop />} />
               <Route path="/my-deals" element={<Deals />} />
               <Route path="/my-profile" element={<VendorProfile />} />
-              <Route path="/menu" element={<Menu />} />
               <Route path="/create-deal" element={<VendorCreateDeal />} />
               <Route path="/create-deal-plan" element={<CreateDealPlan />} />
               <Route path="/create-deal-plan/:id" element={<CreateDealPlan />} />

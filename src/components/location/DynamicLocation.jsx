@@ -19,12 +19,12 @@ const formatLocation = (result) => {
         "neighborhood",
         "administrative_area_level_2",
     ]);
-    const country = getAddressPart(components, ["country"]);
+    const state = getAddressPart(components, ["state"]);
     const region = getAddressPart(components, ["administrative_area_level_1"]);
 
-    if (city && country) return `${city}, ${country}`;
+    if (city && state) return `${city}, ${state}`;
     if (city && region) return `${city}, ${region}`;
-    if (region && country) return `${region}, ${country}`;
+    if (region && state) return `${region}, ${state}`;
 
     return result?.formatted_address || "";
 };
