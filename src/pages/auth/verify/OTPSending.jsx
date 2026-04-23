@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useHandleSendOTPVerificationMutation } from "../../../features/verify/verifyApi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 import bgImage from '../../../assets/images/verificationImage.jpg';
+import { ArrowLeft } from "lucide-react";
 
 const OTP_LENGTH = 6;
-const OTP_TIME = 120;
+const OTP_TIME = 300;
 
 const OTPSending = () => {
     const [otp, setOtp] = useState("");
@@ -86,8 +87,18 @@ const OTPSending = () => {
             </div>
             <div className="flex items-center justify-center w-full h-screen px-4 lg:w-1/2 bg-linear-to-r bg-[#ffffff]">
                 <div
-                    className="w-full max-w-lg mx-auto bg-white rounded-lg shadow-2xl px-8 py-10 text-center"
+                    className="w-full max-w-lg mx-auto bg-white rounded-lg shadow-2xl px-8 py-10 text-center relative"
                     onClick={() => inputRef.current.focus()}>
+                    <div className='mt-12 sm:mt-2'>
+                        <Link
+                            to="/"
+                            aria-label="Back to home"
+                            className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
+                        >
+                            <ArrowLeft size={18} aria-hidden="true" />
+                            Home
+                        </Link>
+                    </div>
 
                     <h2 className="text-2xl font-bold text-[#262626]">
                         Enter Verification Code

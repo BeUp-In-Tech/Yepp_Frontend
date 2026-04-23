@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useHandleSendEmailMutation } from "../../../features/verify/verifyApi";
-import { Mail, Send } from "lucide-react";
+import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import EmailVerifySkeleton from "../../../components/skeleton/EmailVerifySkeleton";
@@ -51,7 +51,17 @@ const EmailSending = () => {
     };
 
     return (
-        <div className="w-full max-w-lg bg-white rounded-xl px-8 py-10 md:px-12 md:py-12 text-center shadow-2xl">
+        <div className="w-full max-w-lg bg-white rounded-xl px-8 py-10 md:px-12 md:py-12 text-center shadow-2xl relative">
+            <div className='mt-12 sm:mt-2'>
+                <Link
+                    to="/"
+                    aria-label="Back to home"
+                    className="mb-5 inline-flex items-center gap-2 rounded-full bg-green-100 px-4 py-1.5 text-sm font-medium text-[#1E5F37] transition-colors hover:bg-[#E4EFE7] absolute left-2 top-4"
+                >
+                    <ArrowLeft size={18} aria-hidden="true" />
+                    Home
+                </Link>
+            </div>
             <div className="w-14 h-14 rounded-full bg-[#e8f9fb] flex items-center justify-center mx-auto mb-5">
                 <Mail className="w-7 h-7 text-primary" />
             </div>

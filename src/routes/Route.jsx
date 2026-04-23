@@ -55,6 +55,7 @@ const CreatedShop = lazy(() => import("../pages/vendor/created-shop/CreatedShop"
 const VendorProfile = lazy(() => import("../pages/vendor/profile/VendorProfile"));
 const VendorEditShop = lazy(() => import("../pages/vendor/create-shop/edit-shop/VendorEditShop"));
 const EditOutlet = lazy(() => import("../pages/vendor/vendor-deatils/outlet-edit/EditOutlet"));
+const VendorApprovalPage = lazy(() => import("../pages/dashboard/verdor-dashboard/approval/VendorApprovalPage"));
 
 const CategorieDetails = lazy(() => import("../pages/categories-page/category-details/CategorieDetails"));
 const Categories = lazy(() => import("../pages/categories-page/Categories"));
@@ -132,6 +133,7 @@ function AppRoutes() {
           <Route element={<PrivateRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/shop-overview" element={<CreatedShop />} />
+              <Route path="/approval" element={<VendorApprovalPage />} />
               <Route path="/vendor/created-shop" element={<CreatedShop />} />
               <Route path="/my-deals" element={<Deals />} />
               <Route path="/my-profile" element={<VendorProfile />} />

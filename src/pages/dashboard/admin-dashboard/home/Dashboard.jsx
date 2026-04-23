@@ -10,12 +10,10 @@ import RevenueTrendChart from './components/RevenueTrendChart';
 import VendorManagementSkeleton from '../../../../components/skeleton/dashboard/VendorManagementSkeleton';
 import RecentDealCard from './components/RecentDealCard';
 import AdminPorfile from '../../../../components/dashboard/AdminPorfile';
-import { useGsapAnimations } from '../../../../hooks/useGsapAnimations';
 
 const Dashboard = () => {
     const { data: totalAnalytics, isLoading: analyticsLoading } = useGetAnalyticsQuery();
     const { data: reacentDeals, isLoading: recentdealDetailLoading } = useGetRecentDealsListQuery();
-    const animationScopeRef = useGsapAnimations(`admin-dashboard-${totalAnalytics?.data?.active_deals ?? 0}-${reacentDeals?.data?.vendors?.length ?? 0}`);
 
     if (analyticsLoading) {
         return <DashboardCardsSkeleton />
@@ -26,7 +24,7 @@ const Dashboard = () => {
 
     const { active_vendors, active_deals, total_revenue, last30Days_Revenue } = totalAnalytics?.data || {};
     return (
-        <div ref={animationScopeRef} className="min-h-screen pt-3 pb-5" data-animate="dashboard">
+        <div className="min-h-screen pt-3 pb-5" data-animate="dashboard">
             <div className='flex justify-between items-center'>
                 <HeadingTitle
                     title='Admin Dashboard Overview'

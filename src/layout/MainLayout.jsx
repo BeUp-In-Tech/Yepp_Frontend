@@ -59,7 +59,7 @@ const MainLayout = () => {
         "/verdor-edit-shop",
         "/outlet-edit",
         "/show-outlet",
-        "/show-outlets"
+        "/show-outlets",
     ];
 
     const shouldHideNavbar = hideNavbarRoutes.some(route =>
