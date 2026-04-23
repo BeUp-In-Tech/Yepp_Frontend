@@ -27,7 +27,7 @@ const VendorCreateShop = () => {
         navigate('/shop-overview');
       }
     }
-  }, [currentUser, dispatch, navigate])
+  }, [currentUser, dispatch, navigate]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -44,7 +44,7 @@ const VendorCreateShop = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { control, register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { control, register, handleSubmit, setValue, clearErrors, formState: { errors } } = useForm({
     defaultValues: {
       description: "",
       outlets: [],
@@ -52,13 +52,24 @@ const VendorCreateShop = () => {
   });
 
   useEffect(() => {
-    setValue("outlets", outlets);
+    register("businessLogo", {
+      validate: (value) => Boolean(value) || "Business logo is required",
+    });
+    register("outlets", {
+      validate: (value) =>
+        Array.isArray(value) && value.length > 0 || "Location details are required",
+    });
+  }, [register]);
+
+  useEffect(() => {
+    setValue("outlets", outlets, { shouldValidate: outlets.length > 0 });
   }, [outlets, setValue]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setValue("businessLogo", file);
+      setValue("businessLogo", file, { shouldValidate: true });
+      clearErrors("businessLogo");
       const reader = new FileReader();
       reader.onloadend = () => setLogoPreview(reader.result);
       reader.readAsDataURL(file);
@@ -71,7 +82,7 @@ const VendorCreateShop = () => {
 
   const removeLogo = () => {
     setLogoPreview(null);
-    setValue("businessLogo", null);
+    setValue("businessLogo", null, { shouldValidate: true });
   };
 
   const handleAddOutlet = (newOutlet) => {
@@ -105,95 +116,116 @@ const VendorCreateShop = () => {
 
       try {
         const refreshedUser = await refetchCurrentUser().unwrap();
-
         if (refreshedUser?.data) {
           dispatch(userLoggedIn(refreshedUser.data));
         }
       } catch {
         // The mutation already invalidates the user cache; navigation can continue.
       }
-    } catch (error) {
-      const message = error?.data?.message || "Shop created failed!";
-      toast.error(message);
+    } catch {
+      // const message = error?.data?.message || "Shop created failed!";
+      // console.log("");
     }
   };
 
   return (
-    <div className="bg-white min-h-screen px-4 pt-32 pb-12">
+    <div className="min-h-screen bg-[#F8FAFC] px-4 pt-32 pb-12">
       <div className="max-w-300 mx-auto">
-        <div className="mb-10">
-          <h1 className="text-[32px] font-bold text-[#262626]">Create Your Vendor Account</h1>
-          <p className="text-[#737373] mt-1 text-base">
+        <div className="mb-8 border-b border-slate-200 pb-6">
+          <h1 className="text-3xl font-bold tracking-normal text-[#262626] sm:text-[32px]">Create Your Vendor Account</h1>
+          <p className="mt-2 text-base text-[#737373]">
             Set up your business profile and start offering amazing deals to customers.
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-          <div className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+          <div className="space-y-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <div>
+              <h2 className="text-xl font-bold text-primary">Business Details</h2>
+            </div>
+
             <div className="space-y-2">
-              <label className="block text-lg font-medium text-[#262626]">Business Name</label>
+              <label className="block text-lg font-medium text-[#262626]">Business Name<span className="text-red-500">*</span></label>
               <div className="relative">
                 <Store className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${errors.businessName ? 'text-red-400' : 'text-gray-400'}`} />
                 <input
                   {...register("businessName", { required: "Business name is required" })}
                   placeholder="Enter your business name"
-                  className={`w-full pl-12 pr-4 py-4 border rounded-full outline-none transition-all ${errors.businessName ? 'border-red-500' : 'border-gray-300 focus:border-primary'}`}
+                  className={`w-full rounded-full border bg-white py-4 pl-12 pr-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.businessName ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-slate-300 focus:border-primary'}`}
                 />
               </div>
-              {errors.businessName && <p className="text-red-500 text-xs mt-1 ml-4">{errors.businessName.message}</p>}
+              {errors.businessName && <p className="text-red-500 text-sm mt-1 ml-4">{errors.businessName.message}</p>}
             </div>
-            <div className="space-y-3">
-              <label className="block text-lg font-medium text-[#262626]">Business Logo</label>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="space-y-2">
+              <label className="block text-lg font-medium text-[#262626]">Description<span className="text-red-500">*</span></label>
+              <div className="relative">
+                <textarea
+                  {...register("description", {
+                    validate: (value) => {
+                      const description = value?.trim() || "";
+
+                      if (!description) return "Description is required";
+                      if (description.length < 10) return "Description must be minimum 10 characters";
+
+                      return true;
+                    },
+                  })}
+                  placeholder="Business Description"
+                  rows="5"
+                  className={`w-full resize-none rounded-lg border bg-white p-5 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.description ? 'border-red-500 focus:border-red-500 focus:ring-red-100' : 'border-slate-300 focus:border-primary'}`}
+                />
+              </div>
+              {errors.description && <p className="text-red-500 text-sm mt-1 ml-4">{errors.description.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <label className="block text-lg font-medium text-[#262626]">Business Logo<span className="text-red-500">*</span></label>
+              <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
                 <div className="relative">
                   {logoPreview ? (
-                    <div className="w-40 h-40 rounded-xl overflow-hidden border-2 border-gray-100 shadow-inner">
-                      <img src={logoPreview} alt="Preview" className="w-full h-full object-cover" />
+                    <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50 shadow-inner">
+                      <img src={logoPreview} alt="Preview" className="h-full w-full object-contain" />
                       <button
                         type="button"
                         onClick={removeLogo}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1.5 hover:bg-red-600 shadow-lg transition-transform active:scale-90"
+                        className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1.5 text-white shadow-lg transition-transform hover:bg-red-600 active:scale-90"
                       >
                         <X className="w-4 h-4" />
                       </button>
                     </div>
                   ) : (
-                    <label className="w-40 h-40 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center text-gray-400 hover:bg-gray-50 cursor-pointer transition-all hover:border-[#2B9DAE]/50">
+                    <label className="flex h-40 w-40 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-200 bg-slate-50 text-gray-400 transition-all hover:border-[#2B9DAE]/50 hover:bg-white">
                       <Plus className="w-10 h-10 mb-2 text-gray-300" />
                       <span className="text-sm font-medium">Upload Photos</span>
                       <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                     </label>
                   )}
                 </div>
-                <div className="flex flex-col gap-4">
-                  <span className="text-xs text-[#737373] uppercase tracking-widest font-bold">JPEG, PNG or PDF max 10 MB</span>
-                  <label className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full flex items-center gap-2 text-sm font-bold cursor-pointer transition-all shadow-md active:scale-95 w-fit">
+                <div className="flex flex-col gap-3">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#737373]">JPEG, PNG or PDF max 10 MB</span>
+                  <label className="flex w-fit cursor-pointer items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-secondary active:scale-95">
                     <Plus className="w-5 h-5" /> Upload from files
                     <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                   </label>
                 </div>
               </div>
-            </div>
-            <div className="space-y-2">
-              <label className="block text-lg font-medium text-[#262626]">Description (Optional)</label>
-              <div className="relative">
-                <textarea
-                  {...register("description")}
-                  placeholder="Business Description"
-                  rows="5"
-                  className="w-full p-5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none resize-none transition-all"
-                />
-              </div>
+              {errors.businessLogo && <p className="text-red-500 text-sm mt-1 ml-4">{errors.businessLogo.message}</p>}
             </div>
           </div>
-          <div className="space-y-5">
-            <div className="space-y-5">
-              <h2 className="block text-lg font-medium text-[#262626]">Contact Information</h2>
+          <div className="space-y-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <div>
+              <h2 className="text-xl font-bold text-primary">Profile Details</h2>
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="block text-lg font-medium text-[#262626]">Contact Information<span className="text-red-500">*</span></h2>
               <Controller
                 name="phone"
                 control={control}
-                rules={{ required: true }}
+                rules={{
+                  validate: (value) =>
+                    value?.replace(/\D/g, "").length > 1 || "Contact information is required",
+                }}
                 render={({ field: { onChange, value } }) => (
                   <PhoneInput
                     country={"us"}
@@ -201,7 +233,8 @@ const VendorCreateShop = () => {
                     enableSearch
                     value={value}
                     containerClass="w-full"
-                    inputClass="!w-full !h-14 !py-4 !border !border-gray-300 !rounded-full"
+                    inputClass={`!w-full !h-14 !rounded-full !border !bg-white !py-4 !pl-14 !pr-4 !text-[#262626] !outline-none !transition-all ${errors.phone ? '!border-red-500 focus:!border-red-500 focus:!ring-4 focus:!ring-red-100' : '!border-slate-300 focus:!border-primary focus:!ring-4 focus:!ring-primary/10'}`}
+                    buttonClass={`!rounded-l-full !border !bg-white !px-3 ${errors.phone ? '!border-red-500' : '!border-slate-300'}`}
                     onChange={(value, country) => {
                       const dialCode = country.dialCode;
                       const phoneNumber = value.slice(dialCode.length);
@@ -214,18 +247,19 @@ const VendorCreateShop = () => {
                   />
                 )}
               />
+              {errors.phone && <p className="text-red-500 text-sm mt-1 ml-4">{errors.phone.message}</p>}
             </div>
-            <div className="space-y-4 mt-2">
-              <h2 className="block text-lg font-medium text-[#262626]">Location Details</h2>
+            <div className="space-y-4">
+              <h2 className="block text-lg font-medium text-[#262626]">Location Details<span className="text-red-500">*</span></h2>
               <p className="text-[#737373] text-base leading-relaxed pb-2">
                 If you operate a single Location, click "Single Location" and enter its address and location details to continue.
               </p>
-              <div className="border border-gray-200 rounded-xl p-4 space-y-4">
+              <div className={`space-y-4 rounded-lg border bg-slate-50 p-4 ${errors.outlets ? 'border-red-500' : 'border-slate-200'}`}>
                 {outlets.length === 0 && (
                   <p className="text-center text-gray-400 py-2 italic">No Location added yet.</p>
                 )}
                 {outlets.map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-5 bg-[#F8FAFC] rounded-2xl group hover:bg-[#F1F5F9] transition-colors cursor-pointer border border-transparent hover:border-[#4BBDCF]/20">
+                  <div key={idx} className="group flex cursor-pointer items-center justify-between rounded-lg border border-transparent bg-white p-4 transition-colors hover:border-[#4BBDCF]/20 hover:bg-[#F8FAFC]">
                     <div className="flex items-center gap-4">
                       <div className="text-primary">
                         <Store size={22} />
@@ -242,28 +276,29 @@ const VendorCreateShop = () => {
                 <button
                   type="button"
                   onClick={() => setShowModal(true)}
-                  className="w-full py-3 bg-primary hover:bg-secondary text-white rounded-xl flex items-center justify-center gap-2 text-lg font-bold transition-all shadow-md active:scale-[0.99]">
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3 text-lg font-bold text-white shadow-md transition-all hover:bg-secondary active:scale-[0.99]">
                   <Plus size={24} /> Add Location
                 </button>
               </div>
-              <div className="space-y-4 mt-6">
+              {errors.outlets && <p className="text-red-500 text-sm mt-1 ml-4">{errors.outlets.message}</p>}
+              <div className="space-y-2 pt-2">
                 <label className="block text-lg font-medium text-[#262626]">Website Link (Optional)</label>
                 <div className="relative">
                   <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     {...register("website")}
                     placeholder="Website link"
-                    className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full focus:border-primary outline-none transition-all"
+                    className="w-full rounded-full border border-slate-300 bg-white py-4 pl-12 pr-4 text-[#262626] outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="md:col-span-2 flex justify-center md:mt-4">
+          <div className="flex justify-center border-t border-slate-200 pt-6 lg:col-span-2">
             <button
               type="submit"
               disabled={isLoading}
-              className="bg-primary hover:bg-secondary text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
+              className="flex min-w-60 cursor-pointer items-center justify-center rounded-full bg-primary px-12 py-3.5 text-lg font-bold text-white shadow-xl shadow-[#4BBDCF]/20 transition-all hover:bg-secondary active:scale-95 disabled:cursor-not-allowed disabled:opacity-70">
               {isLoading ? (
                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
               ) : (

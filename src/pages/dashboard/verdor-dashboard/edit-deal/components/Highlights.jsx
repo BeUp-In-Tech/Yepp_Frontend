@@ -11,7 +11,7 @@ const Highlights = ({ setValue, initialHighlights = [] }) => {
                 setTags(initialHighlights);
                 setValue("highlights", initialHighlights);
             }
-        }
+        };
         func();
     }, [initialHighlights, setValue]);
 
@@ -37,34 +37,34 @@ const Highlights = ({ setValue, initialHighlights = [] }) => {
             <label className="block text-base text-[#262626] font-medium mb-2">
                 Highlights
             </label>
-            <div className="flex gap-2 items-center justify-center">
+            <div className="flex items-center justify-center gap-2">
                 <input
                     value={tagInput}
                     onChange={(e) => setTagInput(e.target.value)}
                     placeholder="Enter highlights"
-                    className="w-full px-6 py-4 border border-gray-400 rounded-full outline-0"
+                    className="w-full rounded-full border border-slate-300 bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
                 />
                 <button
                     type="button"
                     onClick={handleAddTag}
-                    className="p-1 w-8 h-8 cursor-pointer bg-[#bfc7c9] text-white rounded-full"
+                    className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-primary text-white shadow-md transition-all hover:bg-secondary active:scale-95"
                 >
-                    <Plus />
+                    <Plus size={20} />
                 </button>
             </div>
             <div className="flex flex-wrap gap-2 mt-3">
                 {tags.map((tag, index) => (
                     <span
                         key={index}
-                        className="px-3 py-1 bg-gray-200 rounded-full text-sm flex items-center gap-2"
+                        className="flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary"
                     >
                         {tag}
                         <button
                             type="button"
                             onClick={() => handleRemoveTag(index)}
-                            className="text-red-500 font-bold"
+                            className="font-bold text-red-500 transition-colors hover:text-red-600"
                         >
-                            ✕
+                            x
                         </button>
                     </span>
                 ))}

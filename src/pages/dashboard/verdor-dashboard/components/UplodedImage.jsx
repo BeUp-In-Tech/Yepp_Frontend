@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, X, Plus } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 
-const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, setImageError }) => {
+const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, setImageError, className = "w-full md:w-1/2" }) => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,25 +54,25 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
   setValue("deletedImages", notMatch);
 
   return (
-    <div className="w-full md:w-1/2">
-      <h1 className="text-primary text-xl font-bold">Media:</h1>
-      <p className="text-[#262626] text-base font-medium">
+    <div className={className}>
+      <h1 className="text-xl font-bold text-primary">Media</h1>
+      <p className="mt-1 text-sm font-medium text-[#737373]">
         You can upload up to 3 images to showcase your deal.
       </p>
 
-      <div className="relative cursor-pointer bg-linear-to-b from-gray-100 to-gray-300 rounded-xl aspect-video flex items-center justify-center overflow-hidden mt-4 h-70">
+      <div className={`relative mt-5 flex h-72 cursor-pointer items-center justify-center overflow-hidden rounded-lg border bg-slate-50 shadow-inner transition-all ${imageError ? "border-red-500" : "border-slate-200 hover:border-[#2B9DAE]/50 hover:bg-white"}`}>
         {images.length > 0 ? (
           <>
             <img
               src={images[currentIndex]}
               alt="preview"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
 
             <button
               type="button"
               onClick={prevSlide}
-              className="absolute left-4 p-2 bg-white/40 rounded-full"
+              className="absolute left-4 rounded-full bg-white/80 p-2 text-[#262626] shadow-md transition-all hover:bg-white active:scale-95"
             >
               <ChevronLeft size={24} />
             </button>
@@ -80,12 +80,12 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
             <button
               type="button"
               onClick={nextSlide}
-              className="absolute right-4 p-2 bg-white/40 rounded-full"
+              className="absolute right-4 rounded-full bg-white/80 p-2 text-[#262626] shadow-md transition-all hover:bg-white active:scale-95"
             >
               <ChevronRight size={24} />
             </button>
 
-            <div className="absolute bottom-3 right-4 bg-black/50 text-white text-xs px-3 py-1 rounded">
+            <div className="absolute bottom-3 right-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white">
               {currentIndex + 1} / {images.length}
             </div>
           </>
@@ -94,30 +94,30 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
             <button
               type="button"
               onClick={() => fileInputRef.current.click()}
-              className="bg-white p-4 rounded-full shadow"
+              className="rounded-full bg-white p-4 text-[#262626] shadow-md transition-all hover:text-primary active:scale-95"
             >
               <Plus size={32} />
             </button>
-            <span className="text-gray-600">Upload Photos</span>
+            <span className="text-sm font-medium text-[#737373]">Upload Photos</span>
           </div>
         )}
       </div>
 
-      <div className="flex justify-center gap-3 mt-6">
+      <div className="mt-5 flex justify-center gap-3">
         {[...Array(3)].map((_, index) => (
           <div key={index} className="relative">
             <div
               onClick={() => images[index] && setCurrentIndex(index)}
-              className={`w-14 h-14 rounded-full border-2 overflow-hidden flex items-center justify-center cursor-pointer
-                ${images[index] ? "border-cyan-500" : "border-gray-200 bg-gray-100"}
-                ${currentIndex === index ? "scale-110" : ""}
+              className={`flex h-14 w-14 cursor-pointer items-center justify-center overflow-hidden rounded-lg border transition-all
+                ${images[index] ? "border-primary bg-white shadow-sm" : "border-slate-200 bg-slate-50"}
+                ${currentIndex === index ? "scale-105 ring-2 ring-green-600" : ""}
               `}
             >
               {images[index] ? (
                 <img
                   src={images[index]}
                   alt="thumb"
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               ) : (
                 <span className="text-gray-300 text-xs">{index + 1}</span>
@@ -128,7 +128,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-1"
+                className="absolute -right-1 -top-1 rounded-full bg-red-500 p-1 text-white shadow-sm transition-all hover:bg-red-600 active:scale-90"
               >
                 <X size={12} />
               </button>
@@ -140,7 +140,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
           <button
             type="button"
             onClick={() => fileInputRef.current.click()}
-            className="w-14 h-14 rounded-full border-2 border-dashed border-cyan-500 flex items-center justify-center"
+            className="flex h-14 w-14 items-center justify-center rounded-lg border border-dashed border-primary bg-white text-primary transition-all hover:bg-primary/5 active:scale-95"
           >
             <Plus size={20} />
           </button>
@@ -156,7 +156,7 @@ const UploadedImage = ({ setImagesFiles, getAllImages, setValue, imageError, set
         accept="image/*"
       />
       {imageError && (
-        <p className="text-red-500 text-sm mt-3">
+        <p className="mb-2 mt-2 text-sm text-red-500">
           {imageError}
         </p>
       )}

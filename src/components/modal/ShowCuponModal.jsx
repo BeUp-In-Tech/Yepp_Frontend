@@ -20,7 +20,7 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex min-h-dvh items-center justify-center overflow-y-auto p-4 sm:p-6">
+    <div className="fixed inset-0 z-9999 flex min-h-dvh items-center justify-center overflow-y-auto p-4 sm:p-6">
       <div
         className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity cursor-pointer"
         onClick={() => setIsOpen(false)}

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import UplodedImage from "../components/UplodedImage";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCreateNewDealMutation } from "../../../../features/deal/dealApi";
 import toast from "react-hot-toast";
 import { useGetAllCategoriesQuery } from "../../../../features/categories/CategoriesApi";
@@ -10,13 +10,8 @@ import Tags from "./components/Tags";
 import Highlights from "./components/Highlights";
 import { useSelector } from "react-redux";
 import { useGetVendorDetailsQuery } from "../../../../features/shop/shopApi";
-import { ChevronDown, ChevronUp, MapPin } from "lucide-react";
+import { ChevronDown, ChevronUp, MapPin, X } from "lucide-react";
 import CategoriesSkeleton from "../../../../components/skeleton/CategoriesSkeleton";
-
-const dealFormDefaultValues = {
-    regularPrice: 0,
-    discountPercentage: 0,
-};
 
 const hasCouponCodeValue = (data) => {
     return Boolean(data?.couponCode?.trim() || data?.qr_code?.[0] || data?.upc_code?.[0]);
@@ -27,10 +22,12 @@ const VendorCreateDeal = () => {
     const [activeField, setActiveField] = useState(null);
     const [imageFiles, setImagesFiles] = useState([]);
     const [imageError, setImageError] = useState("");
+    const [qrPreview, setQrPreview] = useState("");
+    const [upcPreview, setUpcPreview] = useState("");
+    const qrInputRef = useRef(null);
+    const upcInputRef = useRef(null);
     const { user } = useSelector((state => state?.auth));
-    const { register, handleSubmit, watch, formState: { errors }, setValue, reset, setError, clearErrors, getValues } = useForm({
-        defaultValues: dealFormDefaultValues,
-    });
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset, setError, clearErrors, getValues } = useForm();
     const navigate = useNavigate();
     const { data: categoriess, isLoading: categoryLoading } = useGetAllCategoriesQuery();
     const { data: shopDetails, isLoading: shopLoading } = useGetVendorDetailsQuery(user?._id);
@@ -49,7 +46,6 @@ const VendorCreateDeal = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        reset(dealFormDefaultValues);
     }, [reset]);
 
     useEffect(() => {
@@ -61,6 +57,18 @@ const VendorCreateDeal = () => {
             clearErrors("couponCodes");
         }
     }, [watchCouponCode, watchQrCode, watchUpcCode, clearErrors]);
+
+    useEffect(() => {
+        return () => {
+            if (qrPreview) URL.revokeObjectURL(qrPreview);
+        };
+    }, [qrPreview]);
+
+    useEffect(() => {
+        return () => {
+            if (upcPreview) URL.revokeObjectURL(upcPreview);
+        };
+    }, [upcPreview]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -160,64 +168,103 @@ const VendorCreateDeal = () => {
         validateCouponCodes(getValues());
     };
 
+    const qrCodeInput = register("qr_code");
+    const upcCodeInput = register("upc_code");
+
+    const handleCodeFileChange = (event, setPreview) => {
+        const file = event.target.files?.[0];
+        setPreview(file ? URL.createObjectURL(file) : "");
+    };
+
+    const removeCodeFile = (fieldName, inputRef, setPreview) => {
+        setValue(fieldName, null, { shouldValidate: true });
+        setPreview("");
+
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
+    };
+
     return (
-        <div className="bg-white min-h-screen px-4 pt-28 pb-12">
+        <div className="min-h-screen bg-[#F8FAFC] px-4 pt-28 pb-12">
             <div className="max-w-305 mx-auto">
-                <h1 className="text-[#262626] text-2xl sm:text-[32px] font-bold pb-6">Add New Deal</h1>
-                <form onSubmit={handleSubmit(onSubmit, onInvalid)} autoComplete="off">
-                    {/* Media and Deal Pricing */}
-                    <div className="flex flex-col md:flex-row gap-12.5">
-                        <UplodedImage
-                            setImagesFiles={setImagesFiles}
-                            setValue={setValue}
-                            imageError={imageError}
-                            setImageError={setImageError}
-                        />
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
-                            <h2 className="text-primary text-xl font-bold mb-3">Deal Pricing:</h2>
+                <div className="mb-8 border-b border-slate-200 pb-6">
+                    <h1 className="text-3xl font-bold tracking-normal text-[#262626] sm:text-[32px]">Add New Deal</h1>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit, onInvalid)} autoComplete="off" className="space-y-6">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+                        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <UplodedImage
+                                setImagesFiles={setImagesFiles}
+                                setValue={setValue}
+                                imageError={imageError}
+                                setImageError={setImageError}
+                                className="w-full"
+                            />
+                        </div>
+
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Pricing</h2>
                             {/* Regular Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     Regular Price<span className="text-red-500">*</span>
                                 </label>
+
                                 <div className="relative">
                                     <span className="absolute left-6 top-1/2 -translate-y-1/2 text-[#262626]">
                                         $
                                     </span>
                                     <input
-                                        min={0}
-                                        {...register("regularPrice", {
-                                            valueAsNumber: true,
-                                            required: "Regular price is required",
-                                        })}
                                         type="number"
+                                        placeholder="Enter regular price"
                                         autoComplete="off"
-                                        className="w-full pl-10 pr-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                        defaultValue=""
+                                        {...register("regularPrice", {
+                                            required: "Regular price is required",
+                                            setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                            validate: (value) => {
+                                                if (value === "") return "Regular price is required";
+                                                if (Number(value) < 0) return "Price cannot be negative";
+                                                return true;
+                                            },
+                                        })}
+                                        className={`w-full rounded-full border bg-white py-4 pl-10 pr-6 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.regularPrice ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
                                 </div>
+
                                 {errors.regularPrice && (
                                     <p className="text-red-500 text-sm mt-1">
                                         {errors.regularPrice.message}
                                     </p>
                                 )}
                             </div>
+
                             {/* Discount */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    What is the discount percentage for this deal?<span className="text-red-500">*</span>
+                                    What is the discount percentage for this deal?
+                                    <span className="text-red-500">*</span>
                                 </label>
 
                                 <div className="relative">
                                     <input
-                                        min={0}
-                                        max={100}
-                                        {...register("discountPercentage", {
-                                            valueAsNumber: true,
-                                            required: "Discount percentage is required",
-                                        })}
                                         type="number"
+                                        placeholder="Enter discount (0–100)"
                                         autoComplete="off"
-                                        className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                        defaultValue=""
+                                        {...register("discountPercentage", {
+                                            required: "Discount percentage is required",
+                                            setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                            validate: (value) => {
+                                                if (value === "") return "Discount percentage is required";
+                                                if (Number(value) < 0) return "Discount cannot be less than 0";
+                                                if (Number(value) > 100) return "Discount cannot be more than 100";
+                                                return true;
+                                            },
+                                        })}
+                                        className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.discountPercentage ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
 
                                     <span className="absolute right-8 top-1/2 -translate-y-1/2 text-[#262626]">
@@ -235,7 +282,7 @@ const VendorCreateDeal = () => {
                             {/* Final Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Final price after the discount<span className="text-slate-400 text-[10px">(read only)</span>
+                                    Final price after the discount <span className="text-xs text-slate-400">(read only)</span>
                                 </label>
 
                                 <div className="relative">
@@ -243,17 +290,14 @@ const VendorCreateDeal = () => {
                                         type="text"
                                         readOnly
                                         value={`$${finalPrice.toFixed(2)}`}
-                                        className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] bg-gray-50 outline-0 cursor-not-allowed"
+                                        className="w-full cursor-not-allowed rounded-full border border-slate-200 bg-slate-50 px-6 py-4 font-medium text-[#262626] outline-none"
                                     />
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Deal Info and Plan */}
-                    <div className="flex flex-col md:flex-row gap-12.5">
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
-                            <h2 className="text-xl font-bold text-primary">Deal Info:</h2>
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Info</h2>
 
                             {/* Title */}
                             <div>
@@ -264,9 +308,11 @@ const VendorCreateDeal = () => {
                                 <input
                                     {...register("title", {
                                         required: "Deal title is required",
+                                        validate: (value) =>
+                                            value.trim().length >= 5 || "Title must be minimum 5 characters",
                                     })}
-                                    placeholder="Title"
-                                    className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                    placeholder="Enter Title"
+                                    className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.title ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                 />
 
                                 {errors.title && (
@@ -276,8 +322,6 @@ const VendorCreateDeal = () => {
 
                             {/* Highlights */}
                             <Highlights setValue={setValue} />
-
-
 
                             {/* tags */}
                             <Tags
@@ -289,11 +333,11 @@ const VendorCreateDeal = () => {
                                     Available Location
                                 </label>
 
-                                <div className="flex gap-3 flex-wrap">
+                                <div className="flex flex-wrap gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4">
                                     {shopDetails?.data?.outlets?.map((out) => (
                                         <label
                                             key={out._id}
-                                            className="flex items-center gap-2 border border-gray-400 rounded-md bg-gray-100 px-3 h-9 cursor-pointer"
+                                            className="flex h-10 cursor-pointer items-center gap-2 rounded-full border border-slate-300 bg-white px-4 text-sm font-medium text-[#525252] transition-all hover:border-primary hover:bg-primary/5"
                                         >
                                             <input
                                                 type="checkbox"
@@ -301,11 +345,11 @@ const VendorCreateDeal = () => {
                                                 {...register("outlets", {
                                                     required: "Select at least one outlet",
                                                 })}
-                                                className="h-4 w-4"
+                                                className="h-4 w-4 accent-primary"
                                             />
 
-                                            <span className="text-gray-700 text-sm flex items-center gap-1">
-                                                <MapPin size={18} />
+                                            <span className="flex items-center gap-1">
+                                                <MapPin size={16} className="text-primary" />
                                                 {out?.outlet_name || "Location Name"}
                                             </span>
                                         </label>
@@ -319,9 +363,10 @@ const VendorCreateDeal = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Details</h2>
                             {/* Deal Category */}
-                            <div className="-mt-5 md:-mt-10">
+                            <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     Deal Category<span className="text-red-500">*</span>
                                 </label>
@@ -330,7 +375,7 @@ const VendorCreateDeal = () => {
                                         {...register("category", {
                                             required: "Category is required",
                                         })}
-                                        className="w-full px-6 pr-12 py-4 border border-gray-400 rounded-full text-[#262626] outline-0 bg-white appearance-none">
+                                        className={`w-full appearance-none rounded-full border bg-white px-6 py-4 pr-12 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.category ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}>
                                         <option value="">Select Category</option>
                                         {categoriess?.data?.map((cat) => (
                                             <option key={cat._id} value={cat._id}>
@@ -353,10 +398,12 @@ const VendorCreateDeal = () => {
                                     <textarea
                                         {...register("description", {
                                             required: "Description is required",
+                                            validate: (value) =>
+                                                value.trim().length >= 10 || "Description must be minimum 10 characters",
                                         })}
                                         placeholder="Enter Product Description"
                                         rows={4}
-                                        className="w-full p-4 border rounded-xl bg-white outline-0 border-gray-400"
+                                        className={`w-full resize-none rounded-lg border bg-white p-5 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.description ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
                                 </div>
 
@@ -367,11 +414,11 @@ const VendorCreateDeal = () => {
                                 )}
                             </div>
                             {/* Coupon, QR Code, UPC Code - Accordion */}
-                            <div className={`border rounded-xl overflow-hidden border-gray-400`}>
+                            <div className={`overflow-hidden rounded-lg border bg-white ${errors.couponCodes ? "border-red-500" : "border-slate-300"}`}>
                                 <button
                                     type="button"
                                     onClick={() => setOpenDropdown(prev => !prev)}
-                                    className="w-full flex items-center justify-between px-6 py-4 text-[#262626] font-medium text-base bg-white"
+                                    className="flex w-full items-center justify-between px-6 py-4 text-base font-medium text-[#262626] transition-all hover:bg-slate-50"
                                 >
                                     <div className="flex flex-col">
                                         <div className="flex items-center gap-1">
@@ -383,13 +430,13 @@ const VendorCreateDeal = () => {
                                             </p>
                                         )}
                                     </div>
-                                    <span className="text-gray-500 text-sm">
+                                    <span className="text-sm text-gray-500">
                                         <ChevronDown className="cursor-pointer" />
                                     </span>
                                 </button>
                                 {openDropdown && (
                                     <div className="border-t border-gray-200">
-                                        <div className="flex gap-3 px-6 py-3 bg-gray-50">
+                                        <div className="flex flex-wrap gap-3 bg-slate-50 px-6 py-3">
                                             {[
                                                 { key: "coupon", label: "Coupon Code" },
                                                 { key: "qr", label: "QR Code" },
@@ -399,9 +446,9 @@ const VendorCreateDeal = () => {
                                                     key={item.key}
                                                     type="button"
                                                     onClick={() => setActiveField(prev => prev === item.key ? null : item.key)}
-                                                    className={`px-4 py-2 rounded-md text-sm font-medium border transition-all ${activeField === item.key
-                                                        ? "bg-primary text-white border-primary"
-                                                        : "bg-white text-[#262626] border-gray-400"
+                                                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${activeField === item.key
+                                                        ? "border-primary bg-primary text-white shadow-sm"
+                                                        : "border-slate-300 bg-white text-[#262626] hover:border-primary hover:bg-primary/5"
                                                         }`}
                                                 >
                                                     {item.label}
@@ -411,21 +458,21 @@ const VendorCreateDeal = () => {
 
                                         {/* Coupon Code Field */}
                                         {activeField === "coupon" && (
-                                            <div className="px-6 py-4 border-t border-gray-100">
+                                            <div className="border-t border-gray-100 px-6 py-4">
                                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                                     Coupon Code
                                                 </label>
                                                 <input
                                                     {...register("couponCode")}
                                                     placeholder="ABCD456"
-                                                    className="w-full px-6 py-4 border border-gray-400 rounded-xl text-[#262626] outline-0"
+                                                    className="w-full rounded-lg border border-slate-300 bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
                                                 />
                                             </div>
                                         )}
 
                                         {/* QR Code Field */}
                                         {activeField === "qr" && (
-                                            <div className="px-6 py-4 border-t border-gray-100">
+                                            <div className="border-t border-gray-100 px-6 py-4">
                                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                                     QR Code
                                                     <span className="text-[12px] pl-2 text-slate-400">(QR file must be 500 × 500)</span>
@@ -433,15 +480,41 @@ const VendorCreateDeal = () => {
                                                 <input
                                                     type="file"
                                                     accept="image/*"
-                                                    {...register("qr_code")}
-                                                    className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
+                                                    {...qrCodeInput}
+                                                    ref={(element) => {
+                                                        qrCodeInput.ref(element);
+                                                        qrInputRef.current = element;
+                                                    }}
+                                                    onChange={(event) => {
+                                                        qrCodeInput.onChange(event);
+                                                        handleCodeFileChange(event, setQrPreview);
+                                                    }}
+                                                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-[#262626] outline-none transition-all file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white focus:border-primary focus:ring-4 focus:ring-primary/10"
                                                 />
+                                                {qrPreview && (
+                                                    <div className="mt-3 w-fit rounded-lg border border-slate-200 bg-slate-50 p-2">
+                                                        <div className="relative h-28 w-40 overflow-hidden rounded-md bg-white">
+                                                            <img
+                                                                src={qrPreview}
+                                                                alt="QR Preview"
+                                                                className="h-full w-full object-contain"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => removeCodeFile("qr_code", qrInputRef, setQrPreview)}
+                                                                className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white shadow-sm transition-all hover:bg-red-600 active:scale-90"
+                                                            >
+                                                                <X size={14} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
 
                                         {/* UPC Code Field */}
                                         {activeField === "upc" && (
-                                            <div className="px-6 py-4 border-t border-gray-100">
+                                            <div className="border-t border-gray-100 px-6 py-4">
                                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                                     UPC Code
                                                     <span className="text-[12px] pl-2 text-slate-400">(UPC file must be 800 × 400)</span>
@@ -449,9 +522,35 @@ const VendorCreateDeal = () => {
                                                 <input
                                                     type="file"
                                                     accept="image/*"
-                                                    {...register("upc_code")}
-                                                    className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
+                                                    {...upcCodeInput}
+                                                    ref={(element) => {
+                                                        upcCodeInput.ref(element);
+                                                        upcInputRef.current = element;
+                                                    }}
+                                                    onChange={(event) => {
+                                                        upcCodeInput.onChange(event);
+                                                        handleCodeFileChange(event, setUpcPreview);
+                                                    }}
+                                                    className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-[#262626] outline-none transition-all file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white focus:border-primary focus:ring-4 focus:ring-primary/10"
                                                 />
+                                                {upcPreview && (
+                                                    <div className="mt-3 w-fit rounded-lg border border-slate-200 bg-slate-50 p-2">
+                                                        <div className="relative h-28 w-48 overflow-hidden rounded-md bg-white">
+                                                            <img
+                                                                src={upcPreview}
+                                                                alt="UPC Preview"
+                                                                className="h-full w-full object-contain"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => removeCodeFile("upc_code", upcInputRef, setUpcPreview)}
+                                                                className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white shadow-sm transition-all hover:bg-red-600 active:scale-90"
+                                                            >
+                                                                <X size={14} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -461,11 +560,11 @@ const VendorCreateDeal = () => {
                     </div>
 
                     {/* Submit */}
-                    <div className="text-center pt-10">
+                    <div className="flex justify-center border-t border-slate-200 pt-6">
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="bg-primary hover:bg-secondary cursor-pointer text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl">
+                            className="flex min-w-60 cursor-pointer items-center justify-center rounded-full bg-primary px-12 py-3.5 text-lg font-bold text-white shadow-xl shadow-[#4BBDCF]/20 transition-all hover:bg-secondary active:scale-95 disabled:cursor-not-allowed disabled:opacity-70">
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (

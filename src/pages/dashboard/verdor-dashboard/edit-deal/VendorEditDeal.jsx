@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/incompatible-library */
 import { useForm } from "react-hook-form";
 import UplodedImage from "../components/UplodedImage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddDealSkeleton from "../../../../components/skeleton/AddDealSkeleton";
 import Tags from "./components/Tags";
 import Highlights from "./components/Highlights";
@@ -9,6 +9,7 @@ import { useEditDealMutation, useGetDealDetailsQuery } from "../../../../feature
 import { useNavigate, useParams } from "react-router-dom";
 import useUserLocation from "../../../../hooks/useUserLocation";
 import toast from "react-hot-toast";
+import { ChevronDown, X } from "lucide-react";
 
 const VendorEditDeal = () => {
     const { latitude, longitude } = useUserLocation();
@@ -18,6 +19,10 @@ const VendorEditDeal = () => {
     const [initialTags, setInitialTags] = useState([]);
     const [qrPreview, setQrPreview] = useState("");
     const [upcPreview, setUpcPreview] = useState("");
+    const qrInputRef = useRef(null);
+    const upcInputRef = useRef(null);
+    const [openDropdown, setOpenDropdown] = useState(false);
+    const [activeField, setActiveField] = useState(null);
     const [initialHighlights, setInitialHighlights] = useState([]);
     const { data: dealDetail, isLoading: dealDetailsLoading } = useGetDealDetailsQuery({ id, longitude, latitude });
 
@@ -85,19 +90,11 @@ const VendorEditDeal = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const qrFile = watch("qr_code");
-    const upcFile = watch("upc_code");
     useEffect(() => {
-        if (qrFile && qrFile[0]) {
-            setQrPreview(URL.createObjectURL(qrFile[0]));
-        }
-    }, [qrFile]);
-
-    useEffect(() => {
-        if (upcFile && upcFile[0]) {
-            setUpcPreview(URL.createObjectURL(upcFile[0]));
-        }
-    }, [upcFile]);
+        register("couponCode", {
+            required: "Coupon code is required",
+        });
+    }, [register]);
 
     if (dealDetailsLoading) {
         return <AddDealSkeleton />;
@@ -105,6 +102,23 @@ const VendorEditDeal = () => {
     const watchRegularPrice = watch("regularPrice");
     const watchDiscount = watch("discountPercentage");
     const finalPrice = watchRegularPrice - (watchRegularPrice * (watchDiscount / 100));
+
+    const qrCodeInput = register("qr_code");
+    const upcCodeInput = register("upc_code");
+
+    const handleCodeFileChange = (event, setPreview) => {
+        const file = event.target.files?.[0];
+        setPreview(file ? URL.createObjectURL(file) : "");
+    };
+
+    const removeCodeFile = (fieldName, inputRef, setPreview) => {
+        setValue(fieldName, null, { shouldValidate: true });
+        setPreview("");
+
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
+    };
 
     const onSubmit = (data) => {
         const qrFile = data.qr_code?.[0];
@@ -148,18 +162,25 @@ const VendorEditDeal = () => {
     };
 
     return (
-        <div className="bg-white min-h-screen px-4 pt-28 pb-12">
+        <div className="min-h-screen bg-[#F8FAFC] px-4 pt-28 pb-12">
             <div className="max-w-305 mx-auto">
-                <h1 className="text-[#262626] text-2xl sm:text-[32px] font-bold pb-6">Update Your Deal</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    {/* Media and Deal Pricing */}
-                    <div className="flex flex-col md:flex-row gap-12.5">
-                        <UplodedImage
-                            setImagesFiles={setImagesFiles}
-                            getAllImages={dealDetail?.data?.images}
-                            setValue={setValue} />
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-6">
-                            <h2 className="text-primary text-xl font-bold mb-3">Deal Pricing:</h2>
+                <div className="mb-8 border-b border-slate-200 pb-6">
+                    <h1 className="text-3xl font-bold tracking-normal text-[#262626] sm:text-[32px]">Update Your Deal</h1>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+                        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <UplodedImage
+                                setImagesFiles={setImagesFiles}
+                                getAllImages={dealDetail?.data?.images}
+                                setValue={setValue}
+                                className="w-full"
+                            />
+                        </div>
+
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Pricing</h2>
                             {/* Regular Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
@@ -176,7 +197,7 @@ const VendorEditDeal = () => {
                                             required: "Regular price is required",
                                         })}
                                         type="number"
-                                        className="w-full pl-10 pr-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                        className={`w-full rounded-full border bg-white py-4 pl-10 pr-6 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.regularPrice ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
                                 </div>
                                 {errors.regularPrice && (
@@ -199,7 +220,7 @@ const VendorEditDeal = () => {
                                             required: "Discount percentage is required",
                                         })}
                                         type="number"
-                                        className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                        className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.discountPercentage ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
                                     <span className="absolute right-8 top-1/2 -translate-y-1/2 text-[#262626]">
                                         %
@@ -221,17 +242,14 @@ const VendorEditDeal = () => {
                                         type="text"
                                         readOnly
                                         value={`$${finalPrice.toFixed(2)}`}
-                                        className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] bg-gray-50 outline-0 cursor-not-allowed"
+                                        className="w-full cursor-not-allowed rounded-full border border-slate-200 bg-slate-50 px-6 py-4 font-medium text-[#262626] outline-none"
                                     />
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Deal Info and Plan */}
-                    <div className="flex flex-col md:flex-row gap-12.5">
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
-                            <h2 className="text-xl font-bold text-primary">Deal Info:</h2>
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Info</h2>
                             {/* Title */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
@@ -240,9 +258,11 @@ const VendorEditDeal = () => {
                                 <input
                                     {...register("title", {
                                         required: "Deal title is required",
+                                        validate: (value) =>
+                                            value.trim().length >= 5 || "Deal Title must be minimum 5 characters",
                                     })}
                                     placeholder="Title"
-                                    className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
+                                    className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.title ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                 />
                                 {errors.title && (
                                     <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
@@ -252,32 +272,14 @@ const VendorEditDeal = () => {
                             {/* Highlights */}
                             <Highlights setValue={setValue} initialHighlights={initialHighlights} />
 
-                            {/* Coupon */}
-                            <div>
-                                <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Coupon Code
-                                </label>
-                                <input
-                                    {...register("couponCode", {
-                                        required: "Coupon code is required",
-                                    })}
-                                    placeholder="ABCD456"
-                                    className="w-full px-6 py-4 border border-gray-400 rounded-full text-[#262626] outline-0"
-                                />
-                                {errors.couponCode && (
-                                    <p className="text-red-500 text-sm mt-1">
-                                        {errors.couponCode.message}
-                                    </p>
-                                )}
-                            </div>
-
                             {/* Tags */}
                             <Tags setValue={setValue} initialTags={initialTags} />
                         </div>
 
-                        <div className="w-full md:w-1/2 space-y-3 lg:space-y-4">
+                        <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                            <h2 className="text-xl font-bold text-primary">Deal Details</h2>
                             {/* Description */}
-                            <div className="mt-10">
+                            <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     Description
                                 </label>
@@ -285,10 +287,12 @@ const VendorEditDeal = () => {
                                     <textarea
                                         {...register("description", {
                                             required: "Description is required",
+                                            validate: (value) =>
+                                                value.trim().length >= 10 || "Description must be minimum 10 characters",
                                         })}
                                         placeholder="Enter Product Description"
                                         rows={6}
-                                        className="w-full p-4 border rounded-2xl bg-white outline-0 border-gray-400"
+                                        className={`w-full resize-none rounded-lg border bg-white p-5 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.description ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
                                     />
                                 </div>
                                 {errors.description && (
@@ -298,61 +302,157 @@ const VendorEditDeal = () => {
                                 )}
                             </div>
 
-                            {/* QR & UPC Code */}
-                            <div>
-                                <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Upload QR & UPC code image
-                                </label>
-                                <div className="flex gap-3">
-                                    <div>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            {...register("qr_code")}
-                                            className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
-                                        />
-                                        {errors.qr_code && <p className="text-red-500 text-sm mt-1">{errors.qr_code.message}</p>}
+                            {/* Coupon, QR Code, UPC Code - Accordion */}
+                            <div className={`overflow-hidden rounded-lg border bg-white ${errors.couponCode ? "border-red-500" : "border-slate-300"}`}>
+                                <button
+                                    type="button"
+                                    onClick={() => setOpenDropdown(prev => !prev)}
+                                    className="flex w-full items-center justify-between px-6 py-4 text-base font-medium text-[#262626] transition-all hover:bg-slate-50"
+                                >
+                                    <div className="flex flex-col">
+                                        <div className="flex items-center gap-1">
+                                            <span>Coupon & Codes</span><span className="text-red-500">*</span>
+                                        </div>
+                                        {errors.couponCode && (
+                                            <p className="mt-1 text-sm font-normal text-red-500">
+                                                {errors.couponCode.message}
+                                            </p>
+                                        )}
                                     </div>
-                                    <div>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            {...register("upc_code")}
-                                            className="w-full px-3 py-2 border border-gray-400 rounded-xl text-[#262626] outline-0 file:mr-4 file:py-2 file:px-4 file:border-0"
-                                        />
-                                        {errors.upc_code && <p className="text-red-500 text-sm mt-1">{errors.upc_code.message}</p>}
+                                    <span className="text-sm text-gray-500">
+                                        <ChevronDown className="cursor-pointer" />
+                                    </span>
+                                </button>
+
+                                {openDropdown && (
+                                    <div className="border-t border-gray-200">
+                                        <div className="flex flex-wrap gap-3 bg-slate-50 px-6 py-3">
+                                            {[
+                                                { key: "coupon", label: "Coupon Code" },
+                                                { key: "qr", label: "QR Code" },
+                                                { key: "upc", label: "UPC Code" },
+                                            ].map((item) => (
+                                                <button
+                                                    key={item.key}
+                                                    type="button"
+                                                    onClick={() => setActiveField(prev => prev === item.key ? null : item.key)}
+                                                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all ${activeField === item.key
+                                                        ? "border-primary bg-primary text-white shadow-sm"
+                                                        : "border-slate-300 bg-white text-[#262626] hover:border-primary hover:bg-primary/5"
+                                                    }`}
+                                                >
+                                                    {item.label}
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        <div className={`${activeField === "coupon" ? "block" : "hidden"} border-t border-gray-100 px-6 py-4`}>
+                                            <label className="mb-2 block text-base font-medium text-[#262626]">
+                                                Coupon Code
+                                            </label>
+                                            <input
+                                                {...register("couponCode", {
+                                                    required: "Coupon code is required",
+                                                })}
+                                                placeholder="ABCD456"
+                                                className="w-full rounded-lg border border-slate-300 bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10"
+                                            />
+                                        </div>
+
+                                        <div className={`${activeField === "qr" ? "block" : "hidden"} border-t border-gray-100 px-6 py-4`}>
+                                            <label className="mb-2 block text-base font-medium text-[#262626]">
+                                                QR Code
+                                            </label>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                {...qrCodeInput}
+                                                ref={(element) => {
+                                                    qrCodeInput.ref(element);
+                                                    qrInputRef.current = element;
+                                                }}
+                                                onChange={(event) => {
+                                                    qrCodeInput.onChange(event);
+                                                    handleCodeFileChange(event, setQrPreview);
+                                                }}
+                                                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-[#262626] outline-none transition-all file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white focus:border-primary focus:ring-4 focus:ring-primary/10"
+                                            />
+                                            {errors.qr_code && <p className="mt-1 text-sm text-red-500">{errors.qr_code.message}</p>}
+                                            {qrPreview && (
+                                                <div className="mt-3 w-fit rounded-lg border border-slate-200 bg-slate-50 p-2">
+                                                    <div className="relative h-28 w-40 overflow-hidden rounded-md bg-white">
+                                                        <img
+                                                            src={qrPreview}
+                                                            alt="QR Preview"
+                                                            className="h-full w-full object-contain"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removeCodeFile("qr_code", qrInputRef, setQrPreview)}
+                                                            className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white shadow-sm transition-all hover:bg-red-600 active:scale-90"
+                                                        >
+                                                            <X size={14} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className={`${activeField === "upc" ? "block" : "hidden"} border-t border-gray-100 px-6 py-4`}>
+                                            <label className="mb-2 block text-base font-medium text-[#262626]">
+                                                UPC Code
+                                            </label>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                {...upcCodeInput}
+                                                ref={(element) => {
+                                                    upcCodeInput.ref(element);
+                                                    upcInputRef.current = element;
+                                                }}
+                                                onChange={(event) => {
+                                                    upcCodeInput.onChange(event);
+                                                    handleCodeFileChange(event, setUpcPreview);
+                                                }}
+                                                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-[#262626] outline-none transition-all file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-white focus:border-primary focus:ring-4 focus:ring-primary/10"
+                                            />
+                                            {errors.upc_code && <p className="mt-1 text-sm text-red-500">{errors.upc_code.message}</p>}
+                                            {upcPreview && (
+                                                <div className="mt-3 w-fit rounded-lg border border-slate-200 bg-slate-50 p-2">
+                                                    <div className="relative h-28 w-48 overflow-hidden rounded-md bg-white">
+                                                        <img
+                                                            src={upcPreview}
+                                                            alt="UPC Preview"
+                                                            className="h-full w-full object-contain"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removeCodeFile("upc_code", upcInputRef, setUpcPreview)}
+                                                            className="absolute right-1 top-1 rounded-full bg-red-500 p-1 text-white shadow-sm transition-all hover:bg-red-600 active:scale-90"
+                                                        >
+                                                            <X size={14} />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            {/* Show image */}
-                            <div className="flex gap-3 mt-5">
-                                <div>
-                                    <label className="block text-sm text-[#6b6767] font-medium mb-2">QR Code</label>
-                                    {qrPreview && (
-                                        <img src={qrPreview} alt="QR Preview" className="mb-2 w-36 h-24 object-contain border border-gray-300 rounded-md" />
-                                    )}
-                                </div>
-                                <div>
-                                    <label className="block text-sm text-[#6b6767] font-medium mb-2">UPC Code</label>
-                                    {upcPreview && (
-                                        <img src={upcPreview} alt="UPC Preview" className="mb-2 w-36 h-24 object-contain border border-gray-300 rounded-md" />
-                                    )}
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
 
                     {/* Submit */}
-                    <div className="text-center pt-10">
+                    <div className="flex justify-center border-t border-slate-200 pt-6">
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="bg-primary hover:bg-secondary text-white font-bold py-3.5 px-20 rounded-full shadow-xl shadow-[#4BBDCF]/20 transition-all transform active:scale-95 text-xl"
+                            className="flex min-w-60 cursor-pointer items-center justify-center rounded-full bg-primary px-12 py-3.5 text-lg font-bold text-white shadow-xl shadow-[#4BBDCF]/20 transition-all hover:bg-secondary active:scale-95 disabled:cursor-not-allowed disabled:opacity-70"
                         >
                             {isLoading ? (
                                 <div className="spinner-border animate-spin border-2 border-t-4 border-white w-6 h-6 rounded-full"></div>
                             ) : (
-                                <span className="font-medium text-lg cursor-pointer text-[#FFFFFF]">Update Deal</span>
+                                <span className="font-medium text-lg text-[#FFFFFF]">Update Deal</span>
                             )}
                         </button>
                     </div>
