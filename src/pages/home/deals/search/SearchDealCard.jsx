@@ -1,11 +1,13 @@
 import { Store } from "lucide-react";
 import { Link } from "react-router-dom";
 import Countdown from "../Countdown";
+import { getDealPricing } from "../../../../utils/dealPricing";
 
 const SearchDealCard = ({ deal }) => {
     const { _id, title, images, discount, reguler_price, promotedUntil } = deal?.deal || {};
     const image = images?.[0];
     const distanceMiles = (Number(deal?.distance) || 0) / 1609.344;
+    const { regularPrice, finalPrice, discount: dealDiscount, hasDiscount } = getDealPricing(reguler_price, discount);
     return (
         <Link to={`/deal-details/${_id}`} className="flex h-full flex-col bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
             <div className="relative h-48 w-full">
@@ -14,9 +16,11 @@ const SearchDealCard = ({ deal }) => {
                     alt={title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-                    {discount}% off
-                </div>
+                {hasDiscount && (
+                    <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                        {dealDiscount}% off
+                    </div>
+                )}
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
                     &bull; {distanceMiles.toFixed(2)} miles away
                 </div>
@@ -35,12 +39,14 @@ const SearchDealCard = ({ deal }) => {
                 <div className="mt-3 flex min-w-0 flex-wrap items-start justify-between gap-2">
                     <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
                         <span className="text-xl font-bold text-[#262626]">
-                            ${(reguler_price - ((reguler_price / 100) * discount)).toFixed(2)}
+                            ${finalPrice.toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                            ${reguler_price.toFixed(1)}
-                        </span>
+                        {hasDiscount && (
+                            <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                ${regularPrice.toFixed(1)}
+                            </span>
+                        )}
                     </div>
                     <Countdown countdown={promotedUntil} />
                 </div>

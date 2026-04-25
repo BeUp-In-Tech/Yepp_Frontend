@@ -1,9 +1,11 @@
 import { Eye } from "lucide-react";
 import Countdown from "../../home/deals/Countdown";
 import { Link } from "react-router-dom";
+import { getDealPricing } from "../../../utils/dealPricing";
 
 const DealCard = ({ deal }) => {
     const { _id, images, promotedUntil, reguler_price, discount, totalViews, activePromotion } = deal || {};
+    const { regularPrice, finalPrice, hasDiscount } = getDealPricing(reguler_price, discount);
     const now = new Date();
     const expiredDeal = new Date(deal?.promotedUntil) < now && activePromotion !== null;
     const activeDeal = new Date(deal?.promotedUntil) >= now && activePromotion !== null;
@@ -32,12 +34,14 @@ const DealCard = ({ deal }) => {
                 <div className="mt-3 flex flex-1 flex-col gap-2">
                     <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
                         <span className="text-xl font-bold text-[#262626]">
-                            ${(reguler_price - ((reguler_price / 100) * discount)).toFixed(2)}
+                            ${finalPrice.toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                            ${reguler_price.toFixed(1)}
-                        </span>
+                        {hasDiscount && (
+                            <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                ${regularPrice.toFixed(1)}
+                            </span>
+                        )}
                     </div>
                     <div className="flex min-w-0 flex-wrap items-center gap-2">
                         {

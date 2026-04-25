@@ -12,6 +12,7 @@ import CopiedLink from './components/CopiedLink';
 import OutLetshowMap from './OutLetshowMap';
 import { useGsapAnimations } from '../../hooks/useGsapAnimations';
 import { useGetAllCategoriesQuery } from '../../features/categories/CategoriesApi';
+import { getDealPricing } from '../../utils/dealPricing';
 
 const DealDetails = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,10 +64,7 @@ const DealDetails = () => {
         }
     };
 
-    const price = Number(reguler_price);
-    const disc = Number(discount);
-
-    const finalPrice = price - (price * disc) / 100;
+    const { regularPrice: price, finalPrice, discount: dealDiscount, hasDiscount } = getDealPricing(reguler_price, discount);
     const outletDistanceMiles = (Number(available_outlet?.[0]?.distance) || 0) / 1609.344;
     const categoryLength = categories?.data?.length;
 
@@ -129,10 +127,14 @@ const DealDetails = () => {
                                         ${finalPrice.toFixed(2)}
                                     </span>
 
-                                    <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
-                                        ${price.toFixed(2)}
-                                    </span>
-                                    <span className="rounded-md bg-primary px-2 py-1 text-sm font-bold text-white sm:text-base">{discount}% off</span>
+                                    {hasDiscount && (
+                                        <span className="text-base text-[#A3A3A3] line-through sm:text-xl">
+                                            ${price.toFixed(2)}
+                                        </span>
+                                    )}
+                                    {hasDiscount && (
+                                        <span className="rounded-md bg-primary px-2 py-1 text-sm font-bold text-white sm:text-base">{dealDiscount}% off</span>
+                                    )}
                                 </div>
                                 <div className='mt-0 sm:mt-2'>
                                     <Countdown countdown={promotedUntil} />

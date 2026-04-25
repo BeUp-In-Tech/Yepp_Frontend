@@ -93,7 +93,7 @@ function AppRoutes() {
             <Route path="/verify-otp-code" element={<ForgetPasswordVerify />} />
             <Route path="/forget-password-verify" element={<ForgetPasswordVerify />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-
+            <Route path="/approval" element={<VendorApprovalPage />} />
             <Route path="/vendor-details/:id" element={<VendorDeails />} />
             <Route path="/vendor/:id" element={<VendorDeails />} />
             <Route path="/categories" element={<Categories />} />
@@ -133,7 +133,6 @@ function AppRoutes() {
           <Route element={<PrivateRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/shop-overview" element={<CreatedShop />} />
-              <Route path="/approval" element={<VendorApprovalPage />} />
               <Route path="/vendor/created-shop" element={<CreatedShop />} />
               <Route path="/my-deals" element={<Deals />} />
               <Route path="/my-profile" element={<VendorProfile />} />
@@ -153,13 +152,6 @@ function AppRoutes() {
               <Route path="/all-top-views" element={<AllTopViewsDeal />} />
               <Route path="/payment_success" element={<PaymentSuccess />} />
               <Route path="/payment_cancel" element={<PaymentCancel />} />
-            </Route>
-
-            <Route element={<DashboardLayout />}>
-              <Route path="/vendor/dashboard/deals" element={<Deals />} />
-              <Route path="/vendor/dashboard/create-deal" element={<VendorCreateDeal />} />
-              <Route path="/vendor/dashboard/create-deal-plan" element={<CreateDealPlan />} />
-              <Route path="/vendor/dashboard/edit-deal" element={<VendorEditDeal />} />
             </Route>
           </Route>
 

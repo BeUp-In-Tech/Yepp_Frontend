@@ -1,13 +1,12 @@
 import { Store } from "lucide-react";
 import Countdown from "../../../home/deals/Countdown";
 import { Link } from "react-router-dom";
+import { getDealPricing } from "../../../../utils/dealPricing";
 
 const DealCard = ({ deal, businessName }) => {
     const { _id, images, promotedUntil, reguler_price, discount } = deal || {};
     const shopName = businessName || deal?.shop?.business_name;
-    const price = Number(reguler_price) || 0;
-    const discountAmount = (price * (Number(discount) || 0)) / 100;
-    const finalPrice = price - discountAmount;
+    const { regularPrice: price, finalPrice, discount: dealDiscount, hasDiscount } = getDealPricing(reguler_price, discount);
 
     return (
         <Link to={`/deal-details/${_id}`} className="flex h-full flex-col bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-hover hover:shadow-md">
@@ -17,9 +16,11 @@ const DealCard = ({ deal, businessName }) => {
                     alt={deal.title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-                    {discount}% off
-                </div>
+                {hasDiscount && (
+                    <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                        {dealDiscount}% off
+                    </div>
+                )}
             </div>
             <div className="flex flex-1 flex-col p-4">
                 <h3 className="text-lg font-semibold text-[#262626] line-clamp-2 min-h-10 leading-tight">
@@ -35,9 +36,11 @@ const DealCard = ({ deal, businessName }) => {
                             ${finalPrice.toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                            ${price.toFixed(1)}
-                        </span>
+                        {hasDiscount && (
+                            <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                ${price.toFixed(1)}
+                            </span>
+                        )}
                     </div>
                     <Countdown countdown={promotedUntil} />
                 </div>

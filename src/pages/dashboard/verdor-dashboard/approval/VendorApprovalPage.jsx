@@ -2,6 +2,7 @@ import { ArrowRight, CheckCircle2, ClipboardCheck, Mail, XCircle } from 'lucide-
 import { useSelector } from 'react-redux';
 import ApprovalSkeleton from '../../../../components/skeleton/ApprovalSkeleton';
 import { useGetVendorDetailsQuery } from '../../../../features/shop/shopApi';
+import { useNavigate } from 'react-router-dom';
 
 const normalizeStatus = (status) => {
   if (!status) return 'PENDING';
@@ -32,7 +33,7 @@ const statusConfig = {
     statusLabel: 'STATUS',
     statusValue: 'In progress',
     etaLabel: 'EST. TIME',
-    etaValue: '24-48 hrs',
+    etaValue: '24-72 hrs',
     note:
       "We'll email you as soon as your shop is approved and ready to go live on Yepp.",
     badgeClass: 'border-[#FDE68A] bg-[#FEF3C7] text-[#B45309]',
@@ -96,8 +97,10 @@ const statusConfig = {
 };
 
 const VendorApprovalPage = () => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state?.auth);
   const { data: shopDetails, isLoading } = useGetVendorDetailsQuery(user?._id);
+  console.log(shopDetails?.data?.shop_approval);
 
   if (isLoading) {
     return <ApprovalSkeleton />;
@@ -107,11 +110,15 @@ const VendorApprovalPage = () => {
   const currentStatus = statusConfig[status];
   const StatusIcon = currentStatus.Icon;
 
+  const handleClick = () => {
+    navigate('/shop-overview');
+  }
+  
   return (
-    <section className="min-h-screen bg-[#F8FAFC] px-4 pb-14 pt-32">
+    <section className="min-h-screen bg-[#F8FAFC] px-4 pb-10 pt-28">
       <div className="mx-auto max-w-305">
         <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.05)]">
-          <div className="flex min-h-[calc(100vh-13rem)] items-center justify-center px-6 py-12 sm:px-10 sm:py-16">
+          <div className="flex min-h-[calc(100vh-13rem)] items-center justify-center p-8">
             <div className="mx-auto flex w-full max-w-2xl flex-col items-center text-center">
               <div
                 className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold tracking-[0.04em] ${currentStatus.badgeClass}`}
@@ -138,7 +145,7 @@ const VendorApprovalPage = () => {
                 </div>
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-[#202020] sm:text-[42px] sm:leading-[1.1]">
+              <h1 className="text-2xl font-bold tracking-tight text-[#202020] sm:text-3xl sm:leading-[1.1]">
                 {currentStatus.title}
               </h1>
 
@@ -181,18 +188,13 @@ const VendorApprovalPage = () => {
               </div>
 
               <div className="mt-7 flex w-full max-w-[560px] flex-col gap-3 sm:flex-row">
-                {/* <button
-                  type="button"
-                  className="inline-flex flex-1 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-lg font-medium text-[#303030] transition-colors hover:bg-slate-50 cursor-pointer"
-                >
-                  View application
-                </button> */}
-
                 <button
                   type="button"
-                  disabled={currentStatus === 'PENDING' || currentStatus === 'REJECTED'}
-                  className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-lg font-semibold text-white shadow-[0_14px_28px_rgba(76,175,80,0.18)] transition-all hover:bg-secondary cursor-pointer"
-                >
+                  onClick={handleClick}
+                  disabled={status === 'PENDING' || status === 'REJECTED'}
+                  className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-lg font-semibold text-white shadow-[0_14px_28px_rgba(76,175,80,0.18)] transition-all
+                    bg-primary hover:bg-secondary
+                    disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:opacity-70">
                   Go to dashboard
                   <ArrowRight
                     size={20}

@@ -1,29 +1,72 @@
-import { Bell, ChevronDown } from "lucide-react";
+import { Bell } from "lucide-react";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useGetAllNotificaitonQuery, useOpenNotificationPanelMutation } from "../../features/notification/notificaitonApi";
+import Notification from "../navbar/Notification";
 
 const AdminPorfile = () => {
+    const [openNotificationModal, setOpenNotificationModal] = useState(false);
+    const openingNotificationPanelRef = useRef(false);
+    const { user } = useSelector((state) => state?.auth);
+    const notificationQueryArgs = { id: user?._id };
+    const { data: notificationData, refetch: refetchNotifications } = useGetAllNotificaitonQuery(
+        notificationQueryArgs,
+        { skip: !user?._id }
+    );
+    const [openNotificationPanel] = useOpenNotificationPanelMutation();
+
+    const unreadCount = Number(notificationData?.data?.unreadCount ?? notificationData?.unreadCount) || 0;
+
+    const notificationLabel = openNotificationModal
+        ? "Close notifications"
+        : unreadCount > 0
+            ? `Open notifications, ${unreadCount} unread`
+            : "Open notifications";
+
+    const handleNotificationToggle = async () => {
+        if (openNotificationModal) {
+            setOpenNotificationModal(false);
+            return;
+        }
+
+        setOpenNotificationModal(true);
+
+        if (!user?._id || openingNotificationPanelRef.current) return;
+
+        openingNotificationPanelRef.current = true;
+
+        try {
+            await openNotificationPanel({ listArgs: notificationQueryArgs }).unwrap();
+        } catch {
+            refetchNotifications();
+        } finally {
+            openingNotificationPanelRef.current = false;
+        }
+    };
+
     return (
-        <div className="flex items-center justify-between">
-            {/* <div className="flex items-center gap-3">
-                <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-colors">
-                    <Bell className="w-6 h-6" />
-                </button>
-                <div className="flex items-center gap-3 cursor-pointer group">
-                    <div className="relative w-12 h-12">
-                        <img
-                            src="https://i.ibb.co.com/yFR5DjRW/images.webp"
-                            alt="Admin User"
-                            className="rounded-full w-12 h-12 object-cover border-2 border-white shadow-sm"
-                        />
-                    </div>
-                    <div className="flex flex-col items-start leading-tight">
-                        <span className="text-[#1A4F5E] font-bold text-base">Admin User</span>
-                        <div className="flex items-center gap-1 text-gray-400">
-                            <span className="text-xs">Super Admin</span>
-                            <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+        <div className="relative z-[60] flex items-center justify-between">
+            <div className="flex items-center gap-3">
+                <button
+                                    type="button"
+                                    aria-label={notificationLabel}
+                                    aria-expanded={openNotificationModal}
+                                    onClick={handleNotificationToggle}
+                                    className={`relative cursor-pointer ${openNotificationModal ? 'text-primary font-bold' : ''}`}
+                                >
+                                    <Bell size={22} aria-hidden="true" />
+                                    {unreadCount > 0 && (
+                                        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-bold leading-none text-white">
+                                            {unreadCount > 99 ? "99+" : unreadCount}
+                                        </span>
+                                    )}
+                                </button>
+            </div>
+            {
+                openNotificationModal && <Notification
+                    isOpen={openNotificationModal}
+                    setIsOpen={setOpenNotificationModal} />
+            }
         </div>
     );
 };

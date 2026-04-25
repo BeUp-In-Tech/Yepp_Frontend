@@ -4,6 +4,7 @@ import { userLoggedIn } from "./authSlice";
 
 export const saveTokensAndFetchUser = async (tokens, dispatch) => {
   const { accessToken, refreshToken } = tokens;
+  console.log(accessToken, refreshToken);
   Cookies.set("accessToken", accessToken, {
     expires: 5,
     secure: false,
@@ -43,6 +44,7 @@ export const authApi = apiSlice.injectEndpoints({
         try {
           const result = await queryFulfilled;
           const tokens = result?.data?.data;
+          console.log(tokens);
           if (tokens) {
             await saveTokensAndFetchUser(tokens, dispatch);
           }

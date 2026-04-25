@@ -4,14 +4,13 @@ import Countdown from "../../../../home/deals/Countdown";
 import { useHandleDeleteDealMutation } from "../../../../../features/deal/dealApi";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { getDealPricing } from "../../../../../utils/dealPricing";
 
 const DealCard = ({ deal }) => {
-
-    console.log(deal);
-
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const { discount, promotedUntil, reguler_price, activePromotion } = deal || {};
+    const { regularPrice, finalPrice, hasDiscount } = getDealPricing(reguler_price, discount);
     const [handleDeleteDeal, { isLoading }] = useHandleDeleteDealMutation();
     const now = new Date();
     const expiredDeal = new Date(deal?.promotedUntil) < now && activePromotion !== null;
@@ -72,12 +71,14 @@ const DealCard = ({ deal }) => {
                         <div className="mt-3 flex min-w-0 flex-wrap items-center gap-2">
                             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                                 <span className="text-xl font-bold text-[#262626]">
-                                    ${(reguler_price - ((reguler_price / 100) * discount)).toFixed(2)}
+                                    ${finalPrice.toFixed(2)}
                                 </span>
 
-                                <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                                    ${reguler_price.toFixed(1)}
-                                </span>
+                                {hasDiscount && (
+                                    <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                        ${regularPrice.toFixed(1)}
+                                    </span>
+                                )}
                             </div>
                             {
                                 activeDeal && <Countdown countdown={promotedUntil} />

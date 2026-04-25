@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Copy, X, Check } from 'lucide-react';
+import { getDealPricing } from '../../utils/dealPricing';
 
 const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   const [activeTab, setActiveTab] = useState('coupon');
@@ -9,14 +10,13 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
   if (!isOpen || typeof document === 'undefined') return null;
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(deal.couponCode);
+    navigator.clipboard.writeText(coupon || "");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const { title, reguler_price, discount, coupon_option, coupon } = deal?.data || {};
-  const discount_price = reguler_price - ((reguler_price / 100) * discount);
-  const price_saved = reguler_price - (reguler_price - ((reguler_price / 100) * discount));
+  const { regularPrice, finalPrice, discount: dealDiscount, savedAmount, hasDiscount } = getDealPricing(reguler_price, discount);
   
 
   return createPortal(
@@ -40,23 +40,33 @@ const ShowCuponModal = ({ isOpen, setIsOpen, deal }) => {
           <div className="w-full space-y-3 mb-4 px-2">
             <div className="flex justify-between items-center">
               <span className="text-gray-500 font-medium">Price:</span>
-              <span className="text-primary font-bold text-xl">${discount_price.toFixed(2)}</span>
+              <span className="text-primary font-bold text-xl">${finalPrice.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500 font-medium">Regular:</span>
-              <span className="text-gray-400 font-medium line-through">${reguler_price.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-500 font-medium">Discount:</span>
-              <span className="text-emerald-500 font-bold bg-emerald-50 px-3 py-1 rounded-full text-sm">
-                {discount}%
-              </span>
-            </div>
+            {hasDiscount && (
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 font-medium">Regular:</span>
+                <span className="text-gray-400 font-medium line-through">${regularPrice.toFixed(2)}</span>
+              </div>
+            )}
+            {hasDiscount && (
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 font-medium">Discount:</span>
+                <span className="text-emerald-500 font-bold bg-emerald-50 px-3 py-1 rounded-full text-sm">
+                  {dealDiscount}%
+                </span>
+              </div>
+            )}
           </div>
           <div className="text-center mb-4">
-            <p className="text-primary font-bold tracking-wide">
-              You save ${price_saved.toFixed(2)}
-            </p>
+            {hasDiscount ? (
+              <p className="text-primary font-bold tracking-wide">
+                You save ${savedAmount.toFixed(2)}
+              </p>
+            ) : (
+              <p className="font-medium text-slate-500">
+                This deal uses a final price only.
+              </p>
+            )}
           </div>
           <div className="flex bg-gray-100/80 p-1.5 rounded-full w-full mb-8 border border-gray-200">
             {['coupon', 'QR', 'barcode'].map((tab) => (

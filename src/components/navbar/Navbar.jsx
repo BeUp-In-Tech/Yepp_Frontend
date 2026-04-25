@@ -151,10 +151,10 @@ const Navbar = () => {
                                     </button>
                                     :
                                     <NavLink
-                                        to='/login'
+                                        to='/register'
                                         className='bg-primary hover:bg-secondary text-base text-[#FFFFFF] font-semibold tracking-wider transition-all duration-300 px-6 py-2 rounded-full cursor-pointer'
                                     >
-                                        Business Sign In
+                                        Business Sign-in
                                     </NavLink>
                             }
                             {
@@ -262,7 +262,7 @@ const Navbar = () => {
                                         `rounded-lg px-4 py-3 text-base font-semibold tracking-wider transition-colors ${isActive ? "bg-[#E0F2FE] text-primary" : "text-[#262626] hover:bg-[#F0F9FF] hover:text-secondary"}`
                                     }
                                 >
-                                    Business Sign In
+                                    Business Sign in
                                 </NavLink>
                         }
                     </div>

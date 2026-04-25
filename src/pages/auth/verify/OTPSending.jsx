@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHandleSendOTPVerificationMutation } from "../../../features/verify/verifyApi";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 import bgImage from '../../../assets/images/verificationImage.jpg';
 import { ArrowLeft } from "lucide-react";
@@ -14,8 +14,10 @@ const OTPSending = () => {
     const [otp, setOtp] = useState("");
     const [timeLeft, setTimeLeft] = useState(OTP_TIME);
     const inputRef = useRef(null);
+    const location = useLocation();
     const { user } = useSelector((state) => state?.auth);
     const navigate = useNavigate();
+    const targetEmail = location.state?.email || user?.email;
     const [handleSendOTPVerification, { data, isLoading, error, isSuccess }] =
         useHandleSendOTPVerificationMutation();
     useHandleCurrentLoggedInUserQuery();
@@ -32,7 +34,7 @@ const OTPSending = () => {
     useEffect(() => {
         if (isSuccess) {
             toast.success(data.message);
-            navigate('/verdor-created-shop');
+            navigate('/login');
         }
 
         if (error) {
@@ -55,10 +57,14 @@ const OTPSending = () => {
             return toast.error("OTP expired. Please request a new one.");
         }
 
+        if (!targetEmail) {
+            return toast.error("Email not found. Please send the verification code again.");
+        }
+
         if (otp.length === 6) {
             const res = await handleSendOTPVerification({
                 otp: Number(otp),
-                email: user?.email
+                email: targetEmail
             });
             console.log(res);
         } else {
@@ -73,6 +79,8 @@ const OTPSending = () => {
             .toString()
             .padStart(2, "0")}`;
     };
+
+    console.log(user);
     return (
         <div className="flex flex-col lg:flex-row min-h-screen">
             <div

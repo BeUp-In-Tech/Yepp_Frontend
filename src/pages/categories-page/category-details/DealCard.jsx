@@ -1,13 +1,12 @@
 import { Store } from "lucide-react";
 import { Link } from "react-router-dom";
 import Countdown from "../../home/deals/Countdown";
+import { getDealPricing } from "../../../utils/dealPricing";
 
 const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
     const { _id, title, reguler_price, discount, promotedUntil } = deal?.deal || {};
     const image = deal?.deal?.images?.[0];
-    const price = Number(reguler_price) || 0;
-    const discountAmount = (price * (Number(discount) || 0)) / 100;
-    const finalPrice = price - discountAmount;
+    const { regularPrice: price, finalPrice, discount: dealDiscount, hasDiscount } = getDealPricing(reguler_price, discount);
     const distance = Number(deal?.distance) || 0;
     const distanceMiles = distance / 1609.344;
 
@@ -22,9 +21,11 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                         alt={title}
                         className="h-full w-full object-cover"
                     />
-                    <div className="absolute left-2 top-2 rounded bg-primary px-2 py-1 text-xs font-bold text-white">
-                        {discount}% off
-                    </div>
+                    {hasDiscount && (
+                        <div className="absolute left-2 top-2 rounded bg-primary px-2 py-1 text-xs font-bold text-white">
+                            {dealDiscount}% off
+                        </div>
+                    )}
                     <div className="absolute bottom-2 left-2 flex items-center gap-1 text-xs font-medium text-white">
                         <span aria-hidden="true">&bull;</span>
                         <span>{distanceMiles.toFixed(1)} miles away</span>
@@ -47,9 +48,11 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                                 ${finalPrice.toFixed(0)}
                             </span>
 
-                            <span className="text-xs font-medium text-[#A3A3A3] line-through sm:text-sm">
-                                ${price.toFixed(0)}
-                            </span>
+                            {hasDiscount && (
+                                <span className="text-xs font-medium text-[#A3A3A3] line-through sm:text-sm">
+                                    ${price.toFixed(0)}
+                                </span>
+                            )}
                         </div>
                         <Countdown countdown={promotedUntil} compact />
                     </div>
@@ -70,9 +73,11 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                     alt={title}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-                    {discount}% off
-                </div>
+                {hasDiscount && (
+                    <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                        {dealDiscount}% off
+                    </div>
+                )}
                 <div className="absolute bottom-3 left-3 text-white text-xs bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
                     &bull; {distanceMiles.toFixed(2)} miles away
                 </div>
@@ -94,9 +99,11 @@ const DealCard = ({ deal, compact = false, imageSize = "normal" }) => {
                             ${finalPrice.toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                            ${price.toFixed(2)}
-                        </span>
+                        {hasDiscount && (
+                            <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                ${price.toFixed(2)}
+                            </span>
+                        )}
                     </div>
                     <Countdown countdown={promotedUntil} />
                 </div>

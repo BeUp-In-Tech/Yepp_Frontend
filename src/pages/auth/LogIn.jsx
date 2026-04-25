@@ -38,8 +38,6 @@ const LogIn = () => {
     // email and password
     useEffect(() => {
         if (!user) return;
-        // toast.success("Login successful!");
-
         // fcm token when user loing
         const registerToken = async () => {
             const fcmToken = await generateFcmTokenData();
@@ -49,7 +47,6 @@ const LogIn = () => {
                 toast.error('Error registering FCM token:', error);
             }
         };
-
         registerToken();
 
         if (user?.role === 'ADMIN') {
@@ -111,11 +108,11 @@ const LogIn = () => {
 
                     <div className="flex bg-[#F0F9FF] rounded-full mb-8  mx-auto">
                         <div className="w-full sm:px-1.5 py-1.5 flex">
-                            <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626]  text-sm sm:text-base font-medium cursor-pointer">
-                                Business Sign Up
-                            </Link>
                             <Link to='/login' className="text-center w-full py-2 px-1 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
-                                Business Log In
+                                Business sign-in
+                            </Link>
+                            <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626]  text-sm sm:text-base font-medium cursor-pointer">
+                                Business sign-up
                             </Link>
                         </div>
                     </div>

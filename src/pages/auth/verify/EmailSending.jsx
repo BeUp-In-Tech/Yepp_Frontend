@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useHandleSendEmailMutation } from "../../../features/verify/verifyApi";
 import { ArrowLeft, Mail, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useHandleCurrentLoggedInUserQuery } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import EmailVerifySkeleton from "../../../components/skeleton/EmailVerifySkeleton";
@@ -13,13 +13,22 @@ const EmailSending = () => {
     const [handleSendOTPVerification, { isLoading, isSuccess, error }] = useHandleSendEmailMutation();
     const { data: currentUser, isLoading: userLoading } = useHandleCurrentLoggedInUserQuery();
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
+    const [submittedEmail, setSubmittedEmail] = useState("");
     const { user } = useSelector((state) => state?.auth);
+    const prefilledEmail = location.state?.email || user?.email || currentUser?.data?.email || "";
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
-            email: user?.email || "",
+            email: prefilledEmail,
         }
     });
+
+    useEffect(() => {
+        if (prefilledEmail) {
+            reset({ email: prefilledEmail });
+        }
+    }, [prefilledEmail, reset]);
 
     useEffect(() => {
         if (currentUser) {
@@ -34,20 +43,24 @@ const EmailSending = () => {
     useEffect(() => {
         if (isSuccess) {
             toast.success("OTP sent! Check your inbox.");
-            navigate('/otp-code-sending');
+            navigate('/otp-code-sending', {
+                state: { email: submittedEmail || prefilledEmail },
+            });
         }
         if (error) {
             const message = error?.data?.message || "OTP sending failed!";
             toast.error(message);
         }
-    }, [isSuccess, error, navigate]);
+    }, [error, isSuccess, navigate, prefilledEmail, submittedEmail]);
 
     if (userLoading) {
         return <EmailVerifySkeleton />
     }
 
     const onSubmit = (data) => {
-        handleSendOTPVerification({ email: data.email });
+        const email = data.email.trim();
+        setSubmittedEmail(email);
+        handleSendOTPVerification({ email });
     };
 
     return (
@@ -79,7 +92,6 @@ const EmailSending = () => {
                     <input
                         type="email"
                         placeholder="Enter your email....."
-                        defaultValue={user?.email}
                         {...register("email", {
                             required: "Email is required!",
                             pattern: {

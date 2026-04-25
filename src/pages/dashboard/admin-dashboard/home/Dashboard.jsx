@@ -4,7 +4,7 @@ import PieChartSection from './components/PieChartSection';
 import { Store, Tag } from 'lucide-react';
 import ListCard from './components/ListCard';
 import HeadingTitle from '../components/HeadingTitle';
-import { useGetAnalyticsQuery, useGetRecentDealsListQuery} from '../../../../features/dashboard/dashboardHome';
+import { useGetAnalyticsQuery, useGetRecentDealsListQuery } from '../../../../features/dashboard/dashboardHome';
 import DashboardCardsSkeleton from '../../../../components/skeleton/dashboard/DashboardCardsSkeleton';
 import RevenueTrendChart from './components/RevenueTrendChart';
 import VendorManagementSkeleton from '../../../../components/skeleton/dashboard/VendorManagementSkeleton';
@@ -25,7 +25,7 @@ const Dashboard = () => {
     const { active_vendors, active_deals, total_revenue, last30Days_Revenue } = totalAnalytics?.data || {};
     return (
         <div className="min-h-screen pt-3 pb-5" data-animate="dashboard">
-            <div className='flex justify-between items-center'>
+            <div className='flex justify-between items-center relative'>
                 <HeadingTitle
                     title='Admin Dashboard Overview'
                     description='Welcome back! Here’s what’s happening on your platform'

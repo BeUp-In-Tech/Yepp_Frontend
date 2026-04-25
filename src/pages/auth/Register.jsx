@@ -25,16 +25,20 @@ const Register = () => {
             toast.error("Passwords do not match");
             return;
         }
+
+        const email = data.email?.trim();
+
         try {
             await handleRegister({
                 user_name: data.username,
-                email: data.email,
+                email,
                 password: data.password,
             }).unwrap();
 
             toast.success("Registration successful! Please verify your account.");
-            navigate("/login");
-            // navigate("/verificationcode");
+            navigate("/verificationcode", {
+                state: { email },
+            });
         } catch (error) {
             const message = error?.data?.message || "Registration failed!";
             toast.error(message);
@@ -76,10 +80,10 @@ const Register = () => {
                         <div className="flex bg-[#F0F9FF] rounded-full mb-8 mx-auto">
                             <div className="w-full p-1.5 flex">
                                 <Link to='/register' className="text-center w-full py-2 px-1 sm:px-4 rounded-full bg-primary hover:bg-secondary text-white text-sm sm:text-base font-medium cursor-pointer">
-                                    Business Sign Up
+                                    Business sign-up
                                 </Link>
                                 <Link to='/login' className="text-center w-full py-2 px-1 sm:px-4 rounded-full text-[#262626] text-sm sm:text-base font-medium cursor-pointer">
-                                    Business Log In
+                                    Business sign-in
                                 </Link>
                             </div>
                         </div>
@@ -176,7 +180,7 @@ const Register = () => {
                                         <button
                                             type="button"
                                             onClick={() => setShowLegalModal(true)}
-                                            className='text-base text-primary font-semibold cursor-pointer transition-colors hover:text-secondary'
+                                            className='text-sm text-primary font-semibold cursor-pointer transition-colors hover:text-secondary'
                                         >
                                             Legal agreements
                                         </button>
@@ -218,7 +222,9 @@ const Register = () => {
 
             {showLegalModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 px-4 py-6">
-                    <div className="relative w-full max-w-2xl rounded-3xl border border-slate-200 bg-white shadow-2xl">
+                    <div className="relative w-full max-w-2xl rounded-xl border border-slate-200 bg-white shadow-2xl">
+
+                        {/* Close Button */}
                         <button
                             type="button"
                             aria-label="Close legal agreements modal"
@@ -228,65 +234,145 @@ const Register = () => {
                             <X size={18} />
                         </button>
 
+                        {/* Header */}
                         <div className="border-b border-slate-200 px-6 py-5 sm:px-8">
-                            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">Yepp</p>
-                            <h2 className="mt-2 text-2xl font-bold text-[#262626]">Legal Agreements</h2>
+                            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-primary">
+                                Yepp Ads
+                            </p>
+                            <h2 className="mt-2 text-2xl font-bold text-[#262626]">
+                                Legal Agreements
+                            </h2>
                             <p className="mt-2 max-w-xl text-sm leading-6 text-[#737373]">
-                                Please review these terms before creating your business account on Yepp.
+                                Please read these terms carefully before using Yepp Ads platform.
                             </p>
                         </div>
 
+                        {/* Content */}
                         <div className="max-h-[65vh] space-y-6 overflow-y-auto px-6 py-6 sm:px-8">
+
+                            {/* 1 */}
                             <div>
-                                <h3 className="text-base font-semibold text-[#262626]">1. Account Responsibility</h3>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    1. Acceptance of Terms
+                                </h3>
                                 <p className="mt-2 text-sm leading-6 text-[#737373]">
-                                    You are responsible for the accuracy of your business information and for keeping your
-                                    login credentials secure.
+                                    By using Yepp Ads, you agree to our Terms & Conditions and Privacy Policy.
+                                    If you do not agree, you must not use the platform.
                                 </p>
                             </div>
 
+                            {/* 2 */}
                             <div>
-                                <h3 className="text-base font-semibold text-[#262626]">2. Acceptable Use</h3>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    2. Services
+                                </h3>
                                 <p className="mt-2 text-sm leading-6 text-[#737373]">
-                                    You agree not to post misleading promotions, unlawful content, or material that violates
-                                    the rights of customers, partners, or third parties.
+                                    Yepp Ads allows users to browse deals freely. Shop owners can post coupons,
+                                    discounts, and offers using a paid subscription.
                                 </p>
                             </div>
 
+                            {/* 3 */}
                             <div>
-                                <h3 className="text-base font-semibold text-[#262626]">3. Deals and Promotions</h3>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    3. Shop Owner Responsibility
+                                </h3>
                                 <p className="mt-2 text-sm leading-6 text-[#737373]">
-                                    All offers, coupon codes, QR codes, pricing, and redemption details that you publish on
-                                    Yepp must be valid, current, and honored as described.
+                                    Shop owners are responsible for ensuring all deals are accurate, valid,
+                                    and legally compliant. Expired or false deals must be removed immediately.
                                 </p>
                             </div>
 
+                            {/* 4 */}
                             <div>
-                                <h3 className="text-base font-semibold text-[#262626]">4. Privacy and Communication</h3>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    4. Prohibited Content
+                                </h3>
                                 <p className="mt-2 text-sm leading-6 text-[#737373]">
-                                    By signing up, you consent to receive essential service communication related to account
-                                    verification, platform updates, moderation, and support.
+                                    You must not post misleading, illegal, abusive, or copyrighted content.
+                                    Violations may result in removal or account suspension.
                                 </p>
                             </div>
 
+                            {/* 5 */}
                             <div>
-                                <h3 className="text-base font-semibold text-[#262626]">5. Compliance</h3>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    5. Subscription & Payment
+                                </h3>
                                 <p className="mt-2 text-sm leading-6 text-[#737373]">
-                                    Yepp may review, reject, or remove submitted content that does not follow platform
-                                    policies, local laws, or marketplace standards.
+                                    Shop owners must purchase a subscription to post deals. Payments are
+                                    non-refundable and pricing may change with notice.
                                 </p>
                             </div>
+
+                            {/* 6 */}
+                            <div>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    6. No Guarantee
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-[#737373]">
+                                    Yepp Ads does not guarantee deal accuracy, availability, or merchant fulfillment.
+                                    Users must verify details before purchasing.
+                                </p>
+                            </div>
+
+                            {/* 7 */}
+                            <div>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    7. Analytics & Data
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-[#737373]">
+                                    We use Google Analytics to improve user experience. This may collect
+                                    browsing data such as IP address and device information.
+                                </p>
+                            </div>
+
+                            {/* 8 */}
+                            <div>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    8. Termination
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-[#737373]">
+                                    We may suspend or terminate access for violations of these terms. No refunds
+                                    will be provided after termination.
+                                </p>
+                            </div>
+
+                            {/* 9 */}
+                            <div>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    9. Updates
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-[#737373]">
+                                    We may update these terms at any time. Continued use of Yepp Ads means
+                                    you accept the updated version.
+                                </p>
+                            </div>
+
+                            {/* 10 */}
+                            <div>
+                                <h3 className="text-base font-semibold text-[#262626]">
+                                    10. Contact
+                                </h3>
+                                <p className="mt-2 text-sm leading-6 text-[#737373]">
+                                    For questions, contact us at{" "}
+                                    <span className="font-medium text-primary">support@yeppads.com</span>
+                                </p>
+                            </div>
+
                         </div>
 
+                        {/* Footer */}
                         <div className="flex justify-end border-t border-slate-200 px-6 py-4 sm:px-8">
                             <button
                                 type="button"
                                 onClick={() => setShowLegalModal(false)}
                                 className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-secondary"
                             >
-                                Close
+                                I Understand
                             </button>
                         </div>
+
                     </div>
                 </div>
             )}

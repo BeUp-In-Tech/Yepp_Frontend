@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useUserLocation from "../../../../hooks/useUserLocation";
 import toast from "react-hot-toast";
 import { ChevronDown, X } from "lucide-react";
+import { getDealPricing } from "../../../../utils/dealPricing";
 
 const VendorEditDeal = () => {
     const { latitude, longitude } = useUserLocation();
@@ -26,11 +27,13 @@ const VendorEditDeal = () => {
     const [initialHighlights, setInitialHighlights] = useState([]);
     const { data: dealDetail, isLoading: dealDetailsLoading } = useGetDealDetailsQuery({ id, longitude, latitude });
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset, clearErrors, getValues } = useForm({
         defaultValues: {
             title: "",
             regularPrice: 0,
             discountPercentage: 0,
+            finalPriceOnly: false,
+            finalPriceValue: "",
             description: "",
             couponCode: "",
             outlets: [],
@@ -70,6 +73,8 @@ const VendorEditDeal = () => {
                 title: title || "",
                 regularPrice: reguler_price || 0,
                 discountPercentage: discount || 0,
+                finalPriceOnly: false,
+                finalPriceValue: getDealPricing(reguler_price, discount).finalPrice,
                 description: description || "",
                 couponCode: coupon || "",
                 outlets: available_outlet.map(outlet => outlet?._id),
@@ -96,12 +101,37 @@ const VendorEditDeal = () => {
         });
     }, [register]);
 
+    const watchRegularPrice = watch("regularPrice");
+    const watchDiscount = watch("discountPercentage");
+    const watchFinalPriceOnly = watch("finalPriceOnly");
+    const watchFinalPriceValue = watch("finalPriceValue");
+    const isFinalPriceOnly = Boolean(watchFinalPriceOnly);
+    const calculatedPricing = getDealPricing(watchRegularPrice, watchDiscount);
+    const finalPrice = isFinalPriceOnly
+        ? Number(watchFinalPriceValue) || 0
+        : calculatedPricing.finalPrice;
+    const disabledPricingInputClasses = "disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-400";
+
+    useEffect(() => {
+        clearErrors(["regularPrice", "discountPercentage", "finalPriceValue"]);
+
+        if (!isFinalPriceOnly) return;
+
+        const currentFinalPriceValue = getValues("finalPriceValue");
+
+        if (currentFinalPriceValue !== "" && currentFinalPriceValue !== undefined && currentFinalPriceValue !== null) {
+            return;
+        }
+
+        setValue("finalPriceValue", Number(calculatedPricing.finalPrice.toFixed(2)), {
+            shouldDirty: false,
+            shouldValidate: false,
+        });
+    }, [calculatedPricing.finalPrice, clearErrors, getValues, isFinalPriceOnly, setValue]);
+
     if (dealDetailsLoading) {
         return <AddDealSkeleton />;
     }
-    const watchRegularPrice = watch("regularPrice");
-    const watchDiscount = watch("discountPercentage");
-    const finalPrice = watchRegularPrice - (watchRegularPrice * (watchDiscount / 100));
 
     const qrCodeInput = register("qr_code");
     const upcCodeInput = register("upc_code");
@@ -123,16 +153,22 @@ const VendorEditDeal = () => {
     const onSubmit = (data) => {
         const qrFile = data.qr_code?.[0];
         const upcFile = data.upc_code?.[0];
+        const submittedRegularPrice = data?.finalPriceOnly
+            ? Number(data?.finalPriceValue) || 0
+            : Number(data?.regularPrice) || 0;
+        const submittedDiscount = data?.finalPriceOnly
+            ? 0
+            : Number(data?.discountPercentage) || 0;
         const finalData = {
-            qr_code: qrFile ? qrFile : dealDetail.data.coupon_option.qr,
-            upc_code: upcFile ? upcFile : dealDetail.data.coupon_option.upc,
+            qr_code: qrFile ? qrFile : dealDetail?.data?.coupon_option?.qr,
+            upc_code: upcFile ? upcFile : dealDetail?.data?.coupon_option?.upc,
         };
 
         const updateDeal = {
             category: data?.category,
             title: data?.title,
-            reguler_price: data?.regularPrice,
-            discount: data?.discountPercentage,
+            reguler_price: submittedRegularPrice,
+            discount: submittedDiscount,
             highlight: data?.highlights,
             deletedImages: data?.deletedImages,
             deletedHighlights: data?.deletedHighlights,
@@ -181,8 +217,24 @@ const VendorEditDeal = () => {
 
                         <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
                             <h2 className="text-xl font-bold text-primary">Deal Pricing</h2>
+                            <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                                <input
+                                    type="checkbox"
+                                    {...register("finalPriceOnly")}
+                                    className="mt-1 h-4 w-4 accent-primary"
+                                />
+
+                                <div className="space-y-1">
+                                    <span className="block text-sm font-semibold text-[#262626]">
+                                        Final Price Only
+                                    </span>
+                                    <p className="text-sm leading-6 text-slate-500">
+                                        Let the customer see a single final price and skip the regular price plus discount breakdown.
+                                    </p>
+                                </div>
+                            </label>
                             {/* Regular Price */}
-                            <div>
+                            <div className={isFinalPriceOnly ? "opacity-70" : ""}>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     Regular Price
                                 </label>
@@ -192,12 +244,19 @@ const VendorEditDeal = () => {
                                     </span>
                                     <input
                                         min={0}
+                                        step="0.01"
+                                        disabled={isFinalPriceOnly}
                                         {...register("regularPrice", {
-                                            valueAsNumber: true,
-                                            required: "Regular price is required",
+                                            setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                            validate: (value) => {
+                                                if (isFinalPriceOnly) return true;
+                                                if (value === "") return "Regular price is required";
+                                                if (Number(value) < 0) return "Price cannot be negative";
+                                                return true;
+                                            },
                                         })}
                                         type="number"
-                                        className={`w-full rounded-full border bg-white py-4 pl-10 pr-6 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.regularPrice ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
+                                        className={`w-full rounded-full border bg-white py-4 pl-10 pr-6 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.regularPrice ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"} ${disabledPricingInputClasses}`}
                                     />
                                 </div>
                                 {errors.regularPrice && (
@@ -207,7 +266,7 @@ const VendorEditDeal = () => {
                                 )}
                             </div>
                             {/* Discount */}
-                            <div>
+                            <div className={isFinalPriceOnly ? "opacity-70" : ""}>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
                                     What is the discount percentage for this deal?
                                 </label>
@@ -215,12 +274,19 @@ const VendorEditDeal = () => {
                                     <input
                                         min={0}
                                         max={100}
+                                        disabled={isFinalPriceOnly}
                                         {...register("discountPercentage", {
-                                            valueAsNumber: true,
-                                            required: "Discount percentage is required",
+                                            setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                            validate: (value) => {
+                                                if (isFinalPriceOnly) return true;
+                                                if (value === "") return "Discount percentage is required";
+                                                if (Number(value) < 0) return "Discount cannot be less than 0";
+                                                if (Number(value) > 100) return "Discount cannot be more than 100";
+                                                return true;
+                                            },
                                         })}
                                         type="number"
-                                        className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.discountPercentage ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
+                                        className={`w-full rounded-full border bg-white px-6 py-4 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.discountPercentage ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"} ${disabledPricingInputClasses}`}
                                     />
                                     <span className="absolute right-8 top-1/2 -translate-y-1/2 text-[#262626]">
                                         %
@@ -235,16 +301,57 @@ const VendorEditDeal = () => {
                             {/* Final Price */}
                             <div>
                                 <label className="block text-base text-[#262626] font-medium mb-2">
-                                    Final price after the discount
+                                    {isFinalPriceOnly ? (
+                                        <>
+                                            Final Price<span className="text-red-500">*</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            Final price after the discount
+                                        </>
+                                    )}
                                 </label>
                                 <div className="relative">
-                                    <input
-                                        type="text"
-                                        readOnly
-                                        value={`$${finalPrice.toFixed(2)}`}
-                                        className="w-full cursor-not-allowed rounded-full border border-slate-200 bg-slate-50 px-6 py-4 font-medium text-[#262626] outline-none"
-                                    />
+                                    {isFinalPriceOnly ? (
+                                        <>
+                                            <span className="absolute left-6 top-1/2 -translate-y-1/2 text-[#262626]">
+                                                $
+                                            </span>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                placeholder="Enter final price"
+                                                {...register("finalPriceValue", {
+                                                    setValueAs: (v) => (v === "" ? "" : Number(v)),
+                                                    validate: (value) => {
+                                                        if (!isFinalPriceOnly) return true;
+                                                        if (value === "") return "Final price is required";
+                                                        if (Number(value) < 0) return "Final price cannot be negative";
+                                                        return true;
+                                                    },
+                                                })}
+                                                className={`w-full rounded-full border bg-white py-4 pl-10 pr-6 text-[#262626] outline-none transition-all focus:ring-4 focus:ring-primary/10 ${errors.finalPriceValue ? "border-red-500 focus:border-red-500 focus:ring-red-100" : "border-slate-300 focus:border-primary"}`}
+                                            />
+                                        </>
+                                    ) : (
+                                        <input
+                                            type="text"
+                                            readOnly
+                                            value={`$${finalPrice.toFixed(2)}`}
+                                            className="w-full cursor-not-allowed rounded-full border border-slate-200 bg-slate-50 px-6 py-4 font-medium text-[#262626] outline-none"
+                                        />
+                                    )}
                                 </div>
+                                {isFinalPriceOnly && errors.finalPriceValue && (
+                                    <p className="mt-1 text-sm text-red-500">
+                                        {errors.finalPriceValue.message}
+                                    </p>
+                                )}
+                                {isFinalPriceOnly && (
+                                    <p className="mt-2 text-sm text-slate-500">
+                                        This single value will be saved as the customer-facing final price.
+                                    </p>
+                                )}
                             </div>
                         </div>
 

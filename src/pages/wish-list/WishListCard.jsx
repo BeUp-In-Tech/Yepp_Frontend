@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Countdown from "../home/deals/Countdown";
 import { Heart, Store } from "lucide-react";
+import { getDealPricing } from "../../utils/dealPricing";
 
 const WishListCard = ({ deal, handleDeleteWistListId }) => {
     const navigate = useNavigate();
@@ -29,9 +30,7 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
         handleDeleteWistListId?.(id);
     };
 
-    const price = Number(reguler_price);
-    const discountAmount = (price * Number(discount)) / 100;
-    const finalPrice = price - discountAmount;
+    const { regularPrice: price, finalPrice, discount: dealDiscount, hasDiscount } = getDealPricing(reguler_price, discount);
 
     return (
         <div
@@ -48,8 +47,11 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                     className="w-full h-full object-cover"
                 />
                 <div className="flex justify-between">
-                    <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-                        {discount}% off</div>
+                    {hasDiscount && (
+                        <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            {dealDiscount}% off
+                        </div>
+                    )}
                     <div className={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded
                          ${new Date(promotedUntil) < now ? 'bg-[#e9e2e2] text-[#737373]' : 'bg-primary text-white'}`}> {new Date(promotedUntil) < now ? 'Expired' : 'Available'}
                     </div>
@@ -83,9 +85,11 @@ const WishListCard = ({ deal, handleDeleteWistListId }) => {
                             ${finalPrice.toFixed(2)}
                         </span>
 
-                        <span className="text-sm text-[#A3A3A3] font-medium line-through">
-                            ${price.toFixed(2)}
-                        </span>
+                        {hasDiscount && (
+                            <span className="text-sm text-[#A3A3A3] font-medium line-through">
+                                ${price.toFixed(2)}
+                            </span>
+                        )}
                     </div>
                     {
                         activeDeal && <Countdown countdown={promotedUntil} />

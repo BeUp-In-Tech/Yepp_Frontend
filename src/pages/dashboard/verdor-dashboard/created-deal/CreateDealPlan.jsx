@@ -53,14 +53,18 @@ const CreateDealPlan = () => {
     const discountPrice = ((selectPromotedPaln?.price * couponCode?.data?.discount_parentage) / 100);
     const finalPrice = selectPromotedPaln?.price - discountPrice;
 
+    console.log(selectPromotedPaln)
+
     const onSubmit = async () => {
         const finalData = {
             planId: selectedPlan,
             dealId: id,
             voucher: code,
         };
+        console.log(finalData);
         const res = await handlePayment(finalData);
         window.location.href = res?.data?.data?.checkout_url;
+
     };
 
     return (
