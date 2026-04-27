@@ -1,21 +1,9 @@
 import { MoreHorizontal, Store } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useShopApprovedEditMutation } from "../../../../../features/shop/shopApi";
-import toast from "react-hot-toast";
+import { useEffect, useRef, useState } from "react";
 
-const Table = ({ vednorData }) => {
+const Table = ({ vendorData, handleStatusChange, isStatusUpdating }) => {
     const [openDropdownId, setOpenDropdownId] = useState(null);
-    const [statusOverrides, setStatusOverrides] = useState({});
     const dropdownRef = useRef(null);
-    const [shopApprovedEdit, { isLoading }] = useShopApprovedEditMutation();
-    const vendors = useMemo(
-        () =>
-            (vednorData ?? []).map((vendor) => ({
-                ...vendor,
-                shop_approval: statusOverrides[vendor?._id] || vendor?.shop_approval,
-            })),
-        [statusOverrides, vednorData]
-    );
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -27,31 +15,6 @@ const Table = ({ vednorData }) => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
-    const handleStatusChange = async (id, status) => {
-        setOpenDropdownId(null);
-        const previousStatus = vendors.find((vendor) => vendor?._id === id)?.shop_approval;
-
-        setStatusOverrides((currentStatuses) => ({
-            ...currentStatuses,
-            [id]: status,
-        }));
-
-        try {
-            await shopApprovedEdit({
-                id: id,
-                data: { shop_approval: status },
-            }).unwrap();
-            toast.success("Status update successfully!");
-        } catch (error) {
-            setStatusOverrides((currentStatuses) => ({
-                ...currentStatuses,
-                [id]: previousStatus,
-            }));
-            const message = error?.data?.message || "Status update failed!";
-            toast.error(message);
-        }
-    };
 
     return (
         <div className="overflow-x-auto">
@@ -68,8 +31,8 @@ const Table = ({ vednorData }) => {
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                    {vendors?.length > 0 ? (
-                        vendors.map((item) => (
+                    {vendorData?.length > 0 ? (
+                        vendorData.map((item) => (
                             <tr key={item?._id} className="hover:bg-gray-50/80 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3">
@@ -128,15 +91,21 @@ const Table = ({ vednorData }) => {
                                         {openDropdownId === item?._id && (
                                             <div className="absolute right-0 -top-22 mt-2 w-40 pb-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 overflow-hidden">
                                                 <button
-                                                    onClick={() => handleStatusChange(item?._id, "APPROVED")}
-                                                    disabled={isLoading}
+                                                    onClick={() => {
+                                                        setOpenDropdownId(null);
+                                                        handleStatusChange(item?._id, "APPROVED");
+                                                    }}
+                                                    disabled={isStatusUpdating}
                                                     className="w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50 font-medium"
                                                 >
                                                     Approved
                                                 </button>
                                                 <button
-                                                    onClick={() => handleStatusChange(item?._id, "REJECTED")}
-                                                    disabled={isLoading}
+                                                    onClick={() => {
+                                                        setOpenDropdownId(null);
+                                                        handleStatusChange(item?._id, "REJECTED");
+                                                    }}
+                                                    disabled={isStatusUpdating}
                                                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-medium"
                                                 >
                                                     Reject

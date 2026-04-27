@@ -16,15 +16,20 @@ export const dashboardHome = apiSlice.injectEndpoints({
                 searchTerm = "",
                 page = 1,
                 limit = 10,
+                shopApproval = "",
             } = {}) => {
                 const params = new URLSearchParams();
                 if (searchTerm.trim()) {
                     params.append("searchTerm", searchTerm);
                 }
+                if (shopApproval && shopApproval !== "ALL") {
+                    params.append("shop_approval", shopApproval);
+                }
                 params.append(
                     "sort",
                     sort === "Old to New" ? "createdAt" : "-createdAt"
                 );
+
                 params.append("page", page);
                 params.append("limit", limit);
 

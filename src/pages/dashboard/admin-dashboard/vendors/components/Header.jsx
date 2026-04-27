@@ -1,13 +1,31 @@
-import { ChevronDown, Filter, Search } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Filter, Search } from "lucide-react";
+
+const sortOptions = [
+    { label: "New to Old", value: "New to Old" },
+    { label: "Old to New", value: "Old to New" },
+];
+
+const statusOptions = [
+    { label: "All Status", value: "ALL" },
+    { label: "Approved", value: "APPROVED" },
+    { label: "Pending", value: "PENDING" },
+    { label: "Rejected", value: "REJECTED" },
+];
 
 const Header = ({
     setSearchTerm,
-    filterRef,
-    setIsFilterOpen,
-    isFilterOpen,
-    revenueFilter,
-    setRevenueFilter,
+    sortFilter,
+    setSortFilter,
+    isSortFilterOpen,
+    setIsSortFilterOpen,
+    statusFilter,
+    setStatusFilter,
+    isStatusFilterOpen,
+    setIsStatusFilterOpen,
 }) => {
+    const selectedStatus =
+        statusOptions.find((option) => option.value === statusFilter)?.label || "All Status";
+
     return (
         <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
@@ -30,37 +48,72 @@ const Header = ({
                     />
                 </div>
 
-                <div className="relative" ref={filterRef}>
+                <div className="relative">
                     <button
-                        onClick={() => setIsFilterOpen(!isFilterOpen)}
+                        onClick={() => {
+                            setIsSortFilterOpen(!isSortFilterOpen);
+                            setIsStatusFilterOpen(false);
+                        }}
                         className="flex items-center gap-2 px-4 py-2 border border-[#A3A3A3] rounded-lg text-sm font-medium transition-all"
                     >
-                        <Filter className="w-4 h-4 text-gray-400" />
-                        {revenueFilter === "-createdAt" ? "Filters" : `${revenueFilter}`}
+                        <ArrowUpDown className="w-4 h-4 text-gray-400" />
+                        {sortFilter}
                         <ChevronDown className="w-4 h-4" />
                     </button>
 
-                    {isFilterOpen && (
+                    {isSortFilterOpen && (
                         <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl z-20 py-1 overflow-hidden">
-                            <button
-                                onClick={() => {
-                                    setRevenueFilter("New to Old");
-                                    setIsFilterOpen(false);
-                                }}
-                                className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50"
-                            >
-                                New to Old
-                            </button>
+                            {sortOptions.map((option) => (
+                                <button
+                                    key={option.value}
+                                    onClick={() => {
+                                        setSortFilter(option.value);
+                                        setIsSortFilterOpen(false);
+                                    }}
+                                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                                        sortFilter === option.value
+                                            ? "bg-green-50 text-primary font-semibold"
+                                            : "hover:bg-gray-50 text-[#262626]"
+                                    }`}
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
 
-                            <button
-                                onClick={() => {
-                                    setRevenueFilter("Old to New");
-                                    setIsFilterOpen(false);
-                                }}
-                                className="w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 flex justify-between"
-                            >
-                                Old to New
-                            </button>
+                <div className="relative">
+                    <button
+                        onClick={() => {
+                            setIsStatusFilterOpen(!isStatusFilterOpen);
+                            setIsSortFilterOpen(false);
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 border border-[#A3A3A3] rounded-lg text-sm font-medium transition-all"
+                    >
+                        <Filter className="w-4 h-4 text-gray-400" />
+                        {selectedStatus}
+                        <ChevronDown className="w-4 h-4" />
+                    </button>
+
+                    {isStatusFilterOpen && (
+                        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl z-20 py-1 overflow-hidden">
+                            {statusOptions.map((option) => (
+                                <button
+                                    key={option.value}
+                                    onClick={() => {
+                                        setStatusFilter(option.value);
+                                        setIsStatusFilterOpen(false);
+                                    }}
+                                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                                        statusFilter === option.value
+                                            ? "bg-green-50 text-primary font-semibold"
+                                            : "hover:bg-gray-50 text-[#262626]"
+                                    }`}
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
                         </div>
                     )}
                 </div>
