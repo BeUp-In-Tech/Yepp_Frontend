@@ -59,9 +59,9 @@ const DealCard = ({ deal }) => {
                         }
                     </div>
                 </div>
-                <span className="mt-auto block w-full bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
+                <div className="mt-3 block w-full bg-primary hover:bg-secondary text-white text-center font-semibold py-2.5 rounded-full transition-colors text-sm cursor-pointer">
                     Redeem Now
-                </span>
+                </div>
             </div>
         </Link>
     );
